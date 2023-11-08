@@ -1,0 +1,18 @@
+{
+	"name": "爆米花 机甲平台",
+	"description": "替换当前的机甲并转换成一个高速的突击型直升机.\n站在上面时点击切换.",
+	"type": "MechPad",
+	"mech": "爆米花",
+	"size": 2,
+	"consumes": {
+		"power": 0.7
+	},
+	"category": "upgrade",
+	"research": "dart-mech-pad",
+	"requirements": [
+	     { "item": "铝", "amount": 100 },
+	     { "item": "lead", "amount": 100 },
+	     { "item": "graphite", "amount": 80 },
+		{ "item": "silicon", "amount": 40 },
+	]
+}

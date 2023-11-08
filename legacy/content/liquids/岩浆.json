@@ -1,0 +1,7 @@
+{
+	"name": "岩浆",
+	"description": "极其灼热的液态石头.",
+	"temperature": 3,
+	"viscosity": 0.9,
+    "color": "#c73e1f"
+}

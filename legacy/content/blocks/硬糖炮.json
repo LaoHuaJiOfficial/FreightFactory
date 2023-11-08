@@ -1,0 +1,25 @@
+{
+	"name": "硬糖炮",
+	"description": "大型炮塔，向超远程地面目标发射重型糖果炮弹.",
+	"health": 2000,
+	"size": 3,
+	"reload":60,
+	"range": 300,
+	"shootShake": 4,
+	"recoil": 6,
+	"shots": 1,
+	"inaccuracy": 3,
+	"rotatespeed": 5,
+	"shootSound": "artillery",
+	"ArtilleryTurret": false,
+	"ammoUseEffect": "shellEjectMedium",
+	"requirements": [
+	    { "item": "lead", "amount": 260 },
+		{"item": "silicon", "amount": 150 },
+		{"item": "thorium", "amount": 180 },
+		{"item": "晶状合金", "amount": 90 }
+		
+	],
+	"category": "turret",
+	"research": "碎糖炮"
+}

@@ -1,0 +1,16 @@
+{
+	"type": "floor",
+	"name": "岩浆池",
+	"liquidDrop": "岩浆",
+	"cacheLayer": "tar",
+	"blendGroup": "ignarock",
+	"blendGroup": "stone",
+	"variants": 1,
+	"drownTime":60,
+    "status": "melting",
+    "statusDuration":60,
+    "damageTaken":10,
+	"speedMultiplier": 0.3,
+	"isLiquid": true
+		"drawLiquidLight": true
+}

@@ -1,0 +1,16 @@
+{
+	"type": "DeflectorWall",
+	"name": "大型多元复合物墙",
+	"description": "近乎坚不可摧的墙壁，甚至能够使强大的子弹发生偏转.\n'别试图咬一块下来！'\n占多个方格.",
+	"health":5000,
+	"size":2,
+	"hitTime":20,
+	"maxDamageDeflect":120,
+	"requirements": [
+	    { "item": "thorium", "amount": 50 },
+		{ "item": "多元复合物", "amount":25 }
+	],
+	"category": "defense",
+	"research": "surge-wall"
+}
+

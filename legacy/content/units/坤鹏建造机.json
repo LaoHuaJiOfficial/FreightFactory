@@ -1,0 +1,18 @@
+{
+	"type": "BuilderDrone",
+	"name": "鲲鹏建筑机",
+	"description": "重型建造机，配备了重装甲并提升了建造速度",
+	"mass": 150,
+	"speed": 0.4,
+	"drag": 0.15,
+	"rotatespeed": 0.05,
+	"baseRotateSpeed":0.2
+	"flying": true,
+	"health": 1100,
+	"range": 190,
+	"drawCell":false,
+	"buildPower": 15,
+	"engineOffset": 6,
+	"engineSize":3,
+	"weapon":{"bullet":{}}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "电鳗机甲工厂",
+	"description": "生产电击机甲部队.",
+	"type": "UnitFactory",
+	"health": 400,
+	"unitType": "电鳗",
+	"size": 3,
+	"maxSpawn":4,
+	"produceTime": 1100,
+	"consumes": {
+		"power": 1.5,
+		"items": {
+			"items": [
+				{ "item": "silicon", "amount": 18 }
+			]
+		},
+	},
+	"category": "units",
+	"research": "titan-factory",
+	"requirements": [
+		{ "item": "lead", "amount": 60 },
+		{ "item": "graphite", "amount": 60 },
+		{ "item": "silicon", "amount": 60 },
+	]
+}

@@ -1,0 +1,24 @@
+{
+	"name": "制冰机",
+	"description": "将水冷冻成坚硬的冰块.",
+ "health":100,
+	"outputItem": { "item": "冰块", "amount": 1 },
+	"liquidCapacity": 30,
+	"itemCapacity": 10,
+	"size": 2,
+	"hasPower": true,
+	"hasItems": true,
+	"craftTime": 60,
+	"updateEffect": "wet",
+	"consumes": {
+		"power": 2.0,
+			"liquid": {"liquid": "water", "amount": 0.2 }
+	},
+	"requirements": [
+	 { "item": "lead", "amount": 50 },
+	 { "item": "titanium", "amount": 25 },
+		{ "item": "silicon", "amount": 20 }
+	],
+	"category": "crafting",
+	"research": "rotary-pump"
+}

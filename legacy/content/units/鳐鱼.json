@@ -1,0 +1,33 @@
+{
+	"type": "ghoul",
+	"name": "鳐鱼",
+	"description":"重型高速轰炸机，突破敌人防线进行轰炸."
+	"health": 4000,
+	"mass":200,
+	"hitsize": 15,
+	"speed": 0.14,
+    "rotatespeed": 0.4,
+    "drag": 0.2,
+    "range":60,
+    "engineColor": "#FFD54F",
+    "engineOffset": 6,
+	"engineSize":4,
+	"targetAir": false,
+    "flying": true,
+    "weaponOffsetX":2,
+	"weapon": {
+		"name": "EI",
+		"shots": 10,
+		"shootSound": "安康鱼",
+		"alternate": true,
+		"bullet": "bombIncendiary",
+		"length" : 0,
+        "width" : 2,
+        "reload":30,
+        "ejectEffect" : "none",
+        "velocityRnd" : 1,
+        "inaccuracy" : 50,
+        "ignoreRotation" : true
+	}
+
+}

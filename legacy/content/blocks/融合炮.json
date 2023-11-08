@@ -1,0 +1,23 @@
+{
+	"name": "融合炮",
+	"description": "大型炮台，对空对地，采用与雷光相同的工作原理将三道光束融为一道，提升对单个目标的伤害.\n [sky]“继承前辈的力量”!",
+	"health": 2800,
+	"size": 3,
+	"reload": 100,
+	"range": 110,
+	"recoil": 4,
+	"inaccuracy": 3,
+	"rotatespeed": 4,
+	"shootShake": 2,
+	"shootSound": "融合",
+	"ammoUseEffect": "shellEjectBig"
+	"requirements": [
+		{ "item": "lead", "amount": 260 },
+		{ "item": "graphite", "amount": 260 },
+		{ "item": "thorium", "amount": 200 },
+		{ "item": "晶状合金", "amount": 100 }
+		
+	],
+	"category": "turret",
+	"research": "fuse"
+}

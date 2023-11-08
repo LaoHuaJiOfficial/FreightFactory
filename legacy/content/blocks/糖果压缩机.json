@@ -1,0 +1,24 @@
+{
+	"name": "糖果压缩机",
+	"description": "将糖浆冷却压制，作为弹药.",
+	"health": 330,
+	"outputItem": { "item": "硬糖", "amount": 1 },
+	"itemCapacity": 15,
+	"size": 2,
+	"hasPower": true,
+	"hasItems": true,
+	"craftTime": 90,
+	"updateEffect": "fireballsmoke",
+	"consumes": {
+	"power": 2.4,
+	"liquid": { "liquid": "糖浆", "amount": 0.2	},
+	},
+	"requirements": [
+ 	{ "item": "lead", "amount": 60 },
+  { "item": "thorium", "amount": 50 },
+  { "item": "silicon", "amount": 50 },
+	 { "item": "晶状合金", "amount": 40 }
+	],
+	"category": "crafting",
+	"research": "糖浆调配机"
+}

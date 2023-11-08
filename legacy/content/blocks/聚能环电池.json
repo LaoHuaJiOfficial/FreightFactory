@@ -1,0 +1,18 @@
+{
+    "type": "Battery",
+	"name": "聚能环电池",
+	"description": "采用了聚能环的巨型电池,极大的提升了电容",
+	"size": 4,
+	"health": 1000,
+	"consumes":{
+	"powerBuffered": 150000,
+	}
+	"requirements": [
+		{ "item": "lead", "amount": 150 },
+		{ "item": "thorium", "amount": 50 },
+		{ "item": "silicon", "amount": 40 },
+		{ "item": "surge-alloy", "amount": 15 }
+	],
+	"category": "power",
+	"research": "battery-large"
+}

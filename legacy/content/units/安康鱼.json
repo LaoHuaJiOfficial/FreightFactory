@@ -1,0 +1,34 @@
+{
+	"type": "ghoul",
+	"name": "安康鱼",
+	"description":"轻型集束式轰炸机，在敌方上空投下一连串炸药."
+	"health": 500,
+	"mass":10,
+	"hitsize": 13,
+	"speed": 0.2,
+    "rotatespeed": 0.2,
+    "drag": 0.1,
+    "range":180,
+    "engineColor": "#FFD54F",
+    "engineOffset": 6,
+    "maxVelocity" : 1.4,
+	"engineSize":4,
+	"targetAir": false,
+    "flying": true,
+    "weaponOffsetX":2,
+	"weapon": {
+		"name": "EI",
+		"shots": 10,
+		"shootSound": "安康鱼",
+		"alternate": true,
+		"bullet": "bombExplosive",
+		"length" : 0,
+        "width" : 2,
+        "reload":60,
+        "ejectEffect" : "none",
+        "velocityRnd" : 1,
+        "inaccuracy" : 50,
+        "ignoreRotation" : true
+	}
+
+}

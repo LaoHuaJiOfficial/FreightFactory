@@ -1,0 +1,13 @@
+{
+	"type": "Wall",
+	"name": "晶状合金墙",
+	"description": "极为坚硬的墙壁，提供绝佳的保护",
+	"health":980,
+	"size":1,
+	"requirements": [
+		{ "item": "晶状合金", "amount":8 }
+	],
+	"category": "defense",
+	"research": "surge-wall"
+}
+

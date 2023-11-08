@@ -1,0 +1,16 @@
+{
+    "type": "Unloader",
+    "name": "高速卸载器", 
+    "description": "以更高的效率从仓库中卸载物资.",
+    "size": 1,
+    "health": 320,
+    "speed": 0.3,
+	"itemCapacity":20,
+    "requirements":[
+        { "item": "lead", "amount": 50 },
+		{ "item": "silicon", "amount": 50 },
+		{ "item": "phase-fabric", "amount": 15 }
+    ],
+    "category": "effect",
+    "research": "unloader"
+}

@@ -1,0 +1,13 @@
+{
+	"type": "ArmoredConveyor",
+	"name": "多元复合物传送带",
+	"description": "高级物品传送带，装甲传送带的升级版，速度更快，装甲更厚.",
+	"health": 500,
+	"requirements": [
+		{"item": "silicon", "amount": 3},
+		{"item": "多元复合物", "amount": 1},
+	],
+	"category": "distribution",
+	"speed": 0.12,
+	"research": "晶状合金传送带"
+}

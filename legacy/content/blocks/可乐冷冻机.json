@@ -1,0 +1,23 @@
+{
+	"name": "可乐冷冻机",
+	"description": "将可乐冷冻成冰块，作为弹药.",
+	"health": 120,
+	"outputItem": { "item": "可乐冰块", "amount": 1 },
+	"itemCapacity": 15,
+	"size": 2,
+	"hasPower": true,
+	"hasItems": true,
+	"craftTime": 90,
+	"updateEffect": "fireballsmoke",
+	"consumes": {
+	"power": 2.4,
+	"liquid": { "liquid": "可乐", "amount": 0.07	},
+	},
+	"requirements": [
+ 	{ "item": "lead", "amount": 60 },
+  { "item": "titanium", "amount": 55 },
+	 { "item": "silicon", "amount": 35 }
+	],
+	"category": "crafting",
+	"research": "可乐调配机"
+}

@@ -1,0 +1,20 @@
+{
+	"type": "MechPad",
+	"name": "镇暴 机甲平台",
+	"description": "替换当前的机甲并转换成一个攻击强力装甲厚重的重炮机甲.\n站在上面时点击切换.\n [sky]“偷糖的小鬼全部都要抓起来！”",
+	"size": 3,
+	"health":450,
+	"consumes": {
+		"power": 1.5
+	},
+	"category": "upgrade",
+	"mech": "镇暴",
+	"research": "omega-mech-pad",
+	"requirements": [
+	     { "item": "铝", "amount": 320 },
+	     { "item": "graphite", "amount": 320 },
+		{ "item": "thorium", "amount": 400 },
+		{ "item": "晶状合金", "amount": 200 },
+		{ "item": "surge-alloy", "amount": 200 },
+	]
+}

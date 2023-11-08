@@ -1,0 +1,23 @@
+{
+	"name": "消融炮",
+	"description": "中型炮台，使用硫作为弹药，焚烧射程内的任何物体.\n“烧烧烧！”",
+	"health": 1000,
+	"size": 2,
+	"reload": 3,
+	"range": 80,
+	"recoil": 2,
+	"inaccuracy": 3,
+	"shootShake": 2,
+	"rotatespeed": 10,
+	"targetAir": false,
+	"shootSound": "bigshot",
+	"ammoUseEffect": "none"
+	"requirements": [
+	    { "item": "铝", "amount": 150 },
+		{ "item": "graphite", "amount": 100 },
+		{ "item": "thorium", "amount": 50 }
+		
+	],
+	"category": "turret",
+	"research": "scorch"
+}

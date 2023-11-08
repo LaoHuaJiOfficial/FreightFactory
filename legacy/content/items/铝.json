@@ -1,0 +1,8 @@
+{
+	"type": "material",
+	"name": "铝",
+	"description": "基础材料，广泛应用于各类制造.",
+	"hardness": 1,
+	"cost": 1.5
+	"color": "#b8b8b8"
+}

@@ -1,0 +1,7 @@
+{
+    "type": "Floor",
+    "name": "装甲地板2",
+	"isLiquid":false,
+	"variants":1,
+	"playerUnminable":1,
+}

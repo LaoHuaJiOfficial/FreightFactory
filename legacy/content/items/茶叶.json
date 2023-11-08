@@ -1,0 +1,7 @@
+{
+	"type": "resource",
+	"name": "茶叶",
+	"description": "散发清香的茶叶，用于制造食品.",
+	"flammability": 0.8,
+	"color": "#68cd55"
+}

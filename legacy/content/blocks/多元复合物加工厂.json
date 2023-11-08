@@ -1,0 +1,39 @@
+{
+	"type": "GenericSmelter",
+	"name": "多元复合物加工厂",
+	"description": "将多种物质融合以制造多元复合物.",
+ "health": 2000,
+ "flameColor": "948484",
+	"outputItem": {	"item": "多元复合物", "amount": 1	},
+	"itemCapacity": 10,
+	"size": 3,
+	"hasPower": true,
+	"hasItems": true,
+	"craftTime": 120,
+	"updateEffect": "mine",
+	"consumes": {
+		"power": 3.5
+		"liquid": {
+			"liquid": "糖浆", 
+			"amount": 0.2,
+		},
+		"items": {
+			"items": [
+	 		{ "item": "thorium", "amount": 4 },
+	 		{ "item": "晶状合金", "amount": 3 },
+	 		{ "item": "surge-alloy", "amount": 3 },
+			]
+		},
+	},
+	"requirements": [
+	    { "item": "lead", "amount": 500 },
+	    { "item": "silicon", "amount": 450 },
+	 { "item": "thorium", "amount": 350 },
+		{ "item": "晶状合金", "amount": 300 },
+		{ "item": "surge-alloy", "amount": 150 },
+	],
+	"category": "crafting",
+	"idleSound": "respawning",
+	"idleSoundVolume": 0.1,
+	"research": "alloy-smelter"
+}

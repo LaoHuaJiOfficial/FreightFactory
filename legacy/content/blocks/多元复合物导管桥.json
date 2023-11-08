@@ -1,0 +1,24 @@
+{
+    "type":"LiquidBridge", 
+    "name":"多元复合物导管桥",
+    "description":"先进的液体传输管道，在确保传送速度和距离的前提下极大提升了耐久度.",
+    "health":800,
+    "size":1,
+    "speed":8,
+    "range":20,
+    "transportTime":0.55, 
+    "liquidCapacity": 20,
+    "consumes": {
+		"power":0.5}
+    "hasItem":true,
+ 	"requirements": [
+ 	    { "item": "metaglass", "amount": 40 },
+ 	    { "item": "titanium", "amount": 40 },
+		{ "item": "silicon", "amount": 20 },
+		{ "item": "phase-fabric", "amount": 10 },
+		{ "item": "多元复合物", "amount": 10 }
+	],
+	"category": "liquid",
+	"research": "phase-conduit"
+    
+}

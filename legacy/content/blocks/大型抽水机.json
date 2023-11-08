@@ -1,0 +1,22 @@
+{
+    "type": "SolidPump",
+    "name": "大型抽水机",
+	"description": "用用更高强度的钻头深入地下以抽取更多地下水.\n在附近没有水源时使用它",
+	"size": 3,
+	"health": 350,
+	"liquidCapacity":30,
+	"result": "water",
+	"pumpAmount": 0.333,
+    "rotateSpeed": 1.4,
+	"consumes": {
+		"power": 2
+	},
+    "attribute": "water",
+	"requirements": [
+		{ "item": "lead", "amount": 100 },
+		{ "item": "thorium", "amount": 80 },
+		{ "item": "silicon", "amount": 50 }
+	],
+	"category": "production",
+	"research": "water-extractor"
+}
