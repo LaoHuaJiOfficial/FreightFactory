@@ -3,6 +3,7 @@ import arc.Events;
 import arc.util.Log;
 import arc.util.Time;
 import contents.FFBlock;
+import contents.FFItems;
 import contents.FFPlanet;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
@@ -29,8 +30,9 @@ public class ModMain extends Mod {
 
     @Override
     public void loadContent() {
-        FFPlanet.load();
+        FFItems.load();
         FFBlock.load();
+        FFPlanet.load();
         Log.info("Loading some example content.");
     }
 

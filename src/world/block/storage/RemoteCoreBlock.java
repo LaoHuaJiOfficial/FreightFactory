@@ -1,4 +1,4 @@
-package world.block;
+package world.block.storage;
 
 import arc.Core;
 import arc.graphics.Color;
