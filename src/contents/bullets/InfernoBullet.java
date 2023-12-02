@@ -17,7 +17,6 @@ import mindustry.entities.Effect;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Bullet;
 import mindustry.graphics.Pal;
-import util.TrailUtil;
 
 import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.math.Angles.randLenVectors;
@@ -36,8 +35,6 @@ public class InfernoBullet extends BulletType {
 
     public TextureRegion backRegion;
     public TextureRegion frontRegion;
-
-    public transient TrailUtil TrailUtil;
 
     public InfernoBullet(float speed, float damage, String bulletSprite){
         super(speed, damage);
