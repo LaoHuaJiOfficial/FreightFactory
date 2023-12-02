@@ -1,7 +1,7 @@
 {
-	"type": "resource",
-	"name": "小麦",
-	"description": "一捆成熟的小麦，可用于磨制面粉，.",
-	"flammability": 0.8,
-	"color": "#f6ca96"
+  "type": "resource",
+  "name": "小麦",
+  "description": "一捆成熟的小麦，可用于磨制面粉，.",
+  "flammability": 0.8,
+  "color": "#f6ca96"
 }

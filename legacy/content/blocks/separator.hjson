@@ -1,10 +1,9 @@
 {
-
-            results :[
-            copper/5
-            lead/3
-            graphite/ 2
-            titanium/2
-            铝/2
-            ]
+  results: [
+    copper/5
+    lead/3
+    graphite/ 2
+    titanium/2
+    铝/2
+  ]
 }

@@ -1,7 +1,7 @@
 {
-    "type": "Floor",
-    "name": "红斑装甲地板",
-	"isLiquid":false,
-	"variants":1,
-	"playerUnminable":1,
+  "type": "Floor",
+  "name": "红斑装甲地板",
+  "isLiquid": false,
+  "variants": 1,
+  "playerUnminable": 1
 }

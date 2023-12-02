@@ -44,12 +44,12 @@ public class RemoteCoreBlock extends StorageBlock {
         public int storageCapacity;
         public boolean noEffect = false;
 
-        public void buildConfiguration(Table table){
+        public void buildConfiguration(Table table) {
             ItemSelection.buildTable(RemoteCoreBlock.this, table, content.items(), () -> sortItem, this::configure, selectionRows, selectionColumns);
         }
 
         @Override
-        public Item config(){
+        public Item config() {
             return sortItem;
         }
 
@@ -64,12 +64,12 @@ public class RemoteCoreBlock extends StorageBlock {
         }
 
         @Override
-        public void onProximityUpdate(){
+        public void onProximityUpdate() {
 
             super.onProximityUpdate();
 
-            for(Building other : state.teams.cores(team)){
-                if(other.tile() != tile){
+            for (Building other : state.teams.cores(team)) {
+                if (other.tile() != tile) {
                     this.items = other.items;
                 }
             }
@@ -77,67 +77,67 @@ public class RemoteCoreBlock extends StorageBlock {
             storageCapacity = itemCapacity + proximity().sum(e -> owns(e) ? e.block.itemCapacity : 0);
             proximity.each(this::owns, t -> {
                 t.items = items;
-                ((StorageBuild)t).linkedCore = this;
+                ((StorageBuild) t).linkedCore = this;
             });
 
-            for(Building other : state.teams.cores(team)){
-                if(other.tile() == tile) continue;
+            for (Building other : state.teams.cores(team)) {
+                if (other.tile() == tile) continue;
                 storageCapacity += other.block.itemCapacity + other.proximity().sum(e -> owns(other, e) ? e.block.itemCapacity : 0);
             }
 
-            if(!world.isGenerating()){
-                for(Item item : content.items()){
+            if (!world.isGenerating()) {
+                for (Item item : content.items()) {
                     items.set(item, Math.min(items.get(item), storageCapacity));
                 }
             }
 
-            for(CoreBlock.CoreBuild other : state.teams.cores(team)){
+            for (CoreBlock.CoreBuild other : state.teams.cores(team)) {
                 other.storageCapacity = storageCapacity;
             }
         }
 
         @Override
-        public void handleItem(Building source, Item item){
+        public void handleItem(Building source, Item item) {
             boolean incinerate = incinerateNonBuildable && !item.buildable;
 
-            if(team == state.rules.defaultTeam){
+            if (team == state.rules.defaultTeam) {
                 state.stats.coreItemCount.increment(item);
             }
 
-            if(net.server() || !net.active()){
-                if(team == state.rules.defaultTeam && state.isCampaign() && !incinerate){
+            if (net.server() || !net.active()) {
+                if (team == state.rules.defaultTeam && state.isCampaign() && !incinerate) {
                     state.rules.sector.info.handleCoreItem(item, 1);
                 }
 
-                if(items.get(item) >= storageCapacity || incinerate){
+                if (items.get(item) >= storageCapacity || incinerate) {
                     //create item incineration effect at random intervals
-                    if(!noEffect){
+                    if (!noEffect) {
                         incinerateEffect(this, source);
                     }
                     noEffect = false;
-                }else{
+                } else {
                     super.handleItem(source, item);
                 }
-            }else if(((state.rules.coreIncinerates && items.get(item) >= storageCapacity) || incinerate) && !noEffect){
+            } else if (((state.rules.coreIncinerates && items.get(item) >= storageCapacity) || incinerate) && !noEffect) {
                 //create item incineration effect at random intervals
                 incinerateEffect(this, source);
                 noEffect = false;
             }
         }
 
-        public boolean owns(Building tile){
+        public boolean owns(Building tile) {
             return owns(this, tile);
         }
 
-        public boolean owns(Building core, Building tile){
-            return tile instanceof StorageBuild b && ((StorageBlock)b.block).coreMerge && (b.linkedCore == core || b.linkedCore == null);
+        public boolean owns(Building core, Building tile) {
+            return tile instanceof StorageBuild b && ((StorageBlock) b.block).coreMerge && (b.linkedCore == core || b.linkedCore == null);
         }
 
-        public void loadTexture(){
+        public void loadTexture() {
             topRegion = Core.atlas.find(name + "-top");
         }
 
-        public void draw(){
+        public void draw() {
             super.draw();
 
             loadTexture();

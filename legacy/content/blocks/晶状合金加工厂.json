@@ -1,33 +1,54 @@
 {
-	"type": "GenericSmelter",
-	"name": "晶状合金加工厂",
-	"description": "在铝和钛中添加适量的结晶体以制造晶状合金.",
- "health": 350,
- "flameColor": "bdcfe8",
-	"outputItem": {	"item": "晶状合金", "amount": 1	},
-	"itemCapacity": 10,
-	"size": 2,
-	"hasPower": true,
-	"hasItems": true,
-	"craftTime": 60,
-	"updateEffect": "mine",
-	"consumes": {
-		"power": 0.5
-		"items": {
-			"items": [
-				{ "item": "铝", "amount": 3 }
-	 		{ "item": "titanium", "amount": 2 },
-	 		{ "item": "冰块", "amount":2 },
-			]
-		},
-	},
-	"requirements": [
-	 { "item": "铝", "amount": 80 },
-		{ "item": "titanium", "amount": 80 },
-		{ "item": "silicon", "amount": 50 },
-	],
-	"category": "crafting",
-	"idleSound": "respawning",
-	"idleSoundVolume": 0.1,
-	"research": "multi-press"
+  "type": "GenericSmelter",
+  "name": "晶状合金加工厂",
+  "description": "在铝和钛中添加适量的结晶体以制造晶状合金.",
+  "health": 350,
+  "flameColor": "bdcfe8",
+  "outputItem": {
+    "item": "晶状合金",
+    "amount": 1
+  },
+  "itemCapacity": 10,
+  "size": 2,
+  "hasPower": true,
+  "hasItems": true,
+  "craftTime": 60,
+  "updateEffect": "mine",
+  "consumes": {
+    "power": 0.5
+    "items": {
+      "items": [
+        {
+          "item": "铝",
+          "amount": 3
+        }
+        {
+          "item": "titanium",
+          "amount": 2
+        },
+        {
+          "item": "冰块",
+          "amount": 2
+        }
+      ]
+    }
+  },
+  "requirements": [
+    {
+      "item": "铝",
+      "amount": 80
+    },
+    {
+      "item": "titanium",
+      "amount": 80
+    },
+    {
+      "item": "silicon",
+      "amount": 50
+    }
+  ],
+  "category": "crafting",
+  "idleSound": "respawning",
+  "idleSoundVolume": 0.1,
+  "research": "multi-press"
 }

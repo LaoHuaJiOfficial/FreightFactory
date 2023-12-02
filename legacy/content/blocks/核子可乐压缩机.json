@@ -1,32 +1,54 @@
 {
-	"name": "核子可乐压缩机",
-	"description": "在可乐中添加放射性物质以生产核子可乐.",
- "health":450,
-	"outputItem": {
-		"item": "核子可乐", "amount": 1
-	},
-	"itemCapacity": 15,
-	"size": 3,
-	"hasPower": true,
-	"hasItems": true,
-	"craftTime": 60,
-	"updateEffect": "mineHuge",
-	"consumes": {
-		"power": 3,
-		"items": {
-		"items": [
-			{ "item": "铝罐", "amount": 1 }
-			{ "item": "thorium", "amount": 2 }
-			]
-		},
-		"liquid": { "liquid": "可乐", "amount": 0.2 }
-	},
-	"requirements": [
-		{ "item": "铝", "amount": 250 },
-		{ "item": "titanium", "amount": 180 },
-		{ "item": "silicon", "amount": 90 },
-		{ "item": "thorium", "amount": 150 }
-	],
-	"category": "crafting",
-	"research": "可乐调配机"
+  "name": "核子可乐压缩机",
+  "description": "在可乐中添加放射性物质以生产核子可乐.",
+  "health": 450,
+  "outputItem": {
+    "item": "核子可乐",
+    "amount": 1
+  },
+  "itemCapacity": 15,
+  "size": 3,
+  "hasPower": true,
+  "hasItems": true,
+  "craftTime": 60,
+  "updateEffect": "mineHuge",
+  "consumes": {
+    "power": 3,
+    "items": {
+      "items": [
+        {
+          "item": "铝罐",
+          "amount": 1
+        }
+        {
+          "item": "thorium",
+          "amount": 2
+        }
+      ]
+    },
+    "liquid": {
+      "liquid": "可乐",
+      "amount": 0.2
+    }
+  },
+  "requirements": [
+    {
+      "item": "铝",
+      "amount": 250
+    },
+    {
+      "item": "titanium",
+      "amount": 180
+    },
+    {
+      "item": "silicon",
+      "amount": 90
+    },
+    {
+      "item": "thorium",
+      "amount": 150
+    }
+  ],
+  "category": "crafting",
+  "research": "可乐调配机"
 }

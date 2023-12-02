@@ -1,46 +1,44 @@
 {
-	"type": "HoverUnit",
-	"name": "梦魇",
-	"mass":60,
-	"hitsize": 60,
-	"speed": 0.003,
-	"health": 666666,
-	"hitsize": 15,
-    "weaponOffsetY": 5,
-    "rotatespeed": 0.2,
-    "baseRotateSpeed": 0.01,
-    "range": 280,
-    "engineColor": "#FFD54F",
-    "engineOffset": 29,
-	"engineSize":6,
-    "flying": true,
-    "attackLength": 300,
-	"weapon": {
-		"name": "圈炮"
-		"range": 490,
-        "length": 2,
-		"reload": 40,
-		"shots": 15,
-		"shootSound":"梦魇",
-    	"restitution":1,
-    	"inaccuracy": 3,
- 	    "velocityInaccuracy":15,
-		 "bullet":{
-		       "type":"BasicBulletType",
-               "speed": 2,
-               "lifetime": 210,
-               "damage":999,
-               "pierce":true,
-               "bulletSprite":"食品工厂-M3",
-               "bulletShrink":0
-               "bulletHeight": 25,
-               "bulletWidth": 25,
-               "backColor": "c86e53",
-               "fontColor": "ffa665",
-	           "hitEffect":"blockExplosion",
-	           "despawnEffect":"blockExplosion",
-	           
-}
-	}
-
+  "type": "HoverUnit",
+  "name": "梦魇",
+  "mass": 60,
+  "hitsize": 60,
+  "speed": 0.003,
+  "health": 666666,
+  "hitsize": 15,
+  "weaponOffsetY": 5,
+  "rotatespeed": 0.2,
+  "baseRotateSpeed": 0.01,
+  "range": 280,
+  "engineColor": "#FFD54F",
+  "engineOffset": 29,
+  "engineSize": 6,
+  "flying": true,
+  "attackLength": 300,
+  "weapon": {
+    "name": "圈炮"
+    "range": 490,
+    "length": 2,
+    "reload": 40,
+    "shots": 15,
+    "shootSound": "梦魇",
+    "restitution": 1,
+    "inaccuracy": 3,
+    "velocityInaccuracy": 15,
+    "bullet": {
+      "type": "BasicBulletType",
+      "speed": 2,
+      "lifetime": 210,
+      "damage": 999,
+      "pierce": true,
+      "bulletSprite": "食品工厂-M3",
+      "bulletShrink": 0
+      "bulletHeight": 25,
+      "bulletWidth": 25,
+      "backColor": "c86e53",
+      "fontColor": "ffa665",
+      "hitEffect": "blockExplosion",
+      "despawnEffect": "blockExplosion"
+    }
+  }
 }

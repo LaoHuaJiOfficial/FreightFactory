@@ -1,4 +1,11 @@
 {
-    "name": "grass",
-    "attributes": { "array": [ 0, 0.25, 0, 0 ] }
+  "name": "grass",
+  "attributes": {
+    "array": [
+      0,
+      0.25,
+      0,
+      0
+    ]
+  }
 }

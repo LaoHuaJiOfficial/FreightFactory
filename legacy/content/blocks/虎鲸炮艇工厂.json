@@ -1,27 +1,51 @@
 {
-	"name": "虎鲸炮艇工厂",
-	"description": "生产重型机炮部队.",
-	"type": "UnitFactory",
-	"unitType": "虎鲸",
-	"size": 4,
-	"produceTime": 3500,
-	"consumes": {
-		"power": 4.0,
-		"items": {
-			"items": [
-			    { "item": "lead", "amount": 35 },
-				{ "item": "titanium", "amount": 35 },
-				{ "item": "silicon", "amount": 35 },
-			]
-		},
-	},
-	"category": "units",
-	"research": "鹦鹉螺炮艇工厂",
-	"requirements": [
-		{ "item": "铝", "amount": 250 },
-		{ "item": "titanium", "amount": 250 },
-		{ "item": "silicon", "amount": 250 },
-		{ "item": "plastanium", "amount": 50 },
-		{ "item": "晶状合金", "amount": 50 },
-	]
+  "name": "虎鲸炮艇工厂",
+  "description": "生产重型机炮部队.",
+  "type": "UnitFactory",
+  "unitType": "虎鲸",
+  "size": 4,
+  "produceTime": 3500,
+  "consumes": {
+    "power": 4.0,
+    "items": {
+      "items": [
+        {
+          "item": "lead",
+          "amount": 35
+        },
+        {
+          "item": "titanium",
+          "amount": 35
+        },
+        {
+          "item": "silicon",
+          "amount": 35
+        }
+      ]
+    }
+  },
+  "category": "units",
+  "research": "鹦鹉螺炮艇工厂",
+  "requirements": [
+    {
+      "item": "铝",
+      "amount": 250
+    },
+    {
+      "item": "titanium",
+      "amount": 250
+    },
+    {
+      "item": "silicon",
+      "amount": 250
+    },
+    {
+      "item": "plastanium",
+      "amount": 50
+    },
+    {
+      "item": "晶状合金",
+      "amount": 50
+    }
+  ]
 }

@@ -1,25 +1,25 @@
 {
-    name: 魂链
-	description: 大型炮台，发射一颗放电磁球，伤害路径上的所有敌人.
-    size:3
-    health:2000
-    requirements: [
-        铝/350
-        silicon/350
-        phase-fabric/150
-        plastanium/300
-        晶状合金/150
-	]
-	powerUse: 40
-    research: 融合炮
-    ratateSpeed: 0.5
-	inaccuracy: 2
-    reload: 200
-    chargeTime: 65
-	shootShake: 4
-	range: 250
-	shootSound: 魂链
-	recoil: 6
-	rotatespeed: 2
-	category: turret
+  name: 魂链
+  description: 大型炮台，发射一颗放电磁球，伤害路径上的所有敌人.
+  size: 3
+  health: 2000
+  requirements: [
+    铝/350
+    silicon/350
+    phase-fabric/150
+    plastanium/300
+    晶状合金/150
+  ]
+  powerUse: 40
+  research: 融合炮
+  ratateSpeed: 0.5
+  inaccuracy: 2
+  reload: 200
+  chargeTime: 65
+  shootShake: 4
+  range: 250
+  shootSound: 魂链
+  recoil: 6
+  rotatespeed: 2
+  category: turret
 }

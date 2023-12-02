@@ -1,10 +1,10 @@
 {
-    "type": "Floor",
-    "name": "深空",
-    "liquidDrop": "离子流",
-	"speedMultiplier": 0.8,
-	"drownTime":80,
-	"isLiquid":true,
-	"variants":1,
-	"playerUnminable":1,
+  "type": "Floor",
+  "name": "深空",
+  "liquidDrop": "离子流",
+  "speedMultiplier": 0.8,
+  "drownTime": 80,
+  "isLiquid": true,
+  "variants": 1,
+  "playerUnminable": 1
 }

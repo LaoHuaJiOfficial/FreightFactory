@@ -1,7 +1,7 @@
 {
-	"type": "resource",
-	"name": "荧光酥饼",
-	"description": "经过提纯压缩后的放射性物质.",
-	"radioactivity": 3,
-	"color": "#af6ea2"
+  "type": "resource",
+  "name": "荧光酥饼",
+  "description": "经过提纯压缩后的放射性物质.",
+  "radioactivity": 3,
+  "color": "#af6ea2"
 }

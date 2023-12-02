@@ -1,26 +1,26 @@
 {
-    name: 阴极激射器
-	description: 超大型炮塔,采用与融毁相同的工作方式，聚集大量能量后对目标投射离子束.                   "精准切割！"
-    size:4
-    health:3700
-    rotatespeed: 1
-    firingMoveFract: 0.5
-    requirements: [
-        lead/600
-        silicon/600
-        晶状合金/450
-        phase-fabric/300
-        多元复合物/120
-	]
-	consumes: {
-  liquid: {
-    liquid: 冰镇可乐
-    amount: 0.3
+  name: 阴极激射器
+  description: 超大型炮塔,采用与融毁相同的工作方式，聚集大量能量后对目标投射离子束.                   "精准切割！"
+  size: 4
+  health: 3700
+  rotatespeed: 1
+  firingMoveFract: 0.5
+  requirements: [
+    lead/600
+    silicon/600
+    晶状合金/450
+    phase-fabric/300
+    多元复合物/120
+  ]
+  consumes: {
+    liquid: {
+      liquid: 冰镇可乐
+      amount: 0.3
+    }
   }
-}
-    research: meltdown
-    range: 270
-    powerUse: 30
-    reload: 120
-	category: turret
+  research: meltdown
+  range: 270
+  powerUse: 30
+  reload: 120
+  category: turret
 }

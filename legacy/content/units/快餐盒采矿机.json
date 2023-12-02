@@ -1,24 +1,23 @@
 {
-	"type": "draug",
-	"name": "快餐盒采矿机",
-	"description": "一种先进的采矿机，由快餐机改造成。装甲轻便，飞行速度快。可开采多种矿物并运送至核心.",
-	"mass": 30,
-	"speed": 0.3,
-	"drag": 0.18,
-	"flying": true,
-	"health": 60,
-	"minePower": 1.0,
-	"drillPower": 5,
-	"range": 50,
-	"toMine":[
-		"copper",
-		"lead",
-		"titanium",
-		"thorium",
-		"铝"
-	],
-	"weapon":{
-		"bullet":"lancerLaser",
-
-	}
+  "type": "draug",
+  "name": "快餐盒采矿机",
+  "description": "一种先进的采矿机，由快餐机改造成。装甲轻便，飞行速度快。可开采多种矿物并运送至核心.",
+  "mass": 30,
+  "speed": 0.3,
+  "drag": 0.18,
+  "flying": true,
+  "health": 60,
+  "minePower": 1.0,
+  "drillPower": 5,
+  "range": 50,
+  "toMine": [
+    "copper",
+    "lead",
+    "titanium",
+    "thorium",
+    "铝"
+  ],
+  "weapon": {
+    "bullet": "lancerLaser"
+  }
 }

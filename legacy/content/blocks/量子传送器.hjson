@@ -1,19 +1,19 @@
 {
-    name:量子传送器
-    description:先进的传送设备，将可储存物质运送至基地.
-    health:300
-    size:3
-    update: true
-    solid: true
-    configurable: true
+  name: 量子传送器
+  description: 先进的传送设备，将可储存物质运送至基地.
+  health: 300
+  size: 3
+  update: true
+  solid: true
+  configurable: true
 
-    requirements:  [
-        "lead/200"
-        "silicon/150"
-        "phase-fabric/100"
-        "晶状合金/100"
-	]
-    speed: 6
-    category:effect
-    research:mass-driver
+  requirements: [
+    "lead/200"
+    "silicon/150"
+    "phase-fabric/100"
+    "晶状合金/100"
+  ]
+  speed: 6
+  category: effect
+  research: mass-driver
 }

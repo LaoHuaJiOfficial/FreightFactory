@@ -1,27 +1,42 @@
 {
-    "type":"ForceProjector",
-    "name":"保鲜膜力墙投影器",
-    "description":"通过膨胀激活一层特殊保护膜，用于抵抗来袭的敌方实弹.\n持续受到伤害很容易导致过热，可以使用液体降温.\n可使用塑钢增加屏障大小.\n'一大片精致的保护！'",
-    "phaseUseTime":175,
-    "size":2,
-    "health": 200,
-    "phaseRadiusBoost": 85,
-    "radius":66,
-    "breakage":225,
-    "consumes": {
-		"power": 1,
-		"items": {
-			"items": [
-			{"item": "plastanium", "amount": 1 }
-			]
-		}
-	},
-    "requirements": [
-        {"item": "铝", "amount": 50 },
-	    {"item": "titanium", "amount": 50 },
-		{"item": "graphite", "amount": 50 },
-		{"item": "silicon", "amount": 50 },
-    ],
-	"category": "effect"
-	"research": "mend-projector",
+  "type": "ForceProjector",
+  "name": "保鲜膜力墙投影器",
+  "description": "通过膨胀激活一层特殊保护膜，用于抵抗来袭的敌方实弹.\n持续受到伤害很容易导致过热，可以使用液体降温.\n可使用塑钢增加屏障大小.\n'一大片精致的保护！'",
+  "phaseUseTime": 175,
+  "size": 2,
+  "health": 200,
+  "phaseRadiusBoost": 85,
+  "radius": 66,
+  "breakage": 225,
+  "consumes": {
+    "power": 1,
+    "items": {
+      "items": [
+        {
+          "item": "plastanium",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  "requirements": [
+    {
+      "item": "铝",
+      "amount": 50
+    },
+    {
+      "item": "titanium",
+      "amount": 50
+    },
+    {
+      "item": "graphite",
+      "amount": 50
+    },
+    {
+      "item": "silicon",
+      "amount": 50
+    }
+  ],
+  "category": "effect"
+  "research": "mend-projector"
 }

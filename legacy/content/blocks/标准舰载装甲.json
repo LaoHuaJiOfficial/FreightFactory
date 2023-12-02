@@ -1,14 +1,20 @@
 {
-	"name": "标准舰载装甲",
-	"description": "□.",
-	"health":10000,
-	"size":2,
-	"hitTime":10,
-	"maxDamageDeflect":2000,
-	"requirements": [
-	    { "item": "thorium", "amount": 1000 },
-		{ "item": "多元复合物", "amount":1000 }
-	],
-	"category": "defense",
+  "name": "标准舰载装甲",
+  "description": "□.",
+  "health": 10000,
+  "size": 2,
+  "hitTime": 10,
+  "maxDamageDeflect": 2000,
+  "requirements": [
+    {
+      "item": "thorium",
+      "amount": 1000
+    },
+    {
+      "item": "多元复合物",
+      "amount": 1000
+    }
+  ],
+  "category": "defense"
 }
 

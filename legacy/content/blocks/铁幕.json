@@ -1,26 +1,37 @@
 {
-	"name": "铁幕",
-	"description": "大型炮塔，向敌人发射可跟踪的可乐导弹.",
-	"health": 2000,
-	"size": 3,
-	"reload":100,
-	"range": 210,
-	"recoil": 6,
-	"shootShake": 2,
-	"shots": 6,
-	"xRand": 4,
-	"inaccuracy": 10,
-	"rotatespeed": 6,
-	"shootSound": "铁幕",
-	"ArtilleryTurret": false,
-	"ammoUseEffect": "shellEjectMedium"
-	"requirements": [
-		{ "item": "lead", "amount": 250 },
-		{ "item": "silicon", "amount": 150 },
-		{"item": "thorium", "amount": 180 },
-		{"item": "晶状合金", "amount": 80 }
-		
-	],
-	"category": "turret",
-	"research": "swarmer"
+  "name": "铁幕",
+  "description": "大型炮塔，向敌人发射可跟踪的可乐导弹.",
+  "health": 2000,
+  "size": 3,
+  "reload": 100,
+  "range": 210,
+  "recoil": 6,
+  "shootShake": 2,
+  "shots": 6,
+  "xRand": 4,
+  "inaccuracy": 10,
+  "rotatespeed": 6,
+  "shootSound": "铁幕",
+  "ArtilleryTurret": false,
+  "ammoUseEffect": "shellEjectMedium"
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 250
+    },
+    {
+      "item": "silicon",
+      "amount": 150
+    },
+    {
+      "item": "thorium",
+      "amount": 180
+    },
+    {
+      "item": "晶状合金",
+      "amount": 80
+    }
+  ],
+  "category": "turret",
+  "research": "swarmer"
 }

@@ -1,4 +1,4 @@
-package maps.planet;
+package maps;
 
 import arc.graphics.Color;
 import arc.math.Angles;

@@ -1,29 +1,43 @@
 {
-	"name": "彩虹重炮",
-	"description": "超大型炮塔，向远程目标发射彩虹糖果炮弹.\n“[#8ec5e4]20 Percent Cooler！”",
-	"health": 3700,
-	"size": 4,
-	"reload":8,
-	"range": 228,
-	"shotWidth":4,
-	"shootShake": 3,
-	"recoil": 5,
-	"shots": 2,
-	"configurable": false,
-	"inaccuracy": 3,
-	"ratateSpeed":0.4,
-	"rotatespeed": 3,
-	"shootSound": "彩虹重炮",
-	"ArtilleryTurret": false,
-	"ammoUseEffect": "shellEjectMedium",
-	"requirements": [
-	    { "item": "lead", "amount": 450 },
-		{"item": "silicon", "amount": 400 },
-		{"item": "thorium", "amount": 300 },
-		{"item": "晶状合金", "amount": 350 },
-		{ "item": "surge-alloy", "amount": 450 }
-		
-	],
-	"category": "turret",
-	"research": "spectre"
+  "name": "彩虹重炮",
+  "description": "超大型炮塔，向远程目标发射彩虹糖果炮弹.\n“[#8ec5e4]20 Percent Cooler！”",
+  "health": 3700,
+  "size": 4,
+  "reload": 8,
+  "range": 228,
+  "shotWidth": 4,
+  "shootShake": 3,
+  "recoil": 5,
+  "shots": 2,
+  "configurable": false,
+  "inaccuracy": 3,
+  "ratateSpeed": 0.4,
+  "rotatespeed": 3,
+  "shootSound": "彩虹重炮",
+  "ArtilleryTurret": false,
+  "ammoUseEffect": "shellEjectMedium",
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 450
+    },
+    {
+      "item": "silicon",
+      "amount": 400
+    },
+    {
+      "item": "thorium",
+      "amount": 300
+    },
+    {
+      "item": "晶状合金",
+      "amount": 350
+    },
+    {
+      "item": "surge-alloy",
+      "amount": 450
+    }
+  ],
+  "category": "turret",
+  "research": "spectre"
 }

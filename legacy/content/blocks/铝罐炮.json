@@ -1,25 +1,32 @@
 {
-	"name": "铝罐炮",
-	"description": "中型炮塔，将可乐罐作为弹药射向敌人.",
-	"health": 400,
-	"size": 2,
-	"reload": 30,
-	"range": 210,
-	"recoil": 2,
-	"shots": 1,
-	"shootShake": 3,
-	"inaccuracy": 3,
-	"rotatespeed": 8,
-	"shootSound": "artillery",
-	"ArtilleryTurret": false,
-	"ammoUseEffect": "shellEjectMedium",
-	
-	"requirements": [
-		{ "item": "铝", "amount": 30 },
-		{ "item": "lead", "amount": 30 },
-		{ "item": "graphite", "amount": 30 }
-		
-	],
-	"category": "turret",
-	"research": "hail"
+  "name": "铝罐炮",
+  "description": "中型炮塔，将可乐罐作为弹药射向敌人.",
+  "health": 400,
+  "size": 2,
+  "reload": 30,
+  "range": 210,
+  "recoil": 2,
+  "shots": 1,
+  "shootShake": 3,
+  "inaccuracy": 3,
+  "rotatespeed": 8,
+  "shootSound": "artillery",
+  "ArtilleryTurret": false,
+  "ammoUseEffect": "shellEjectMedium",
+  "requirements": [
+    {
+      "item": "铝",
+      "amount": 30
+    },
+    {
+      "item": "lead",
+      "amount": 30
+    },
+    {
+      "item": "graphite",
+      "amount": 30
+    }
+  ],
+  "category": "turret",
+  "research": "hail"
 }

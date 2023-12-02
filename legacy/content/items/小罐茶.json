@@ -1,8 +1,8 @@
 {
-	"type": "resource",
-	"name": "小罐茶",
-	"description": "经过压缩装罐后的茶叶.",
-	"flammability": 0.4,
-	"explosiveness": 0.2,
-	"color": "#80c56e"
+  "type": "resource",
+  "name": "小罐茶",
+  "description": "经过压缩装罐后的茶叶.",
+  "flammability": 0.4,
+  "explosiveness": 0.2,
+  "color": "#80c56e"
 }

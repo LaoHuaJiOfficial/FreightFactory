@@ -1,26 +1,47 @@
 {
-	"name": "鹦鹉螺炮艇工厂",
-	"description": "生产重型导弹部队.",
-	"type": "UnitFactory",
-	"unitType": "鹦鹉螺",
-	"size": 4,
-	"produceTime": 3000,
-	"consumes": {
-		"power": 3.0,
-		"items": {
-			"items": [
-				{ "item": "titanium", "amount": 55 },
-				{ "item": "silicon", "amount": 55 },
-			]
-		},
-	},
-	"category": "units",
-	"research": "revenant-factory",
-	"requirements": [
-		{ "item": "铝", "amount": 220 },
-		{ "item": "titanium", "amount": 180 },
-		{ "item": "silicon", "amount": 180 },
-		{ "item": "thorium", "amount": 100 },
-		{ "item": "晶状合金", "amount": 60 },
-	]
+  "name": "鹦鹉螺炮艇工厂",
+  "description": "生产重型导弹部队.",
+  "type": "UnitFactory",
+  "unitType": "鹦鹉螺",
+  "size": 4,
+  "produceTime": 3000,
+  "consumes": {
+    "power": 3.0,
+    "items": {
+      "items": [
+        {
+          "item": "titanium",
+          "amount": 55
+        },
+        {
+          "item": "silicon",
+          "amount": 55
+        }
+      ]
+    }
+  },
+  "category": "units",
+  "research": "revenant-factory",
+  "requirements": [
+    {
+      "item": "铝",
+      "amount": 220
+    },
+    {
+      "item": "titanium",
+      "amount": 180
+    },
+    {
+      "item": "silicon",
+      "amount": 180
+    },
+    {
+      "item": "thorium",
+      "amount": 100
+    },
+    {
+      "item": "晶状合金",
+      "amount": 60
+    }
+  ]
 }

@@ -1,32 +1,48 @@
 {
-	"name": "小麦研磨机",
-	"description": "将米粒和外壳分离后进行研磨，以制造面粉.",
- "health":350,
-	"outputItem": {
-		"item": "面粉", "amount": 1
-	},
-	"itemCapacity": 10,
-	"size": 2,
-	"hasPower": true,
-	"hasItems": true,
-	"craftTime": 60,
-	"updateEffect": "mine",
-	"consumes": {
-		"power": 1.5
-		"items": {
-			"items": [
-				{ "item": "小麦", "amount":1  }
-			]
-		},
-	},
-	"requirements": [
-	    { "item": "copper", "amount": 50 },
-		{ "item": "lead", "amount": 50 },
-		{ "item": "graphite", "amount": 80 },
-		{ "item": "晶状合金", "amount": 30 }
-	],
-	"category": "crafting",
-	"idleSound": "respawning",
-	"idleSoundVolume": 0.1,
-	"research": "糖浆调配机"
+  "name": "小麦研磨机",
+  "description": "将米粒和外壳分离后进行研磨，以制造面粉.",
+  "health": 350,
+  "outputItem": {
+    "item": "面粉",
+    "amount": 1
+  },
+  "itemCapacity": 10,
+  "size": 2,
+  "hasPower": true,
+  "hasItems": true,
+  "craftTime": 60,
+  "updateEffect": "mine",
+  "consumes": {
+    "power": 1.5
+    "items": {
+      "items": [
+        {
+          "item": "小麦",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  "requirements": [
+    {
+      "item": "copper",
+      "amount": 50
+    },
+    {
+      "item": "lead",
+      "amount": 50
+    },
+    {
+      "item": "graphite",
+      "amount": 80
+    },
+    {
+      "item": "晶状合金",
+      "amount": 30
+    }
+  ],
+  "category": "crafting",
+  "idleSound": "respawning",
+  "idleSoundVolume": 0.1,
+  "research": "糖浆调配机"
 }

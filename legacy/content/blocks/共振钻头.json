@@ -1,29 +1,38 @@
 {
-	"name": "共振钻头",
-	"description": "利用晶体共振技术开采，能以高效率开采不太坚硬的矿物.",
-	"type": "Drill",
-	"drillEffect": "mineBig",
-	"health": 550,
-	"heatColor":"c2d0e9",
-	"tier": 3,
-	"size": 3,
-	"rotateSpeed":4,
-	"drawMineItem":true,
-	"drillTime": 105,
-	"consumes": {
-		"power": 2.5,
-		"liquid": {
-			"liquid": "water",
-			"amount": 0.05
-			"booster": true
-			"optional": true
-		}
-	},
-	"requirements": [
-		{ "item": "lead", "amount": 75 },
-		{ "item": "silicon", "amount": 75 },
-		{ "item": "晶状合金", "amount": 50 }
-	],
-	"category": "production",
-	"research": "blast-drill"
+  "name": "共振钻头",
+  "description": "利用晶体共振技术开采，能以高效率开采不太坚硬的矿物.",
+  "type": "Drill",
+  "drillEffect": "mineBig",
+  "health": 550,
+  "heatColor": "c2d0e9",
+  "tier": 3,
+  "size": 3,
+  "rotateSpeed": 4,
+  "drawMineItem": true,
+  "drillTime": 105,
+  "consumes": {
+    "power": 2.5,
+    "liquid": {
+      "liquid": "water",
+      "amount": 0.05
+      "booster": true
+      "optional": true
+    }
+  },
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 75
+    },
+    {
+      "item": "silicon",
+      "amount": 75
+    },
+    {
+      "item": "晶状合金",
+      "amount": 50
+    }
+  ],
+  "category": "production",
+  "research": "blast-drill"
 }

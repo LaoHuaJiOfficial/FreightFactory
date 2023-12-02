@@ -1,17 +1,20 @@
 {
-	"name": "触发器",
-	"description": "触发器.",
-	"size": 1,
+  "name": "触发器",
+  "description": "触发器.",
+  "size": 1,
   "health": 2000,
-	"hasPower": true,
-	"hasItem": true,
-	"hasLiquid": false,
-	 "liquidCapacity": 50
-    "itemDuration": 60,
-	"powerProduction": 6000000,
-	"requirements": [
-	    { "item": "copper", "amount": 50 }
-	],
-	"category": "effect",
-	"research": "thermal-generator"
+  "hasPower": true,
+  "hasItem": true,
+  "hasLiquid": false,
+  "liquidCapacity": 50
+  "itemDuration": 60,
+  "powerProduction": 6000000,
+  "requirements": [
+    {
+      "item": "copper",
+      "amount": 50
+    }
+  ],
+  "category": "effect",
+  "research": "thermal-generator"
 }

@@ -1,25 +1,36 @@
 {
-	"name": "碎糖炮",
-	"description": "大型炮塔，向敌人进行密集散射，使用硬糖作为弹药.",
-	"health": 2500,
-	"size": 3,
-	"reload":30,
-	"range": 170,
-	"recoil": 6,
-	"shootShake": 2,
-	"shots": 4,
-	"inaccuracy": 5,
-	"rotatespeed": 6,
-	"shootSound": "shootBig",
-	"ArtilleryTurret": false,
-	"ammoUseEffect": "shellEjectMedium"
-	"requirements": [
-		{ "item": "lead", "amount": 300 },
-		{ "item": "graphite", "amount": 210 },
-		{"item": "thorium", "amount": 200 },
-		{"item": "晶状合金", "amount": 100 }
-		
-	],
-	"category": "turret",
-	"research": "ripple"
+  "name": "碎糖炮",
+  "description": "大型炮塔，向敌人进行密集散射，使用硬糖作为弹药.",
+  "health": 2500,
+  "size": 3,
+  "reload": 30,
+  "range": 170,
+  "recoil": 6,
+  "shootShake": 2,
+  "shots": 4,
+  "inaccuracy": 5,
+  "rotatespeed": 6,
+  "shootSound": "shootBig",
+  "ArtilleryTurret": false,
+  "ammoUseEffect": "shellEjectMedium"
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 300
+    },
+    {
+      "item": "graphite",
+      "amount": 210
+    },
+    {
+      "item": "thorium",
+      "amount": 200
+    },
+    {
+      "item": "晶状合金",
+      "amount": 100
+    }
+  ],
+  "category": "turret",
+  "research": "ripple"
 }

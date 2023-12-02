@@ -1,29 +1,47 @@
 {
-    "type": "MendProjector",
-	"name": "大型维修投影器",
-	"description": "使用新技术优化设施，使其拥更优良的性能",
-	"health": 1000,
-	"size": 3,
-	"range": 160,
-	"reload": 90,
-	"healPercent": 9,
-	"consumes": {
-		"power": 7.0,
-        "items":{
-			"items":[
-				{"item":"phase-fabric","amount":1}
-			]
-			"booster":true
-			"optional": true
-		}
-	},
-	"requirements": [
-		{ "item": "lead", "amount": 250 },
-		{ "item": "silicon", "amount": 200 },
-        { "item": "phase-fabric", "amount": 100 },
-		{ "item": "晶状合金", "amount": 150 },
-		{ "item": "surge-alloy", "amount": 100 },
-	],
-	"category": "effect",
-	"research":"mend-projector"
+  "type": "MendProjector",
+  "name": "大型维修投影器",
+  "description": "使用新技术优化设施，使其拥更优良的性能",
+  "health": 1000,
+  "size": 3,
+  "range": 160,
+  "reload": 90,
+  "healPercent": 9,
+  "consumes": {
+    "power": 7.0,
+    "items": {
+      "items": [
+        {
+          "item": "phase-fabric",
+          "amount": 1
+        }
+      ]
+      "booster": true
+      "optional": true
+    }
+  },
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 250
+    },
+    {
+      "item": "silicon",
+      "amount": 200
+    },
+    {
+      "item": "phase-fabric",
+      "amount": 100
+    },
+    {
+      "item": "晶状合金",
+      "amount": 150
+    },
+    {
+      "item": "surge-alloy",
+      "amount": 100
+    }
+  ],
+  "category": "effect",
+  "research": "mend-projector"
 }

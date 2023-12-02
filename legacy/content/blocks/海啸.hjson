@@ -1,15 +1,15 @@
 {
-    name: 海啸
-	  description:"大型炮台,增压喷射出液体泡泡.\n使用使用水或冷却液时能够自动灭火"
-    size:3
-    health:1200
-    range: 205
-    requirements: [
-        lead/150
-        metaglass/50
-        titanium/70
-        silicon/70
-	]
-	category: turret
-	research: wave
+  name: 海啸
+  description: "大型炮台,增压喷射出液体泡泡.\n使用使用水或冷却液时能够自动灭火"
+  size: 3
+  health: 1200
+  range: 205
+  requirements: [
+    lead/150
+    metaglass/50
+    titanium/70
+    silicon/70
+  ]
+  category: turret
+  research: wave
 }

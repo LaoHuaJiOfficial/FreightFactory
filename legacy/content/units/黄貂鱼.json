@@ -1,52 +1,55 @@
 {
-	"type": "HoverUnit",
-	"name": "黄貂鱼",
-	"description":"对地攻击机，对目标发射一连串子弹."
-	"mass":60,
-	"hitsize":13,
-	"speed": 0.18,
-	"rotatespeed": 0.06,
-	"baseRotateSpeed":0.1,
-	"drag": 0.16,
-	"health": 160,
-    "engineColor": "#FFD54F",
-    "engineOffset": 6,
-	"engineSize":4,
-	"range":20,//瞄准距离
-	"shootCone": 5,//角度
-	"targetAir": false,
-    "flying": true,
-    "rotateWeapon":true,
-    "weaponOffsetY": 5,
-	"weapon": {
-		"name": "圈炮"
-		"range": 200,
-        "length": 2,
-		"reload": 70,
-		"shots": 2,
-		"shootSound":"shootBig",
-    	"restitution":1,
-    	"inaccuracy": 3,
-    	"nimPlayerDist":5,//角度
-    	"alternate": true,
-    	"ignoreRotation":false,//射击无视
-    	"velocityRnd":0.5,//射击随机,
-		 "bullet":{
-		       "type":"BasicBulletType",
-               "speed": 3,
-               "lifetime": 90,
-               "damage":7,
-               "pierce":true,
-               "bulletSprite":"食品工厂-M3",
-               "bulletShrink":0
-               "bulletHeight": 6,
-               "bulletWidth": 8,
-               "backColor": "c86e53",
-               "fontColor": "ffa665",
-	           "hitEffect":"blockExplosion",
-	           "despawnEffect":"blockExplosion",
-	           
-}
-	}
-
+  "type": "HoverUnit",
+  "name": "黄貂鱼",
+  "description": "对地攻击机，对目标发射一连串子弹."
+  "mass": 60,
+  "hitsize": 13,
+  "speed": 0.18,
+  "rotatespeed": 0.06,
+  "baseRotateSpeed": 0.1,
+  "drag": 0.16,
+  "health": 160,
+  "engineColor": "#FFD54F",
+  "engineOffset": 6,
+  "engineSize": 4,
+  "range": 20,
+  //瞄准距离
+  "shootCone": 5,
+  //角度
+  "targetAir": false,
+  "flying": true,
+  "rotateWeapon": true,
+  "weaponOffsetY": 5,
+  "weapon": {
+    "name": "圈炮"
+    "range": 200,
+    "length": 2,
+    "reload": 70,
+    "shots": 2,
+    "shootSound": "shootBig",
+    "restitution": 1,
+    "inaccuracy": 3,
+    "nimPlayerDist": 5,
+    //角度
+    "alternate": true,
+    "ignoreRotation": false,
+    //射击无视
+    "velocityRnd": 0.5,
+    //射击随机,
+    "bullet": {
+      "type": "BasicBulletType",
+      "speed": 3,
+      "lifetime": 90,
+      "damage": 7,
+      "pierce": true,
+      "bulletSprite": "食品工厂-M3",
+      "bulletShrink": 0
+      "bulletHeight": 6,
+      "bulletWidth": 8,
+      "backColor": "c86e53",
+      "fontColor": "ffa665",
+      "hitEffect": "blockExplosion",
+      "despawnEffect": "blockExplosion"
+    }
+  }
 }

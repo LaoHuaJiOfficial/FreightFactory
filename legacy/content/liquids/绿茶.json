@@ -1,8 +1,8 @@
 {
-	"name": "绿茶",
-	"description": "用新鲜的茶叶泡出来的茶水.",
-	"heatCapacity": 0.3,
-	"temperature": 0.6,
-    "viscosity": 0.6,
-    "color": "#99df8d"
+  "name": "绿茶",
+  "description": "用新鲜的茶叶泡出来的茶水.",
+  "heatCapacity": 0.3,
+  "temperature": 0.6,
+  "viscosity": 0.6,
+  "color": "#99df8d"
 }

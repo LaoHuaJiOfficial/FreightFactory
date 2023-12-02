@@ -1,25 +1,24 @@
 {
-	"type": "GroundUnit",
-	"name": "电鳗",
-	"description":"轻型地面机甲，装备两门轻量化电弧,用用于攻击敌方集群单位"
-	"mass":10,
-	"speed":0.2
-	"maxVelocity":0.6
-	"health": 300,
-	"hitsize": 10,
-    "rotatespeed": 0.06,
-    "baseRotateSpeed": 0.001,
-    "range": 250,
-    "engineColor": "#FFD54F",
-    "targetAir": false,
-    "weaponOffsetY": 1,
-	"weapon": {
-		"name": "电击器",
-		"length": 1.5,
-		"reload": 23,
-		"shootSound": "spark",
-		"alternate": true,
-		"bullet": "lightning"
-	}
-
+  "type": "GroundUnit",
+  "name": "电鳗",
+  "description": "轻型地面机甲，装备两门轻量化电弧,用用于攻击敌方集群单位"
+  "mass": 10,
+  "speed": 0.2
+  "maxVelocity": 0.6
+  "health": 300,
+  "hitsize": 10,
+  "rotatespeed": 0.06,
+  "baseRotateSpeed": 0.001,
+  "range": 250,
+  "engineColor": "#FFD54F",
+  "targetAir": false,
+  "weaponOffsetY": 1,
+  "weapon": {
+    "name": "电击器",
+    "length": 1.5,
+    "reload": 23,
+    "shootSound": "spark",
+    "alternate": true,
+    "bullet": "lightning"
+  }
 }

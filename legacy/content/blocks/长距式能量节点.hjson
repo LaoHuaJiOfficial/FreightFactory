@@ -1,17 +1,16 @@
 {
-    type:PowerNode
-    name:长距式能量节点
-    description:连接数量较低但传输距离较远，自身耐久较高，适用于前线输电.
-    size:2
-    health:300
-    maxNodes:8
-    laserRange:15
-	requirements: [
-	
-        titanium/10
-        thorium/10
-        silicon/10
-	]
-	category:power
-	research: power-node-large
-	}
+  type: PowerNode
+  name: 长距式能量节点
+  description: 连接数量较低但传输距离较远，自身耐久较高，适用于前线输电.
+  size: 2
+  health: 300
+  maxNodes: 8
+  laserRange: 15
+  requirements: [
+    titanium/10
+    thorium/10
+    silicon/10
+  ]
+  category: power
+  research: power-node-large
+}

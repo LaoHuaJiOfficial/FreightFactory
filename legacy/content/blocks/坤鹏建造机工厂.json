@@ -1,27 +1,48 @@
 {
-    "type": "UnitFactory",
-	"name": "鲲鹏建造机工厂",
-	"description": "生产重型建造机.",
-	"unitType": "坤鹏建造机",
-	"size": 4,
-	"maxSpawn":1,
-	"produceTime": 6000,
-	"consumes": {
-		"power": 5.0,
-		"items": {
-			"items": [
-				{ "item": "silicon", "amount": 35 },
-				{ "item": "晶状合金", "amount": 35 },
-			]
-		},
-	},
-	"category": "units",
-	"research": "phantom-factory",
-	"requirements": [
-		{ "item": "lead", "amount": 350 },
-		{ "item": "titanium", "amount": 350 },
-		{ "item": "silicon", "amount": 200 },
-		{ "item": "phase-fabric", "amount": 150 },
-		{ "item": "晶状合金", "amount": 100 },
-	]
+  "type": "UnitFactory",
+  "name": "鲲鹏建造机工厂",
+  "description": "生产重型建造机.",
+  "unitType": "坤鹏建造机",
+  "size": 4,
+  "maxSpawn": 1,
+  "produceTime": 6000,
+  "consumes": {
+    "power": 5.0,
+    "items": {
+      "items": [
+        {
+          "item": "silicon",
+          "amount": 35
+        },
+        {
+          "item": "晶状合金",
+          "amount": 35
+        }
+      ]
+    }
+  },
+  "category": "units",
+  "research": "phantom-factory",
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 350
+    },
+    {
+      "item": "titanium",
+      "amount": 350
+    },
+    {
+      "item": "silicon",
+      "amount": 200
+    },
+    {
+      "item": "phase-fabric",
+      "amount": 150
+    },
+    {
+      "item": "晶状合金",
+      "amount": 100
+    }
+  ]
 }

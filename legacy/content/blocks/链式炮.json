@@ -1,26 +1,37 @@
 {
-	"name": "链式炮",
-	"description": "中型炮塔,将钛以极高速度射出，精度较高.",
-	"health": 550,
-	"size": 2,
-	"reload": 200,
-	"burstSpacing": 5,
-	"range": 170,
-	"recoil": 5,
-	"shots": 21,
-	"shootShake": 3,
-	"inaccuracy": 3,
-	"rotatespeed": 6,
-	"cooldown": 0.01,
-	"shootSound": "链炮",
-	"ammoUseEffect": "shellEjectMedium",
-	"requirements": [
-		{ "item": "lead", "amount": 50 },
-		{ "item": "graphite", "amount": 50 },
-		{ "item": "titanium", "amount": 50 },
-		{ "item": "silicon", "amount": 25 }
-		
-	],
-	"category": "turret",
-	"research": "scatter"
+  "name": "链式炮",
+  "description": "中型炮塔,将钛以极高速度射出，精度较高.",
+  "health": 550,
+  "size": 2,
+  "reload": 200,
+  "burstSpacing": 5,
+  "range": 170,
+  "recoil": 5,
+  "shots": 21,
+  "shootShake": 3,
+  "inaccuracy": 3,
+  "rotatespeed": 6,
+  "cooldown": 0.01,
+  "shootSound": "链炮",
+  "ammoUseEffect": "shellEjectMedium",
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 50
+    },
+    {
+      "item": "graphite",
+      "amount": 50
+    },
+    {
+      "item": "titanium",
+      "amount": 50
+    },
+    {
+      "item": "silicon",
+      "amount": 25
+    }
+  ],
+  "category": "turret",
+  "research": "scatter"
 }

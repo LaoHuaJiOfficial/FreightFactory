@@ -1,19 +1,19 @@
 {
-	type: MechPad
-	name: 破晓 机甲平台
-	description: "替换当前的机甲并转换成一台超高速的截击机.\n站在上面时点击切换.\n [sky]“如光明之枪将敌人四分五裂”"
-	size: 3
-	health:680
-	consumes: {
-		power: 1.5
-	}
-	category: upgrade
-	mech: 破晓
-	research: omega-mech-pad
-	requirements: [
-		graphite/500
-		thorium/500
-		晶状合金/250
-		多元复合物/90
-	]
+  type: MechPad
+  name: 破晓 机甲平台
+  description: "替换当前的机甲并转换成一台超高速的截击机.\n站在上面时点击切换.\n [sky]“如光明之枪将敌人四分五裂”"
+  size: 3
+  health: 680
+  consumes: {
+    power: 1.5
+  }
+  category: upgrade
+  mech: 破晓
+  research: omega-mech-pad
+  requirements: [
+    graphite/500
+    thorium/500
+    晶状合金/250
+    多元复合物/90
+  ]
 }

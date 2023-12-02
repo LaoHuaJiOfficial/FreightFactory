@@ -1,30 +1,30 @@
 {
-	"type": "revenant",
-	"name": "鹦鹉螺",
-	"description": "发射导弹的重型炮艇，用于轰击敌人防线.",
-	"hitsize": 17,
-	"mass": 150,
-	"speed": 0.1,
-	"rotatespeed":0.02
-	"baseRotateSpeed":0.05
-	"drag": 0.2,
-	"engineColor": "#FFD54F",
-	"flying": true,
-	"health": 1500,
-	"engineOffset": 13,
-	"engineSize": 4,
-	"range": 150,
-	"attackLength":200
-	"weapon": {
-		"name": "EI",
-		"length": 5,
-		"minPlayerDist":200
-		"reload": 120,
-		"shots": 4,
-		"spacing": 2,
-		"velocityRnd":0.5,
-		"shootSound": "missile",
-		"alternate": true,
-		"bullet": "missileJavelin"
-	}
+  "type": "revenant",
+  "name": "鹦鹉螺",
+  "description": "发射导弹的重型炮艇，用于轰击敌人防线.",
+  "hitsize": 17,
+  "mass": 150,
+  "speed": 0.1,
+  "rotatespeed": 0.02
+  "baseRotateSpeed": 0.05
+  "drag": 0.2,
+  "engineColor": "#FFD54F",
+  "flying": true,
+  "health": 1500,
+  "engineOffset": 13,
+  "engineSize": 4,
+  "range": 150,
+  "attackLength": 200
+  "weapon": {
+    "name": "EI",
+    "length": 5,
+    "minPlayerDist": 200
+    "reload": 120,
+    "shots": 4,
+    "spacing": 2,
+    "velocityRnd": 0.5,
+    "shootSound": "missile",
+    "alternate": true,
+    "bullet": "missileJavelin"
+  }
 }

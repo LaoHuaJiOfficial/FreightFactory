@@ -1,20 +1,25 @@
 {
-    "name": "维修站",
-	"description":"维修点的升级版，以更高的速率维修周边单位."
-    "health": 200,
-	"size": 2,
-    "requirements": [
-		{ "item": "lead", "amount": 30 },
-		{ "item": "silicon", "amount": 30 },
-		{"item": "铝", "amount": 40 }
-		
-	],
-    "powerUse": 2,
-    "repairSpeed": 1.75,
-    "repairRadius": 125,
-	"category": "units"
-	"research": "repair-point",
-
-
-
+  "name": "维修站",
+  "description": "维修点的升级版，以更高的速率维修周边单位."
+  "health": 200,
+  "size": 2,
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 30
+    },
+    {
+      "item": "silicon",
+      "amount": 30
+    },
+    {
+      "item": "铝",
+      "amount": 40
+    }
+  ],
+  "powerUse": 2,
+  "repairSpeed": 1.75,
+  "repairRadius": 125,
+  "category": "units"
+  "research": "repair-point"
 }

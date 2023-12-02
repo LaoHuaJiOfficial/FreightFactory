@@ -1,28 +1,38 @@
 {
-	"name": "摇罐器",
-	"description": "将可乐快速摇晃，以在罐内产生大量气体.",
- "health":35,
-	"outputItem": {
-		"item": "摇过的可乐", "amount": 1
-	},
-	"itemCapacity": 15,
-	"size": 1,
-	"hasPower": true,
-	"hasItems": true,
-	"craftTime": 80,
-	"updateEffect": "none",
-	"consumes": {
-		"power": 0.4
-		"items": {
-			"items": [
-				{ "item": "罐装可乐", "amount": 1 }
-			]
-		},
-	},
-	"requirements": [
-		{ "item": "copper", "amount":35 },
-		{ "item": "silicon", "amount": 15 }
-	],
-	"category": "crafting",
-	"research": "食品工厂-可乐装罐机"
+  "name": "摇罐器",
+  "description": "将可乐快速摇晃，以在罐内产生大量气体.",
+  "health": 35,
+  "outputItem": {
+    "item": "摇过的可乐",
+    "amount": 1
+  },
+  "itemCapacity": 15,
+  "size": 1,
+  "hasPower": true,
+  "hasItems": true,
+  "craftTime": 80,
+  "updateEffect": "none",
+  "consumes": {
+    "power": 0.4
+    "items": {
+      "items": [
+        {
+          "item": "罐装可乐",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  "requirements": [
+    {
+      "item": "copper",
+      "amount": 35
+    },
+    {
+      "item": "silicon",
+      "amount": 15
+    }
+  ],
+  "category": "crafting",
+  "research": "食品工厂-可乐装罐机"
 }

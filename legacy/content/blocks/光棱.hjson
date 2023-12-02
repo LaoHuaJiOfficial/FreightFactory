@@ -1,26 +1,26 @@
 {
-    name: 光棱
-	description: "超巨型炮台，发射致命的彩虹光束.\n“长官 多么缤纷的颜色！”"
-    size:6
-    health:8500
-    rotatespeed: 1
-    range: 400
-    firingMoveFract: 0.5
-    requirements: [
-        thorium/860
-        graphite/750
-        silicon/750
-        surge-alloy/530
-        多元复合物/530
-	]
-	consumes: {
-  liquid: {
-    liquid: 冰镇可乐
-    amount: 0.5
+  name: 光棱
+  description: "超巨型炮台，发射致命的彩虹光束.\n“长官 多么缤纷的颜色！”"
+  size: 6
+  health: 8500
+  rotatespeed: 1
+  range: 400
+  firingMoveFract: 0.5
+  requirements: [
+    thorium/860
+    graphite/750
+    silicon/750
+    surge-alloy/530
+    多元复合物/530
+  ]
+  consumes: {
+    liquid: {
+      liquid: 冰镇可乐
+      amount: 0.5
+    }
   }
-}
-    cooldown:0.1
-	category: turret
-	research: 阴极激射器
-	reload: 150
+  cooldown: 0.1
+  category: turret
+  research: 阴极激射器
+  reload: 150
 }

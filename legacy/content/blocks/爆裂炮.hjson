@@ -1,27 +1,27 @@
 {
-    name: 爆裂炮
-	description: 巨型炮塔,一次发射三枚长射程的无制导飞弹，可飞行极远的距离，爆炸后产生大量火焰.
-    size:5
-    health:6300
-    requirements: [
-        graphite/500
-        thorium/650
-        silicon/550
-        surge-alloy/430
-        多元复合物/260
-	]
-	powerUse: 10
-    research:彩虹重炮
-    shootSound:爆裂炮
-    shots:3
-    burstSpacing: 10
-	inaccuracy: 3
-    reload: 390
-    cooldown: 0.004
-    coolantMultiplier: 0.8
-	shootShake: 4
-	range: 630
-	recoil: 6
-	rotatespeed: 0.6
-	category: turret
+  name: 爆裂炮
+  description: 巨型炮塔,一次发射三枚长射程的无制导飞弹，可飞行极远的距离，爆炸后产生大量火焰.
+  size: 5
+  health: 6300
+  requirements: [
+    graphite/500
+    thorium/650
+    silicon/550
+    surge-alloy/430
+    多元复合物/260
+  ]
+  powerUse: 10
+  research: 彩虹重炮
+  shootSound: 爆裂炮
+  shots: 3
+  burstSpacing: 10
+  inaccuracy: 3
+  reload: 390
+  cooldown: 0.004
+  coolantMultiplier: 0.8
+  shootShake: 4
+  range: 630
+  recoil: 6
+  rotatespeed: 0.6
+  category: turret
 }

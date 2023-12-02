@@ -1,34 +1,49 @@
 {
-	"name": "红茶调制机",
-	"description": "将发酵茶叶打磨成粉，并混合适当热水以调配红茶.",
-	"health": 280,
-	"outputLiquid": {	"liquid": "红茶", "amount": 12 },
-	"itemCapacity": 20,
-	"size": 2,
-	"hasPower": true,
-	"hasliquid": true,
-	"hasItems": true,
-	"craftTime": 90,
-	"updateEffect": "mineHuge",
-	"consumes": {
-		"power": 0.9,
-		"liquid": {
-			"liquid": "water", 
-			"amount": 0.1,
-		},
-		"items": {
-			"items":  [
-		{ "item": "发酵茶叶", "amount": 2 }
-		],
-		},
-	},
-	"requirements": [
-		{ "item": "lead", "amount": 75 },
-		{ "item": "titanium", "amount": 60 },
-		{ "item": "silicon", "amount": 45 }
-	],
-	"category": "crafting",
-	"idleSound": "respawning",
-	"idleSoundVolume": 0.3,
-	"research": "茶叶发酵机"
+  "name": "红茶调制机",
+  "description": "将发酵茶叶打磨成粉，并混合适当热水以调配红茶.",
+  "health": 280,
+  "outputLiquid": {
+    "liquid": "红茶",
+    "amount": 12
+  },
+  "itemCapacity": 20,
+  "size": 2,
+  "hasPower": true,
+  "hasliquid": true,
+  "hasItems": true,
+  "craftTime": 90,
+  "updateEffect": "mineHuge",
+  "consumes": {
+    "power": 0.9,
+    "liquid": {
+      "liquid": "water",
+      "amount": 0.1
+    },
+    "items": {
+      "items": [
+        {
+          "item": "发酵茶叶",
+          "amount": 2
+        }
+      ]
+    }
+  },
+  "requirements": [
+    {
+      "item": "lead",
+      "amount": 75
+    },
+    {
+      "item": "titanium",
+      "amount": 60
+    },
+    {
+      "item": "silicon",
+      "amount": 45
+    }
+  ],
+  "category": "crafting",
+  "idleSound": "respawning",
+  "idleSoundVolume": 0.3,
+  "research": "茶叶发酵机"
 }

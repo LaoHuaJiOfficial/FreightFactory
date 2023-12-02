@@ -1,24 +1,24 @@
 {
-    name: 阳极激射器
-	description: 超大型炮塔，聚集大量能量后射出一道等离子束.   "在那儿打个洞！"
-    size:4
-    health:4000
-    requirements: [
-        铝/600
-        graphite/600
-        thorium/600
-        plastanium/200
-        多元复合物/100
-	]
-	powerUse: 20
-    research: meltdown
-	inaccuracy: 3
-    reload: 100
-    chargeTime: 45
-	shootShake: 4
-	range: 300
-	shootSound: 阳极
-	recoil: 6
-	rotatespeed: 2
-	category: turret
+  name: 阳极激射器
+  description: 超大型炮塔，聚集大量能量后射出一道等离子束.   "在那儿打个洞！"
+  size: 4
+  health: 4000
+  requirements: [
+    铝/600
+    graphite/600
+    thorium/600
+    plastanium/200
+    多元复合物/100
+  ]
+  powerUse: 20
+  research: meltdown
+  inaccuracy: 3
+  reload: 100
+  chargeTime: 45
+  shootShake: 4
+  range: 300
+  shootSound: 阳极
+  recoil: 6
+  rotatespeed: 2
+  category: turret
 }
