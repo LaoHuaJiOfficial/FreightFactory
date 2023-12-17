@@ -3,11 +3,18 @@ package world.block.storage;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
+import arc.math.Angles;
+import arc.math.Mathf;
+import arc.math.geom.Vec2;
 import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
 import mindustry.entities.TargetPriority;
+import mindustry.game.Teams;
 import mindustry.gen.Building;
+import mindustry.graphics.Layer;
 import mindustry.type.Item;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.blocks.storage.CoreBlock;
@@ -37,6 +44,16 @@ public class RemoteCoreBlock extends StorageBlock {
 
         config(Item.class, (RemoteCoreBuild tile, Item item) -> tile.sortItem = item);
         configClear((RemoteCoreBuild tile) -> tile.sortItem = null);
+    }
+
+    public void init(){
+        updateClipRadius(200f);
+        super.init();
+    }
+
+    public void load() {
+        super.load();
+        topRegion = Core.atlas.find(name + "-top");
     }
 
     public class RemoteCoreBuild extends Building {
@@ -133,18 +150,43 @@ public class RemoteCoreBlock extends StorageBlock {
             return tile instanceof StorageBuild b && ((StorageBlock) b.block).coreMerge && (b.linkedCore == core || b.linkedCore == null);
         }
 
-        public void loadTexture() {
-            topRegion = Core.atlas.find(name + "-top");
-        }
-
         public void draw() {
             super.draw();
 
-            loadTexture();
+            drawConnection();
 
             Draw.color(sortItem == null ? Color.clear : sortItem.color);
             Draw.rect(topRegion, x, y);
             Draw.color();
+        }
+
+        public void drawConnection(){
+            if(!(sortItem == null)){
+                Draw.z(Layer.shields);
+
+                Building core = state.teams.closestCore(x, y, team());
+
+                float ang = Angles.angle(core.x, core.y ,x ,y);
+
+                Vec2 joint;
+
+                if ((int)((ang - 45f) / 90f) % 2 == 0){
+                    joint = new Vec2(core.x, y);
+                }else {
+                    joint = new Vec2(x, core.y);
+                }
+                Draw.color(sortItem == null ? Color.clear : sortItem.color);
+
+                Lines.stroke(4.5f);
+
+                Lines.beginLine();
+                Lines.linePoint(x, y);
+                Lines.linePoint(joint);
+                Lines.linePoint(core.x, core.y);
+                Lines.endLine();
+            }
+
+            Draw.reset();
         }
     }
 }

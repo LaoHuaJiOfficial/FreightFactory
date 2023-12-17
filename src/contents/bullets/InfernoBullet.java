@@ -4,11 +4,9 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.math.Mathf;
-import arc.math.Rand;
 import arc.util.Nullable;
 import arc.util.Time;
 import arc.util.Tmp;
@@ -17,10 +15,6 @@ import mindustry.entities.Effect;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Bullet;
 import mindustry.graphics.Pal;
-
-import static arc.graphics.g2d.Lines.lineAngle;
-import static arc.math.Angles.randLenVectors;
-import static mindustry.Vars.headless;
 
 public class InfernoBullet extends BulletType {
 
