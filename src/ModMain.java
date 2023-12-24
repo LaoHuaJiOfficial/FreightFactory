@@ -3,9 +3,14 @@ import arc.Events;
 import arc.util.Log;
 import arc.util.Time;
 import contents.*;
+import extra.FListener;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.BaseDialog;
+import mindustry.ui.fragments.HudFragment;
+import ui.PlacementFragmentF;
+
+import java.lang.reflect.Field;
 
 public class ModMain extends Mod {
 
@@ -23,6 +28,12 @@ public class ModMain extends Mod {
                 dialog.cont.button("I see", dialog::hide).size(100f, 50f);
                 dialog.show();
             });
+
+        });
+
+
+        Events.on(ClientLoadEvent.class, e -> {
+            Core.app.post(FReflect::init);
         });
     }
 
@@ -31,6 +42,7 @@ public class ModMain extends Mod {
 
         CoolantLiquid.load();
 
+        //Highest load priority
         FFSounds.load();
         FFItems.load();
         FFBlock.load();
@@ -38,6 +50,9 @@ public class ModMain extends Mod {
         Turrets.load();
         FFUnitTypes.load();
         //Log.info("Loading some example content.");
+
+        FListener FListener = new FListener();
+        FListener.init();
     }
 
 }

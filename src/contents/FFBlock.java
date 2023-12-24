@@ -5,22 +5,24 @@ import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
-import mindustry.type.Liquid;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.OreBlock;
 import world.block.distribution.ItemDiode;
 import world.block.distribution.LiquidDiode;
 import world.block.liquid.CoolantConduit;
-import world.block.production.Assembler;
+import world.block.production.AssemblerBlock;
 import world.block.storage.RemoteCoreBlock;
-import world.block.tech.ResearchCenter;
+import world.block.tech.Nexus;
+import world.test;
 
 import static mindustry.type.ItemStack.with;
 
 public class FFBlock {
     public static Block
         oreAluminium,
+
+        nexus,
         RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode;
 
     public static void load() {
@@ -36,9 +38,9 @@ public class FFBlock {
         }};
 
         //TODO rework
-        test = new ResearchCenter("test") {{
+        test = new test("test") {{
             requirements(Category.production, ItemStack.with(Items.copper, 20));
-            size = 4;
+            size = 2;
         }};
 
         conduit = new CoolantConduit("conduit"){{
@@ -46,13 +48,40 @@ public class FFBlock {
             health = 45;
         }};
 
-        assembler = new Assembler("assembler"){{
-            requirements(Category.production, with(Items.metaglass, 1));
-            plans = Seq.with(
-                new AssemblerPlan(30f, with(Items.copper, 2), LiquidStack.with(Liquids.oil, 1f), new ItemStack(Items.lead, 2), Liquids.slag,20f),
-                new AssemblerPlan(20f, with(Items.metaglass, 2), LiquidStack.with(Liquids.cryofluid, 1.5f), new ItemStack(Items.copper, 2), Liquids.water, 20f)
+        assembler = new AssemblerBlock("assembler"){{
+            requirements(Category.production, with(Items.copper, 1));
+
+            size = 3;
+            recipes = Seq.with(
+                new Recipe(){{
+                    InputItems = with(Items.copper, 2, Items.coal, 3);
+                    InputPower = 20f/60f;
+
+                    OutputItems = with(Items.metaglass, 2);
+                }},
+                new Recipe(){{
+                    InputLiquids = LiquidStack.with(Liquids.arkycite, 2f, Liquids.oil, 3f);
+                    InputPower = 20f/60f;
+
+                    OutputItems = with(Items.blastCompound, 2);
+                }},
+                new Recipe(){{
+                    InputItems = new ItemStack[]{new ItemStack(Items.lead, 2)};
+                    InputLiquids = LiquidStack.with(Liquids.cryofluid, 2f, Liquids.oil, 3f);
+                    InputPower = 30f/60f;
+
+                    OutputItems = with(Items.beryllium, 2);
+                }}
+
+
             );
             health = 45;
+        }};
+
+        nexus = new Nexus("nexus"){{
+            requirements(Category.effect, ItemStack.with(Items.copper, 20));
+
+            size = 4;
         }};
 
         ItemDiode = new ItemDiode("ItemDiode"){{
