@@ -1,5 +1,6 @@
 package contents;
 
+import HeatBox.HeatBoxBlock;
 import arc.struct.Seq;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -23,7 +24,7 @@ public class FFBlock {
         oreAluminium,
 
         nexus,
-        RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode;
+        RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode, HeatConduit;
 
     public static void load() {
         oreAluminium = new OreBlock(FFItems.aluminium) {{
@@ -91,6 +92,11 @@ public class FFBlock {
 
         LiquidDiode = new LiquidDiode("LiquidDiode"){{
             requirements(Category.distribution, ItemStack.with(Items.copper, 20));
+
+        }};
+
+        HeatConduit = new HeatBoxBlock("heat-conduit"){{
+            requirements(Category.power, ItemStack.with(Items.copper, 20));
 
         }};
     }

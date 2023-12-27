@@ -11,7 +11,7 @@ import java.nio.FloatBuffer;
 
 
 //TODO maybe use this next time,,,
-public class HeatBoxComp implements Timedc, Syncc{
+public class HeatBoxUpdater implements Timedc, Syncc{
 
     @Override
     public float fin() {

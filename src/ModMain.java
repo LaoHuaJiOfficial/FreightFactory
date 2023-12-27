@@ -31,10 +31,6 @@ public class ModMain extends Mod {
 
         });
 
-
-        Events.on(ClientLoadEvent.class, e -> {
-            Core.app.post(FReflect::init);
-        });
     }
 
     @Override
