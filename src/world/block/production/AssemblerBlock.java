@@ -1,5 +1,7 @@
 package world.block.production;
 
+import HeatBox.BlockF;
+import HeatBox.HeatBoxEntity;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.scene.ui.ImageButton;
@@ -27,14 +29,14 @@ import ui.PowerDisplay;
 import world.block.consumer.ConsumeItemDynamicF;
 import world.block.consumer.ConsumeLiquidsDynamicF;
 
-public class AssemblerBlock extends Block {
+public class AssemblerBlock extends BlockF {
 
     public float warmupSpeed = 0.02f;
     public int[] capacities = {};
     public Seq<Recipe> recipes = new Seq<>(4);
     public AssemblerBlock(String name){
         super(name);
-
+        HeatCapacity = 10f;
         itemCapacity = 30;
         liquidCapacity = 30f;
         update = true;
@@ -45,6 +47,8 @@ public class AssemblerBlock extends Block {
         ambientSoundVolume = 0.03f;
         flags = EnumSet.of(BlockFlag.factory);
         drawArrow = false;
+
+        //TODO maybe merge this?
 
         consume(new ConsumeItemDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputItems: null));
         consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputLiquids: null));
@@ -73,8 +77,19 @@ public class AssemblerBlock extends Block {
 
     @Override
     public void init(){
+        super.init();
+        HeatCapacity = 10f;
         capacities = new int[Vars.content.items().size];
         for(Recipe r: recipes){
+            if (r.HasHeat()){
+                HasHeat = true;
+            }
+            if (r.OutputHeatAmount > 0){
+                OutputHeat = true;
+            }
+            if (r.InputHeatAmount > 0){
+                InputHeat = true;
+            }
             if (r.InputItems != null){
                 for(ItemStack stack: r.InputItems){
                     capacities[stack.item.id] = Math.max(capacities[stack.item.id], stack.amount * 10);
@@ -100,6 +115,10 @@ public class AssemblerBlock extends Block {
         public @Nullable ItemStack[] OutputItems;
         public @Nullable LiquidStack[] InputLiquids;
         public @Nullable LiquidStack[] OutputLiquids;
+        public float InputHeatAmount = 0f;
+        public float InputTempThreshold = 300f;
+        public float OutputHeatAmount = 0f;
+        public float OutputTempThreshold = 300f;
         public @Nullable PayloadStack[] InputPayloads;
         public @Nullable PayloadStack[] OutputPayloads;
         public @Nullable float InputPower;
@@ -115,8 +134,12 @@ public class AssemblerBlock extends Block {
         public float updateEffectChance = 0.04f;
         public @Nullable Color TintColor;
 
+        public boolean HasHeat(){
+            return InputHeatAmount > 0 || OutputHeatAmount > 0;
+        }
+
     }
-    public class AssemblerBlockBuild extends Building{
+    public class AssemblerBlockBuild extends BuildF{
         public float progress;
         public float totalProgress;
         public float warmup;
@@ -134,6 +157,7 @@ public class AssemblerBlock extends Block {
         @Override
         public void created(){
             //todo can add some event here
+            super.created();
         }
 
         public float getInputPower(){
@@ -186,6 +210,8 @@ public class AssemblerBlock extends Block {
 
             if(progress >= 1f){
                 craft();
+                HeatBox.HeatAdd(current().OutputHeatAmount, current().OutputTempThreshold);
+                HeatBox.HeatRemove(current().InputHeatAmount, current().InputTempThreshold);
             }
 
             dumpOutputs();
@@ -384,6 +410,7 @@ public class AssemblerBlock extends Block {
                         }
                     }
                 }
+
                 progress %= 1f;
             }
         }
@@ -410,6 +437,5 @@ public class AssemblerBlock extends Block {
                 }
             }
         }
-
     }
 }

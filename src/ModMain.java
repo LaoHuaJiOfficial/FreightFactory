@@ -4,10 +4,12 @@ import arc.util.Log;
 import arc.util.Time;
 import contents.*;
 import extra.FListener;
+import mindustry.Vars;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.ui.fragments.HudFragment;
+import ui.HudFragmentF;
 import ui.PlacementFragmentF;
 
 import java.lang.reflect.Field;
@@ -19,6 +21,9 @@ public class ModMain extends Mod {
 
         //listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
+            Vars.renderer.minZoom = 1f;
+            Vars.renderer.maxZoom = 20f;
+
             //show dialog upon startup
             Time.runTask(10f, () -> {
                 BaseDialog dialog = new BaseDialog("frog");

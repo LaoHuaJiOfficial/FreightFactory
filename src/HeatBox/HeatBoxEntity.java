@@ -1,7 +1,6 @@
 package HeatBox;
 
 import arc.struct.IntMap;
-import arc.struct.IntSet;
 import arc.struct.Queue;
 import arc.struct.Seq;
 import mindustry.gen.Building;
@@ -9,74 +8,97 @@ import mindustry.gen.Building;
 public class HeatBoxEntity {
 
     public static IntMap<HeatBoxEntity> HeatBoxAll = new IntMap<>();
-
     protected transient boolean added;
-    private static final Queue<HeatBoxBlock.HeatBoxBlockBuild> queue = new Queue<>();
-    private static final Seq<Building> outArray1 = new Seq<>();
-    private static final Seq<Building> outArray2 = new Seq<>();
-    private static final IntSet closedSet = new IntSet();
+    private static final Queue<BlockF.BuildF> queue = new Queue<>();
 
     //do not modify any of these unless you know what you're doing!
-    public final Seq<Building> producers = new Seq<>(false, 16, Building.class);
-    public final Seq<Building> consumers = new Seq<>(false, 16, Building.class);
-    public final Seq<Building> HeatBoxBuildings = new Seq<>(false, 16, Building.class);
-    public final Seq<Building> HeatBoxBuildingAll = new Seq<>(false, 16, Building.class);
+    public final Seq<BlockF.BuildF> HeatBoxProducers = new Seq<>(false, 16, Building.class);
+    public final Seq<BlockF.BuildF> HeatBoxConsumers = new Seq<>(false, 16, Building.class);
+    public final Seq<BlockF.BuildF> HeatBoxDistributors = new Seq<>(false, 16, Building.class);
+    public final Seq<BlockF.BuildF> HeatBoxBuildingAll = new Seq<>(false, 16, Building.class);
 
-    public float HeatBoxArea = 0f;
-    public float HeatBoxHeight = 0f;
+    public float HeatBoxArea;
+    public float CurrentTemp;
+    public float HeatBoxHeat = 0f;
+
     public final int HeatBoxID;
 
     public static int HeatBoxLastID = 0;
 
-    public HeatBoxEntity(float area, float height){
-        this.HeatBoxArea = area;
-        this.HeatBoxHeight = height;
+    public HeatBoxEntity(float area, float temp){
+        HeatBoxArea = area;
+        CurrentTemp = temp;
+
+        HeatBoxID = HeatBoxLastID++;
+        HeatBoxAll.put(HeatBoxID, this);
+    }
+    public HeatBoxEntity(float area){
+        HeatBoxArea = area;
+        CurrentTemp = 300f;
+
         HeatBoxID = HeatBoxLastID++;
         HeatBoxAll.put(HeatBoxID, this);
     }
 
-    public int getID(){
-        return HeatBoxID;
+    public float GetHeatBoxHeat() {
+        return this.HeatBoxHeat;
     }
-    //add heat to current heat box
-    public void HeatBoxExpandArea(float area){
-        this.HeatBoxArea += area;
-    }
-    public float GetHeatBoxHeight(){
-        return this.HeatBoxHeight;
-    }
-    public int GetHeatBoxID(){
-        return HeatBoxID;
-    }
-    public void HeatAdd(){
 
+    public float GetCurrentTemp(){
+        return this.CurrentTemp;
     }
-    //reduce heat to current heat box
-    public void HeatRemove(){
 
+    public void CalcCurrentHeight(){
+        this.CurrentTemp = HeatBoxHeat / HeatBoxArea;
     }
 
 
-    public void update(){
-
+    /**
+     * Add heat to current heatbox if current temperature is lower than the threshold
+     * @param heat the heat amount
+     * @param threshold the max temperature
+     */
+    public void HeatAdd(float heat, float threshold){
+        if (threshold > this.CurrentTemp){
+            this.HeatBoxHeat += heat;
+        }
+        CalcCurrentHeight();
     }
-    /** This Method would merge another heat box.
-     *  In Test.
-     *  @param heatBox the heat box that would be merged.
+
+    /**
+     * Add heat to current heatbox if current temperature is higher than the threshold
+     * @param heat the heat amount
+     * @param threshold the min temperature
+     */
+    public void HeatRemove(float heat, float threshold){
+        if (threshold < this.CurrentTemp){
+            this.HeatBoxHeat -= heat;
+        }
+        CalcCurrentHeight();
+    }
+
+    /**
+     * This Method would merge another heat box.
+     * In Test.
+     * @param heatBox the heat box that would be merged.
      */
     public void UpdateAddHeatBox(HeatBoxEntity heatBox){
         if(heatBox == this) return;
 
         //merge into other graph instead.
         if(this.HeatBoxBuildingAll.size > heatBox.HeatBoxBuildingAll.size){
-            for(Building tile : heatBox.HeatBoxBuildingAll){
-                this.HeatBoxAddBuild((HeatBoxBlock.HeatBoxBlockBuild) tile);
+            for(BlockF.BuildF tile : heatBox.HeatBoxBuildingAll){
+                this.AddBuild(tile, heatBox.CurrentTemp);
+                this.CalcCurrentHeight();
+                //this.HeatBoxHeat += heatBox.HeatBoxHeat;
             }
             heatBox.RemoveHeatBox();
 
         }else {
-            for(Building tile : this.HeatBoxBuildingAll){
-                heatBox.HeatBoxAddBuild((HeatBoxBlock.HeatBoxBlockBuild) tile);
+            for(BlockF.BuildF tile : this.HeatBoxBuildingAll){
+                heatBox.AddBuild(tile, this.CurrentTemp);
+                heatBox.CalcCurrentHeight();
+                //heatBox.HeatBoxHeat += this.HeatBoxHeat;
             }
             this.RemoveHeatBox();
         }
@@ -90,108 +112,83 @@ public class HeatBoxEntity {
      *  In Test.
      *  @param build the build that would be merged.
      */
-    public void HeatBoxAddBuild(HeatBoxBlock.HeatBoxBlockBuild build){
+    public void AddBuild(BlockF.BuildF build, float temp){
 
-        //todo change this shitty code
+        if(build.HasHeat()){
+            if(!HeatBoxBuildingAll.contains(build)){
 
-        build.HeatBox = this;
+                HeatBoxArea += build.GetHeatBoxArea();
+                HeatBoxHeat += build.GetHeatBoxArea() * temp;
 
-        this.HeatBoxBuildingAll.add(build);
-        this.HeatBoxBuildings.add(build);
+                this.HeatBoxBuildingAll.add(build);
 
-        /*
-        if(build.power.graph != this || !build.power.init){
-            //any old graph that is added here MUST be invalid, remove it
-            if(build.power.graph != null && build.power.graph != this){
-                if(build.power.graph.entity != null) build.power.graph.entity.remove();
-            }
+                if(build.GetHeatBoxArea() > 0){
+                    this.HeatBoxDistributors.add(build);
+                }
+                if(build.IsHeatConsumer()){
+                    this.HeatBoxConsumers.add(build);
+                }
+                if(build.IsHeatProducer()){
+                    this.HeatBoxProducers.add(build);
+                }
 
-            build.power.graph = this;
-            build.power.init = true;
-            all.add(build);
+                CalcCurrentHeight();
 
-            if(build.block.outputsPower && build.block.consumesPower && !build.block.consPower.buffered){
-                producers.add(build);
-                consumers.add(build);
-            }else if(build.block.outputsPower && build.block.consumesPower){
-                batteries.add(build);
-            }else if(build.block.outputsPower){
-                producers.add(build);
-            }else if(build.block.consumesPower && build.block.consPower != null){
-                consumers.add(build);
+                build.HeatBox = this;
+
             }
         }
-
-         */
+        //todo change this shitty code
     }
 
-    public void HeatBoxRemoveBuild(HeatBoxBlock.HeatBoxBlockBuild build){
-        build.HeatBox = null;
-
-        this.HeatBoxBuildingAll.remove(build);
-        this.HeatBoxBuildings.remove(build);
-    }
-
-    public void checkAdd(){
+    public void Register(){
         this.CreateHeatBox();
     }
 
     public void clear(){
         HeatBoxBuildingAll.clear();
-        HeatBoxBuildings.clear();
-        producers.clear();
-        consumers.clear();
-    }
-
-    public void reflow(HeatBoxBlock.HeatBoxBlockBuild tile){
-        queue.clear();
-        queue.addLast(tile);
-        closedSet.clear();
-        while(queue.size > 0){
-            HeatBoxBlock.HeatBoxBlockBuild child = queue.removeFirst();
-            HeatBoxAddBuild(child);
-            checkAdd();
-            for(Building next : child.getPowerConnections(outArray2)){
-                if(closedSet.add(next.pos())){
-                    queue.addLast((HeatBoxBlock.HeatBoxBlockBuild) next);
-                }
-            }
-        }
+        HeatBoxDistributors.clear();
+        HeatBoxProducers.clear();
+        HeatBoxConsumers.clear();
     }
 
     /** Note that this does not actually remove the Building from the graph;
      * it creates *new* graphs that contain the correct buildings. Doing this invalidates the graph. */
-    public void remove(HeatBoxBlock.HeatBoxBlockBuild tile){
+    public void remove(BlockF.BuildF tile){
 
+        float temp = CurrentTemp;
         //go through all the connections of this tile
-        for(HeatBoxBlock.HeatBoxBlockBuild other : tile.AdjoinHeatBoxBlock()){
+        for(BlockF.BuildF other : tile.GetAdjoinBuildingF()){
             //a graph has already been assigned to this tile from a previous call, skip it
             if(other.HeatBox != this) continue;
 
             //create graph for this branch
-            HeatBoxEntity entity = new HeatBoxEntity(0,0);
-            entity.checkAdd();
-            entity.HeatBoxAddBuild(other);
+            HeatBoxEntity entity = new HeatBoxEntity(0, temp);
+
+            entity.Register();
+            entity.AddBuild(other, temp);
             //add to queue for BFS
             queue.clear();
             queue.addLast(other);
             while(queue.size > 0){
                 //get child from queue
-                HeatBoxBlock.HeatBoxBlockBuild child = queue.removeFirst();
+                BlockF.BuildF child = queue.removeFirst();
                 //add it to the new branch graph
-                entity.HeatBoxAddBuild(child);
+
+                //entity.HeatBoxAddBuild(child);
+
                 //go through connections
-                for(HeatBoxBlock.HeatBoxBlockBuild next : child.AdjoinHeatBoxBlock()){
+                for(BlockF.BuildF next : child.GetAdjoinBuildingF()){
                     //make sure it hasn't looped back, and that the new graph being assigned hasn't already been assigned
                     //also skip closed tiles
-                    if(next != tile && next.HeatBox != entity){
-                        entity.HeatBoxAddBuild(next);
+                    if(next != tile && !entity.HeatBoxBuildingAll.contains(next)){
+                        entity.AddBuild(next, temp);
                         queue.addLast(next);
                     }
                 }
             }
-            //update the graph once so direct consumers without any connected producer lose their power
-            entity.update();
+
+            entity.HeatBoxHeat = temp * entity.HeatBoxArea;
         }
 
         //implied empty graph here
@@ -212,4 +209,5 @@ public class HeatBoxEntity {
             this.added = false;
         }
     }
+
 }

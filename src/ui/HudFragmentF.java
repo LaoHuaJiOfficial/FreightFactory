@@ -46,12 +46,11 @@ import mindustry.ui.fragments.PlacementFragment;
 
 import static mindustry.Vars.*;
 import static mindustry.gen.Tex.*;
-import static mindustry.gen.Tex.buttonRightDisabled;
 
 public class HudFragmentF extends HudFragment {
     private static final float dsize = 65f, pauseHeight = 36f;
 
-    public final PlacementFragmentF blockfrag = new PlacementFragmentF();
+    public final PlacementFragment blockfrag = new PlacementFragment();
     public boolean shown = true;
 
     private ImageButton flip;

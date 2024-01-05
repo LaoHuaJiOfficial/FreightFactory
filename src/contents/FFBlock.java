@@ -1,7 +1,8 @@
 package contents;
 
-import HeatBox.HeatBoxBlock;
+import HeatBox.BlockF;
 import arc.struct.Seq;
+import extra.FVars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.type.Category;
@@ -17,6 +18,7 @@ import world.block.storage.RemoteCoreBlock;
 import world.block.tech.Nexus;
 import world.test;
 
+
 import static mindustry.type.ItemStack.with;
 
 public class FFBlock {
@@ -24,7 +26,8 @@ public class FFBlock {
         oreAluminium,
 
         nexus,
-        RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode, HeatConduit;
+        RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode,
+        HeatConduit, HeatProducer, HeatCond, HeatCrafter;
 
     public static void load() {
         oreAluminium = new OreBlock(FFItems.aluminium) {{
@@ -95,9 +98,61 @@ public class FFBlock {
 
         }};
 
-        HeatConduit = new HeatBoxBlock("heat-conduit"){{
+        HeatConduit = new BlockF("heat-pipe"){{
+            requirements(Category.power, ItemStack.with(Items.copper, 20));
+            HasHeat = true;
+
+            MaxTemp = FVars.BaseLine + 1000f;
+            MinTemp = FVars.BaseLine - 100f;
+
+        }};
+
+        HeatCond = new BlockF("heat-cond"){{
             requirements(Category.power, ItemStack.with(Items.copper, 20));
 
+            HeatCapacity = 50f;
+
+            MaxTemp = FVars.BaseLine + 1000f;
+            MinTemp = FVars.BaseLine - 100f;
+
+        }};
+
+
+        HeatProducer = new BlockF("heat-producer"){{
+            requirements(Category.power, ItemStack.with(Items.copper, 20));
+
+
+            OutputHeatAmount = 1000f;
+            OutputTempThreshold = 800f;
+
+            InputHeatAmount = 1000f;
+            InputTempThreshold = 200f;
+        }};
+
+        HeatCrafter = new AssemblerBlock("heat-crafter"){{
+            requirements(Category.production, with(Items.copper, 1));
+            HasHeat = true;
+
+            recipes = Seq.with(
+                new Recipe(){{
+                    InputItems = with(Items.coal, 3);
+                    InputPower = 20f/60f;
+
+                    OutputHeatAmount = 1000f;
+                    OutputTempThreshold = FVars.BaseLine + 500f;
+                    OutputItems = with(Items.copper, 1);
+
+                }},
+
+                new Recipe(){{
+                    InputLiquids = LiquidStack.with(Liquids.cryofluid, 5f);
+                    InputPower = 30f/60f;
+
+                    InputHeatAmount = 1000f;
+                    InputTempThreshold = FVars.BaseLine - 100f;
+
+                }}
+            );
         }};
     }
 }
