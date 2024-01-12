@@ -29,7 +29,7 @@ public class BlockF extends Block {
 
     /** Basic element provided to heat box
      *  TODO change this shitty name */
-    public float HeatCapacity = 10f;
+    public float HeatCapacity = 0f;
     public float MaxTemp = 3300f;
     public float MinTemp = 0f;
 
@@ -73,22 +73,22 @@ public class BlockF extends Block {
     public void setBars(){
         super.setBars();
 
-        addBar("HeatBoxArea", (BuildF e) -> new Bar(() -> Core.bundle.format("bar.area", e.HeatBox.HeatBoxArea), () -> Pal.accent, () -> 1f));
 
-        addBar("HeatBoxAll", (BuildF e) -> new Bar(() -> Core.bundle.format("bar.num", e.HeatBox.HeatBoxBuildingAll.size), () -> Pal.accent, () -> 1f));
-
-
-        addBar("HeatBoxHeat", (BuildF e) -> new Bar(
-            () -> Core.bundle.format("bar.heat-amount", Strings.fixed(e.HeatBox.GetHeatBoxHeat(),0)),
-            () -> e.HeatBox.CurrentTemp > FVars.BaseLine? Pal.remove : Pal.techBlue,
-            e::GetTempPercent));
-
-        addBar("HeatBoxTemp", (BuildF e) -> new Bar(
-            () -> Core.bundle.format("bar.height", Strings.fixed(e.HeatBox.GetCurrentTemp(), 0)),
-            () -> e.HeatBox.CurrentTemp > FVars.BaseLine? Pal.remove : Pal.techBlue,
-            e::GetTempPercent));
         if(HasHeat){
+            addBar("HeatBoxArea", (BuildF e) -> new Bar(() -> Core.bundle.format("bar.area", e.HeatBox.HeatBoxArea), () -> Pal.accent, () -> 1f));
 
+            addBar("HeatBoxAll", (BuildF e) -> new Bar(() -> Core.bundle.format("bar.num", e.HeatBox.HeatBoxBuildingAll.size), () -> Pal.accent, () -> 1f));
+
+
+            addBar("HeatBoxHeat", (BuildF e) -> new Bar(
+                () -> Core.bundle.format("bar.heat-amount", Strings.fixed(e.HeatBox.GetHeatBoxHeat(),0)),
+                () -> e.HeatBox.CurrentTemp > FVars.BaseLine? Pal.remove : Pal.techBlue,
+                e::GetTempPercent));
+
+            addBar("HeatBoxTemp", (BuildF e) -> new Bar(
+                () -> Core.bundle.format("bar.height", Strings.fixed(e.HeatBox.GetCurrentTemp(), 0)),
+                () -> e.HeatBox.CurrentTemp > FVars.BaseLine? Pal.remove : Pal.techBlue,
+                e::GetTempPercent));
 
         }
 
@@ -100,11 +100,15 @@ public class BlockF extends Block {
         public HeatBoxEntity HeatBox;
 
         public float GetTempPercent(){
-            if (HeatBox.CurrentTemp > 300f){
-                return (HeatBox.CurrentTemp - 300f) / (MaxTemp - 300f);
-            }else if(HeatBox.CurrentTemp < 300f){
-                return (300f - HeatBox.CurrentTemp) / (300f - MinTemp);
-            }else return 0f;
+            if(HasHeat){
+                if (HeatBox.CurrentTemp > 300f){
+                    return (HeatBox.CurrentTemp - 300f) / (MaxTemp - 300f);
+                }else if(HeatBox.CurrentTemp < 300f){
+                    return (300f - HeatBox.CurrentTemp) / (300f - MinTemp);
+                }else return 0f;
+            }else{
+                return 0f;
+            }
         }
 
         public boolean HasHeat(){

@@ -5,6 +5,8 @@ import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.gen.Building;
 import mindustry.type.LiquidStack;
+import mindustry.ui.ItemImage;
+import mindustry.ui.LiquidDisplay;
 import mindustry.ui.ReqImage;
 import mindustry.world.Block;
 import mindustry.world.consumers.Consume;
@@ -39,7 +41,7 @@ public class ConsumeLiquidsDynamicF extends Consume {
 
                 rebuild(build, cont);
             });
-        };
+        }
     }
 
     private void rebuild(Building build, Table table){
@@ -48,7 +50,7 @@ public class ConsumeLiquidsDynamicF extends Consume {
             int i = 0;
 
             for(LiquidStack stack : liquids.get(build)){
-                table.add(new ReqImage(stack.liquid.uiIcon,
+                table.add(new ReqImage(new LiquidDisplay(stack.liquid, 0f, false),
                     () -> build.liquids != null && build.liquids.get(stack.liquid) > 0)).size(Vars.iconMed).padRight(8);
                 if(++i % 4 == 0) table.row();
             }

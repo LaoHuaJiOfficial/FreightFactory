@@ -3,40 +3,54 @@ package world.block.production;
 import HeatBox.BlockF;
 import HeatBox.HeatBoxEntity;
 import arc.graphics.Color;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
+import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
 import arc.struct.Seq;
-import arc.util.Nullable;
-import arc.util.Structs;
-import arc.util.Time;
+import arc.util.*;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
+import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
+import mindustry.gen.Icon;
 import mindustry.gen.Iconc;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.ui.ItemDisplay;
 import mindustry.ui.Styles;
 import mindustry.world.Block;
+import mindustry.world.blocks.sandbox.ItemSource;
 import mindustry.world.consumers.ConsumePowerDynamic;
+import mindustry.world.draw.DrawBlock;
+import mindustry.world.draw.DrawDefault;
 import mindustry.world.meta.BlockFlag;
+import ui.ArrowTempDisplay;
+import ui.HeatDisplay;
 import ui.LiquidDisplayF;
 import ui.PowerDisplay;
 import world.block.consumer.ConsumeItemDynamicF;
 import world.block.consumer.ConsumeLiquidsDynamicF;
+
+import static mindustry.Vars.control;
 
 public class AssemblerBlock extends BlockF {
 
     public float warmupSpeed = 0.02f;
     public int[] capacities = {};
     public Seq<Recipe> recipes = new Seq<>(4);
+    public DrawBlock drawer = new DrawDefault();
+
     public AssemblerBlock(String name){
         super(name);
-        HeatCapacity = 10f;
+        HasHeat = false;
+        HeatCapacity = 0f;
+
         itemCapacity = 30;
         liquidCapacity = 30f;
         update = true;
@@ -73,12 +87,21 @@ public class AssemblerBlock extends BlockF {
             tile.CurrentRecipeIndex = next;
             tile.progress = 0;
         });
+
+        configClear((AssemblerBlockBuild tile) -> tile.CurrentRecipeIndex = -1);
+
+    }
+
+    @Override
+    public void load(){
+        super.load();
+
+        drawer.load(this);
     }
 
     @Override
     public void init(){
         super.init();
-        HeatCapacity = 10f;
         capacities = new int[Vars.content.items().size];
         for(Recipe r: recipes){
             if (r.HasHeat()){
@@ -110,6 +133,23 @@ public class AssemblerBlock extends BlockF {
         //todo add bar here..
     }
 
+
+    @Override
+    public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list){
+        drawer.drawPlan(this, plan, list);
+    }
+
+    @Override
+    public TextureRegion[] icons(){
+        return drawer.finalIcons(this);
+    }
+
+    @Override
+    public void getRegionsToOutline(Seq<TextureRegion> out){
+        drawer.getRegionsToOutline(this, out);
+    }
+
+
     public static class Recipe {
         public @Nullable ItemStack[] InputItems;
         public @Nullable ItemStack[] OutputItems;
@@ -119,6 +159,7 @@ public class AssemblerBlock extends BlockF {
         public float InputTempThreshold = 300f;
         public float OutputHeatAmount = 0f;
         public float OutputTempThreshold = 300f;
+        public boolean IsCoolant = false;
         public @Nullable PayloadStack[] InputPayloads;
         public @Nullable PayloadStack[] OutputPayloads;
         public @Nullable float InputPower;
@@ -145,6 +186,17 @@ public class AssemblerBlock extends BlockF {
         public float warmup;
         public int CurrentRecipeIndex = -1;
 
+        @Override
+        public void draw(){
+            drawer.draw(this);
+        }
+
+        @Override
+        public void drawLight(){
+            super.drawLight();
+            drawer.drawLight(this);
+        }
+
         public Recipe current(){
             if(CurrentRecipeIndex != -1){
                 return recipes.get(CurrentRecipeIndex);
@@ -156,8 +208,10 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public void created(){
-            //todo can add some event here
             super.created();
+
+            //todo can add some event here
+
         }
 
         public float getInputPower(){
@@ -210,8 +264,12 @@ public class AssemblerBlock extends BlockF {
 
             if(progress >= 1f){
                 craft();
-                HeatBox.HeatAdd(current().OutputHeatAmount, current().OutputTempThreshold);
-                HeatBox.HeatRemove(current().InputHeatAmount, current().InputTempThreshold);
+                if(current().OutputHeatAmount > 0){
+                    HeatBox.HeatAdd(current().OutputHeatAmount, current().OutputTempThreshold);
+                }
+                if(current().InputHeatAmount > 0){
+                    HeatBox.HeatRemove(current().InputHeatAmount, current().InputTempThreshold);
+                }
             }
 
             dumpOutputs();
@@ -251,13 +309,20 @@ public class AssemblerBlock extends BlockF {
                                     }
                                 }
                                 //todo payload here
+                                //input heat
+                                if (r.InputHeatAmount > 0 && !r.IsCoolant) {
+                                    info.add(new HeatDisplay(r.InputHeatAmount, false));
+                                }
+                                if (r.OutputHeatAmount > 0 && r.IsCoolant) {
+                                    info.add(new HeatDisplay(r.OutputHeatAmount, true));
+                                }
                                 //input power
                                 if (r.InputPower > 0) {
-                                    info.add(new PowerDisplay(r.InputPower));
+                                    info.add(new PowerDisplay(r.InputPower, true));
                                 }
 
                                 //arrow
-                                info.add("" + Iconc.right).pad(10f);
+                                info.add(new ArrowTempDisplay(0, true));
 
                                 //output items
                                 if (r.OutputItems != null) {
@@ -274,9 +339,17 @@ public class AssemblerBlock extends BlockF {
                                     }
                                 }
                                 //todo payload here
+                                //output heat
+                                if (r.InputHeatAmount > 0 && r.IsCoolant) {
+                                    info.add(new HeatDisplay(r.InputHeatAmount, false));
+                                }
+                                if (r.OutputHeatAmount > 0 && !r.IsCoolant) {
+                                    info.add(new HeatDisplay(r.OutputHeatAmount, true));
+                                }
+
                                 //output power
                                 if (r.OutputPower > 0) {
-                                    info.add(new PowerDisplay(r.OutputPower));
+                                    info.add(new PowerDisplay(r.OutputPower, false));
                                 }
                             });
                         }).grow().pad(10f);
@@ -287,6 +360,7 @@ public class AssemblerBlock extends BlockF {
                             this.items.clear();
                             this.liquids.clear();
                             configure(CurrentRecipeIndex);
+                            control.input.config.hideConfig();
                         });
                         button.update(() ->
                             button.setChecked(CurrentRecipeIndex == recipes.indexOf(r))

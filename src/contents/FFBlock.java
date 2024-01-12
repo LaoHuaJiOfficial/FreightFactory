@@ -1,7 +1,9 @@
 package contents;
 
 import HeatBox.BlockF;
+import HeatBox.HeatPipe;
 import arc.struct.Seq;
+import contents.blocks.ProductionBlock;
 import extra.FVars;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -27,9 +29,17 @@ public class FFBlock {
 
         nexus,
         RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode,
-        HeatConduit, HeatProducer, HeatCond, HeatCrafter;
+        HeatConduit, HeatProducer, HeatCond, HeatCrafter, RocketSilo,
+
+        //Actually new stuffs here
+
+        //Production,Factory
+        ArcFurnace;
+
+
 
     public static void load() {
+        ProductionBlock.load();
         oreAluminium = new OreBlock(FFItems.aluminium) {{
             oreDefault = true;
             oreThreshold = 0.81f;
@@ -82,10 +92,10 @@ public class FFBlock {
             health = 45;
         }};
 
-        nexus = new Nexus("nexus"){{
+        RocketSilo = new Nexus("rocket-silo"){{
             requirements(Category.effect, ItemStack.with(Items.copper, 20));
 
-            size = 4;
+            size = 16;
         }};
 
         ItemDiode = new ItemDiode("ItemDiode"){{
@@ -98,7 +108,7 @@ public class FFBlock {
 
         }};
 
-        HeatConduit = new BlockF("heat-pipe"){{
+        HeatConduit = new HeatPipe("heat-pipe"){{
             requirements(Category.power, ItemStack.with(Items.copper, 20));
             HasHeat = true;
 
@@ -116,7 +126,6 @@ public class FFBlock {
             MinTemp = FVars.BaseLine - 100f;
 
         }};
-
 
         HeatProducer = new BlockF("heat-producer"){{
             requirements(Category.power, ItemStack.with(Items.copper, 20));
@@ -138,7 +147,7 @@ public class FFBlock {
                     InputItems = with(Items.coal, 3);
                     InputPower = 20f/60f;
 
-                    OutputHeatAmount = 1000f;
+                    OutputHeatAmount = 10f;
                     OutputTempThreshold = FVars.BaseLine + 500f;
                     OutputItems = with(Items.copper, 1);
 
@@ -148,7 +157,8 @@ public class FFBlock {
                     InputLiquids = LiquidStack.with(Liquids.cryofluid, 5f);
                     InputPower = 30f/60f;
 
-                    InputHeatAmount = 1000f;
+                    IsCoolant = true;
+                    InputHeatAmount = 10f;
                     InputTempThreshold = FVars.BaseLine - 100f;
 
                 }}

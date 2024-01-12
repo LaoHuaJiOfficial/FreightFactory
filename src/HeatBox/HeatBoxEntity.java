@@ -60,7 +60,7 @@ public class HeatBoxEntity {
      */
     public void HeatAdd(float heat, float threshold){
         if (threshold > this.CurrentTemp){
-            this.HeatBoxHeat += heat;
+            this.HeatBoxHeat += heat * 100;
         }
         CalcCurrentHeight();
     }
@@ -72,7 +72,7 @@ public class HeatBoxEntity {
      */
     public void HeatRemove(float heat, float threshold){
         if (threshold < this.CurrentTemp){
-            this.HeatBoxHeat -= heat;
+            this.HeatBoxHeat -= heat * 100;
         }
         CalcCurrentHeight();
     }
