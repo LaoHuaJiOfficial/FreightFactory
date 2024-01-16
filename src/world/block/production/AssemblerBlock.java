@@ -99,6 +99,7 @@ public class AssemblerBlock extends BlockF {
         drawer.load(this);
     }
 
+
     @Override
     public void init(){
         super.init();
@@ -185,6 +186,8 @@ public class AssemblerBlock extends BlockF {
         public float totalProgress;
         public float warmup;
         public int CurrentRecipeIndex = -1;
+
+
 
         @Override
         public void draw(){

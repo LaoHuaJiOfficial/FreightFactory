@@ -5,7 +5,6 @@ import arc.struct.Seq;
 import mindustry.type.Item;
 
 public class FFItems {
-    public static final Seq<Item> NauvisItems = new Seq<>();
     public static Item
         aluminium;
 

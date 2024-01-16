@@ -14,6 +14,7 @@ import arc.util.Time;
 import extra.DrawExtend;
 import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
+import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.world.draw.DrawBlock;
 
@@ -29,6 +30,7 @@ public class DrawArcFurnace extends DrawBlock {
         float CenterBall = 1.5f;
 
         if(build.warmup() > 0f && flameColor.a > 0.001f){
+            Draw.z(Layer.effect);
 
             float Alpha = build.warmup();
             float StrokeMulti = build.warmup();

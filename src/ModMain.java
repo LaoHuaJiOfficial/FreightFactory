@@ -4,9 +4,14 @@ import arc.util.Log;
 import arc.util.Time;
 import contents.*;
 import extra.FListener;
+import extra.FVanillaChange;
 import mindustry.Vars;
+import mindustry.content.Blocks;
+import mindustry.content.Items;
+import mindustry.content.UnitTypes;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
+import mindustry.type.UnitType;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.ui.fragments.HudFragment;
 import ui.HudFragmentF;
@@ -17,12 +22,12 @@ import java.lang.reflect.Field;
 public class ModMain extends Mod {
 
     public ModMain() {
-        Log.info("Loaded ExampleJavaMod constructor.");
+        Log.info("FF Loaded.");
 
         //listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
-            Vars.renderer.minZoom = 1f;
-            Vars.renderer.maxZoom = 20f;
+            //Vars.renderer.minZoom = 1f;
+            //Vars.renderer.maxZoom = 20f;
 
             //show dialog upon startup
             Time.runTask(10f, () -> {
@@ -41,6 +46,8 @@ public class ModMain extends Mod {
     @Override
     public void loadContent() {
 
+
+
         CoolantLiquid.load();
 
         //Highest load priority
@@ -48,12 +55,14 @@ public class ModMain extends Mod {
         FFItems.load();
         FFBlock.load();
         FFPlanet.load();
-        Turrets.load();
         FFUnitTypes.load();
         //Log.info("Loading some example content.");
 
         FListener FListener = new FListener();
         FListener.init();
+
+        FVanillaChange.init();
+
     }
 
 }

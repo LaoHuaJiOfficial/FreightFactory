@@ -5,6 +5,7 @@ import HeatBox.HeatPipe;
 import arc.struct.Seq;
 import contents.blocks.ProductionBlock;
 import extra.FVars;
+import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.type.Category;
@@ -39,7 +40,11 @@ public class FFBlock {
 
 
     public static void load() {
-        ProductionBlock.load();
+        //ProductionBlock.load();
+
+        //Turrets.load();
+
+        /*
         oreAluminium = new OreBlock(FFItems.aluminium) {{
             oreDefault = true;
             oreThreshold = 0.81f;
@@ -164,5 +169,6 @@ public class FFBlock {
                 }}
             );
         }};
+         */
     }
 }
