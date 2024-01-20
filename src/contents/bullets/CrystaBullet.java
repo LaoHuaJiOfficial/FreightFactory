@@ -27,7 +27,8 @@ public class CrystaBullet extends BulletType {
 
     public Effect trailEffectCenter = Fx.none;
     public Effect trailEffectSide = Fx.none;
-    public CrystaBullet(){
+
+    public CrystaBullet() {
         scaleLife = true;
         lifetime = 100f;
         collides = false;
@@ -49,7 +50,7 @@ public class CrystaBullet extends BulletType {
         trailEffectSide = new Effect(10f, e -> {
             Rand rand = new Rand(e.id);
 
-            Draw.color(Color.white, Pal.lancerLaser,e.fslope());
+            Draw.color(Color.white, Pal.lancerLaser, e.fslope());
             Lines.stroke(e.fout() * 2f * rand.random(1f));
             lineAngle(e.x, e.y, e.rotation + 180f, e.fout() * 4 * rand.random(0, 1) * 6f);
             lineAngle(e.x, e.y, e.rotation, e.fin() * 4 * rand.random(0, 1) * 8f);
@@ -58,7 +59,7 @@ public class CrystaBullet extends BulletType {
         hitEffect = new Effect(14, e -> {
             Rand rand = new Rand(e.id);
 
-            Draw.color(Color.white, Pal.lancerLaser,e.fslope());
+            Draw.color(Color.white, Pal.lancerLaser, e.fslope());
 
             float ang = rand.random(180f);
             Drawf.tri(e.x, e.y, 15 * e.fout(), 50 * e.fin(), ang);
@@ -68,7 +69,7 @@ public class CrystaBullet extends BulletType {
     }
 
     @Override
-    public void init(Bullet b){
+    public void init(Bullet b) {
         super.init(b);
 
         Rand rand = new Rand(b.id);
@@ -104,24 +105,24 @@ public class CrystaBullet extends BulletType {
         result = null;
         float range = 1f;
 
-        Units.nearbyEnemies(b.team, px - range, py - range, range*2f, range*2f, e -> {
-            if(e.dead() || !e.checkTarget(collidesAir, collidesGround) || !e.hittable()) return;
+        Units.nearbyEnemies(b.team, px - range, py - range, range * 2f, range * 2f, e -> {
+            if (e.dead() || !e.checkTarget(collidesAir, collidesGround) || !e.hittable()) return;
 
             e.hitbox(Tmp.r1);
-            if(!Tmp.r1.contains(px, py)) return;
+            if (!Tmp.r1.contains(px, py)) return;
 
             float dst = e.dst(px, py) - e.hitSize;
-            if((result == null || dst < cdist)){
+            if ((result == null || dst < cdist)) {
                 result = e;
                 cdist = dst;
             }
         });
 
-        if(result != null){
+        if (result != null) {
             b.collision(result, px, py);
-        }else if(collidesTiles){
+        } else if (collidesTiles) {
             Building build = Vars.world.buildWorld(px, py);
-            if(build != null && build.team != b.team){
+            if (build != null && build.team != b.team) {
                 build.collision(b);
             }
         }

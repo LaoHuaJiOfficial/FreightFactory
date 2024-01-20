@@ -3,21 +3,11 @@ import arc.Events;
 import arc.util.Log;
 import arc.util.Time;
 import contents.*;
-import extra.FListener;
-import extra.FVanillaChange;
-import mindustry.Vars;
-import mindustry.content.Blocks;
-import mindustry.content.Items;
-import mindustry.content.UnitTypes;
+import utilities.FListener;
+import utilities.FVanillaChange;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
-import mindustry.type.UnitType;
 import mindustry.ui.dialogs.BaseDialog;
-import mindustry.ui.fragments.HudFragment;
-import ui.HudFragmentF;
-import ui.PlacementFragmentF;
-
-import java.lang.reflect.Field;
 
 public class ModMain extends Mod {
 
@@ -45,18 +35,14 @@ public class ModMain extends Mod {
 
     @Override
     public void loadContent() {
-
-
-
-        CoolantLiquid.load();
+        //CoolantLiquid.load();
 
         //Highest load priority
         FFSounds.load();
         FFItems.load();
         FFBlock.load();
         FFPlanet.load();
-        FFUnitTypes.load();
-        //Log.info("Loading some example content.");
+        //FFUnitTypes.load();
 
         FListener FListener = new FListener();
         FListener.init();

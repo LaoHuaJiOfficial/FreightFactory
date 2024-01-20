@@ -1,13 +1,13 @@
 logs/
 /core/assets/mindustry-saves/
-/core/assets/mindustry-maps/
+/core/assets/mindustry-utilities.maps/
 /core/assets/bundles/output/
 /core/assets/.gifimages/
 /deploy/
 /desktop/packr-out/
 /desktop/packr-export/
 /desktop/mindustry-saves/
-/desktop/mindustry-maps/
+/desktop/mindustry-utilities.maps/
 /desktop/gifexport/
 /core/lib/
 /ios/assets/
@@ -23,7 +23,7 @@ logs/
 /annotations/build/
 /desktop-sdl/build/
 desktop-sdl/build/
-/android/assets/mindustry-maps/
+/android/assets/mindustry-utilities.maps/
 /android/assets/mindustry-saves/
 /core/assets/gifexport/
 /core/assets/version.properties

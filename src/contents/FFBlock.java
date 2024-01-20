@@ -1,26 +1,10 @@
 package contents;
 
-import HeatBox.BlockF;
-import HeatBox.HeatPipe;
-import arc.struct.Seq;
-import contents.blocks.ProductionBlock;
-import extra.FVars;
-import mindustry.content.Blocks;
 import mindustry.content.Items;
-import mindustry.content.Liquids;
 import mindustry.type.Category;
-import mindustry.type.ItemStack;
-import mindustry.type.LiquidStack;
 import mindustry.world.Block;
-import mindustry.world.blocks.environment.OreBlock;
-import world.block.distribution.ItemDiode;
-import world.block.distribution.LiquidDiode;
-import world.block.liquid.CoolantConduit;
-import world.block.production.AssemblerBlock;
-import world.block.storage.RemoteCoreBlock;
-import world.block.tech.Nexus;
-import world.test;
-
+import prototypes.block.distribution.BeltConveyor;
+import prototypes.block.distribution.BeltRouter;
 
 import static mindustry.type.ItemStack.with;
 
@@ -32,17 +16,26 @@ public class FFBlock {
         RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode,
         HeatConduit, HeatProducer, HeatCond, HeatCrafter, RocketSilo,
 
-        //Actually new stuffs here
+    //Actually new stuffs here
 
-        //Production,Factory
-        ArcFurnace;
-
+    //Production,Factory
+    ArcFurnace,
+    conveyorT1, routerT1
+    ;
 
 
     public static void load() {
-        //ProductionBlock.load();
+        conveyorT1 = new BeltConveyor("conveyor-t1"){{
+            requirements(Category.distribution, with(Items.beryllium, 1));
+            health = 100;
+            itemPerSecond = 10f;
+        }};
 
-        //Turrets.load();
+        routerT1 = new BeltRouter("router-t1"){{
+            requirements(Category.distribution, with(Items.beryllium, 1));
+            health = 100;
+            itemPerSecond = 10f;
+        }};
 
         /*
         oreAluminium = new OreBlock(FFItems.aluminium) {{

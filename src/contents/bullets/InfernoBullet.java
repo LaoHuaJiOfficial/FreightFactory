@@ -30,10 +30,10 @@ public class InfernoBullet extends BulletType {
     public TextureRegion backRegion;
     public TextureRegion frontRegion;
 
-    public InfernoBullet(float speed, float damage, String bulletSprite){
+    public InfernoBullet(float speed, float damage, String bulletSprite) {
         super(speed, damage);
         this.sprite = bulletSprite;
-        trailEffect = new Effect(20f, e ->{
+        trailEffect = new Effect(20f, e -> {
             Draw.color(Color.white, Pal.lancerLaser, e.fslope());
             //Fill.rect(e.x, e.y, 3f, 2f * e.fout(), e.rotation);
             Fill.square(e.x, e.y, 2f * e.fout(), e.rotation + 45f);
@@ -45,12 +45,12 @@ public class InfernoBullet extends BulletType {
         hitEffect = Fx.none;
     }
 
-    public InfernoBullet(float speed, float damage){
+    public InfernoBullet(float speed, float damage) {
         this(speed, damage, "bullet");
     }
 
     @Override
-    public void load(){
+    public void load() {
         super.load();
 
         backRegion = Core.atlas.find(backSprite == null ? (sprite + "-back") : backSprite);
@@ -58,7 +58,7 @@ public class InfernoBullet extends BulletType {
     }
 
     @Override
-    public void draw(Bullet b){
+    public void draw(Bullet b) {
         super.draw(b);
         float shrink = shrinkInterp.apply(b.fout());
         float height = this.height * ((1f - shrinkY) + shrinkY * shrink);
@@ -69,7 +69,7 @@ public class InfernoBullet extends BulletType {
 
         Draw.mixcol(mix, mix.a);
 
-        if(backRegion.found()){
+        if (backRegion.found()) {
             Draw.color(backColor);
             Draw.rect(backRegion, b.x, b.y, width, height, b.rotation() + offset);
         }
@@ -80,11 +80,11 @@ public class InfernoBullet extends BulletType {
         Draw.reset();
     }
 
-    public void updateTrailEffects(Bullet b){
+    public void updateTrailEffects(Bullet b) {
 
         //TODO use new modified Trail(TrailUtil)
-        if(b.timer(0, trailInterval)){
-            for (int i = 0; i < 3; i++){
+        if (b.timer(0, trailInterval)) {
+            for (int i = 0; i < 3; i++) {
                 float shiftX = Mathf.sinDeg(Time.time * 10 + i * 120) * 10;
                 float shiftY = Mathf.cosDeg(Time.time * 10 + i * 120) * 10;
                 trailEffect.at(b.x + shiftX, b.y + shiftY, b.rotation());

@@ -3,9 +3,7 @@ package contents;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.entities.bullet.ArtilleryBulletType;
-import mindustry.gen.EntityMapping;
 import mindustry.gen.LegsUnit;
-import mindustry.gen.Legsc;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
@@ -15,7 +13,7 @@ import mindustry.type.ammo.ItemAmmoType;
 public class FFUnitTypes {
     public static UnitType TestUnit;
 
-    public static void load(){
+    public static void load() {
 
         TestUnit = new UnitType("test-unit") {
             {
@@ -36,7 +34,7 @@ public class FFUnitTypes {
                 legLength = 50;
                 legExtension = -15;
                 legBaseOffset = 10f;
-                weapons.add(new Weapon(){{
+                weapons.add(new Weapon() {{
                     y = -7f;
                     x = 9f;
                     shootY = 7f;
@@ -49,7 +47,8 @@ public class FFUnitTypes {
                     shadow = 8f;
                     recoil = 3f;
 
-                    bullet = new ArtilleryBulletType(2f, 12) {};
+                    bullet = new ArtilleryBulletType(2f, 12) {
+                    };
                 }});
             }
         };

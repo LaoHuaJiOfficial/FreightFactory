@@ -1,7 +1,6 @@
 package contents;
 
 import arc.graphics.Color;
-import arc.struct.Seq;
 import mindustry.type.Item;
 
 public class FFItems {
