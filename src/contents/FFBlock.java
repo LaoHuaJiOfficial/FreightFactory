@@ -3,8 +3,10 @@ package contents;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import prototypes.block.HeatBox.HeatPipe;
 import prototypes.block.distribution.BeltConveyor;
 import prototypes.block.distribution.BeltRouter;
+import utilities.FVars;
 
 import static mindustry.type.ItemStack.with;
 
@@ -37,6 +39,13 @@ public class FFBlock {
             itemPerSecond = 10f;
         }};
 
+        HeatConduit = new HeatPipe("heat-pipe"){{
+            requirements(Category.power, with(Items.copper, 20));
+            HasHeat = true;
+
+            MaxTemp = FVars.BaseLine + 1000f;
+            MinTemp = FVars.BaseLine - 100f;
+        }};
         /*
         oreAluminium = new OreBlock(FFItems.aluminium) {{
             oreDefault = true;
@@ -53,11 +62,6 @@ public class FFBlock {
         test = new test("test") {{
             requirements(Category.production, ItemStack.with(Items.copper, 20));
             size = 2;
-        }};
-
-        conduit = new CoolantConduit("conduit"){{
-            requirements(Category.liquid, with(Items.metaglass, 1));
-            health = 45;
         }};
 
         assembler = new AssemblerBlock("assembler"){{
@@ -106,14 +110,7 @@ public class FFBlock {
 
         }};
 
-        HeatConduit = new HeatPipe("heat-pipe"){{
-            requirements(Category.power, ItemStack.with(Items.copper, 20));
-            HasHeat = true;
 
-            MaxTemp = FVars.BaseLine + 1000f;
-            MinTemp = FVars.BaseLine - 100f;
-
-        }};
 
         HeatCond = new BlockF("heat-cond"){{
             requirements(Category.power, ItemStack.with(Items.copper, 20));

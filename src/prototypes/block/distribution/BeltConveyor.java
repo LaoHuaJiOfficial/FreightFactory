@@ -83,8 +83,8 @@ public class BeltConveyor extends BlockF implements Autotiler{
         conveyorPartAtlas = Core.atlas.find(name + "-base");
         edgePartAtlas = Core.atlas.find(name + "-edge");
 
-        conveyorParts = conveyorPartAtlas.split(48, 48);
-        edgeParts = edgePartAtlas.split(48, 48);
+        conveyorParts = conveyorPartAtlas.split(32, 32);
+        edgeParts = edgePartAtlas.split(32, 32);
     }
 
     @Override
@@ -179,14 +179,14 @@ public class BeltConveyor extends BlockF implements Autotiler{
                     int dir = rotation - i;
                     float rot = i == 0 ? rotation * 90 : (dir)*90;
 
-                    Draw.rect(sliced(conveyorParts[frame][0], i != 0 ? SliceMode.bottom : SliceMode.top), x + Geometry.d4x(dir) * tilesize*0.75f, y + Geometry.d4y(dir) * tilesize*0.75f, rot);
+                    Draw.rect(sliced(conveyorParts[frame][0], i != 0 ? SliceMode.bottom : SliceMode.top), x + Geometry.d4x(dir) * tilesize * 0.75f, y + Geometry.d4y(dir) * tilesize*0.75f, rot);
                 }
             }
 
             Draw.z(Layer.block - 0.2f);
 
-            Draw.rect(conveyorParts[frame][blendbits], x, y, tilesize * blendsclx * 1.5f, tilesize * blendscly * 1.5f, rotation * 90);
-            Draw.rect(edgeParts[(tile.x + tile.y) % 2][blendbits], x, y, tilesize * blendsclx * 1.5f, tilesize * blendscly * 1.5f, rotation * 90);
+            Draw.rect(conveyorParts[frame][blendbits], x, y, tilesize * blendsclx, tilesize * blendscly, rotation * 90);
+            Draw.rect(edgeParts[(tile.x + tile.y) % 2][blendbits], x, y, tilesize * blendsclx, tilesize * blendscly, rotation * 90);
 
             Draw.z(Layer.block - 0.1f);
             float layer = Layer.block - 0.1f, wwidth = world.unitWidth(), wheight = world.unitHeight(), scaling = 0.01f;

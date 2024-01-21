@@ -290,6 +290,7 @@ public class AssemblerBlock extends BlockF {
                 selection.clearChildren();
                 if (recipes.size > 0) {
                     for (Recipe r : recipes) {
+
                         ImageButton button = new ImageButton();
 
                         button.table(info -> {
