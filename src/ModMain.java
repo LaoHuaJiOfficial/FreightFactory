@@ -35,14 +35,12 @@ public class ModMain extends Mod {
 
     @Override
     public void loadContent() {
-        //CoolantLiquid.load();
 
         //Highest load priority
         FFSounds.load();
         FFItems.load();
         FFBlock.load();
         FFPlanet.load();
-        //FFUnitTypes.load();
 
         FListener FListener = new FListener();
         FListener.init();
