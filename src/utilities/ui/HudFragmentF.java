@@ -51,11 +51,9 @@ public class HudFragmentF extends HudFragment {
     private static final float dsize = 65f, pauseHeight = 36f;
 
     public final PlacementFragment blockfrag = new PlacementFragment();
-    public boolean shown = true;
-
-    private ImageButton flip;
     private final CoreItemsDisplay coreItems = new CoreItemsDisplay();
-
+    public boolean shown = true;
+    private ImageButton flip;
     private String hudText = "";
     private boolean showHudText;
 

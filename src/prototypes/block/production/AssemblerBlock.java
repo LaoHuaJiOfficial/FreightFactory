@@ -1,6 +1,5 @@
 package prototypes.block.production;
 
-import prototypes.block.HeatBox.BlockF;
 import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
@@ -26,12 +25,13 @@ import mindustry.world.consumers.ConsumePowerDynamic;
 import mindustry.world.draw.DrawBlock;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.meta.BlockFlag;
+import prototypes.block.HeatBox.BlockF;
+import prototypes.block.consumer.ConsumeItemDynamicF;
+import prototypes.block.consumer.ConsumeLiquidsDynamicF;
 import utilities.ui.ArrowTempDisplay;
 import utilities.ui.HeatDisplay;
 import utilities.ui.LiquidDisplayF;
 import utilities.ui.PowerDisplay;
-import prototypes.block.consumer.ConsumeItemDynamicF;
-import prototypes.block.consumer.ConsumeLiquidsDynamicF;
 
 import static mindustry.Vars.control;
 

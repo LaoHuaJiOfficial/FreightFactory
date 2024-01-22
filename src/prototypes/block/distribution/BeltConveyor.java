@@ -35,7 +35,7 @@ import prototypes.block.HeatBox.BlockF;
 
 import static mindustry.Vars.*;
 
-public class BeltConveyor extends BlockF implements Autotiler{
+public class BeltConveyor extends BlockF implements Autotiler {
 
     private static final float itemSpace = 0.4f;
     private static final int capacity = 3;
@@ -48,7 +48,8 @@ public class BeltConveyor extends BlockF implements Autotiler{
     public float itemPerSecond = 0f;
 
     public @Nullable Block junctionReplacement, bridgeReplacement;
-    public BeltConveyor(String name){
+
+    public BeltConveyor(String name) {
         super(name);
         solid = false;
 
@@ -68,7 +69,7 @@ public class BeltConveyor extends BlockF implements Autotiler{
     }
 
     @Override
-    public void setStats(){
+    public void setStats() {
         super.setStats();
 
         //have to add a custom calculated speed, since the actual movement speed is apparently not linear
@@ -78,7 +79,7 @@ public class BeltConveyor extends BlockF implements Autotiler{
     }
 
     @Override
-    public void load(){
+    public void load() {
         icon = Core.atlas.find(name + "-icon");
         conveyorPartAtlas = Core.atlas.find(name + "-base");
         edgePartAtlas = Core.atlas.find(name + "-edge");
@@ -88,24 +89,25 @@ public class BeltConveyor extends BlockF implements Autotiler{
     }
 
     @Override
-    public void init(){
+    public void init() {
         super.init();
 
-        if(junctionReplacement == null) junctionReplacement = Blocks.junction;
-        if(bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge)) bridgeReplacement = Blocks.itemBridge;
+        if (junctionReplacement == null) junctionReplacement = Blocks.junction;
+        if (bridgeReplacement == null || !(bridgeReplacement instanceof ItemBridge))
+            bridgeReplacement = Blocks.itemBridge;
     }
 
     @Override
-    public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list){
+    public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list) {
         int[] bits = getTiling(plan, list);
 
-        if(bits == null) return;
+        if (bits == null) return;
 
-        Draw.rect(icon, plan.drawx(), plan.drawy(),plan.rotation * 90);
+        Draw.rect(icon, plan.drawx(), plan.drawy(), plan.rotation * 90);
 
     }
 
-    public boolean blends(Tile tile, int rotation, int otherx, int othery, int otherrot, Block otherblock){
+    public boolean blends(Tile tile, int rotation, int otherx, int othery, int otherrot, Block otherblock) {
         return (otherblock.outputsItems() || (lookingAt(tile, rotation, otherx, othery, otherblock) && otherblock.hasItems))
             && lookingAtEither(tile, rotation, otherx, othery, otherrot, otherblock);
     }
@@ -113,30 +115,30 @@ public class BeltConveyor extends BlockF implements Autotiler{
 
     //stack conveyors should be bridged over, not replaced
     @Override
-    public boolean canReplace(Block other){
+    public boolean canReplace(Block other) {
         return super.canReplace(other) && !(other instanceof StackConveyor);
     }
 
     @Override
-    public void handlePlacementLine(Seq<BuildPlan> plans){
-        if(bridgeReplacement == null) return;
+    public void handlePlacementLine(Seq<BuildPlan> plans) {
+        if (bridgeReplacement == null) return;
 
-        Placement.calculateBridges(plans, (ItemBridge)bridgeReplacement);
+        Placement.calculateBridges(plans, (ItemBridge) bridgeReplacement);
     }
 
     @Override
-    public TextureRegion[] icons(){
+    public TextureRegion[] icons() {
         return new TextureRegion[]{icon};
     }
 
     @Override
-    public boolean isAccessible(){
+    public boolean isAccessible() {
         return true;
     }
 
     @Override
-    public Block getReplacement(BuildPlan req, Seq<BuildPlan> plans){
-        if(junctionReplacement == null) return this;
+    public Block getReplacement(BuildPlan req, Seq<BuildPlan> plans) {
+        if (junctionReplacement == null) return this;
 
         Boolf<Point2> cont = p -> plans.contains(o -> o.x == req.x + p.x && o.y == req.y + p.y && (req.block instanceof Conveyor || req.block instanceof Junction));
         return cont.get(Geometry.d4(req.rotation)) &&
@@ -169,17 +171,17 @@ public class BeltConveyor extends BlockF implements Autotiler{
         public float clogHeat = 0f;
 
         @Override
-        public void draw(){
-            int frame = enabled && clogHeat <= 0.5f ? (int)(((Time.time * speed * 8f * timeScale * efficiency)) % 4) : 0;
+        public void draw() {
+            int frame = enabled && clogHeat <= 0.5f ? (int) (((Time.time * speed * 8f * timeScale * efficiency)) % 4) : 0;
 
             //draw extra conveyors facing this one for non-square tiling purposes
             Draw.z(Layer.blockUnder);
-            for(int i = 0; i < 4; i++){
-                if((blending & (1 << i)) != 0){
+            for (int i = 0; i < 4; i++) {
+                if ((blending & (1 << i)) != 0) {
                     int dir = rotation - i;
-                    float rot = i == 0 ? rotation * 90 : (dir)*90;
+                    float rot = i == 0 ? rotation * 90 : (dir) * 90;
 
-                    Draw.rect(sliced(conveyorParts[frame][0], i != 0 ? SliceMode.bottom : SliceMode.top), x + Geometry.d4x(dir) * tilesize * 0.75f, y + Geometry.d4y(dir) * tilesize*0.75f, rot);
+                    Draw.rect(sliced(conveyorParts[frame][0], i != 0 ? SliceMode.bottom : SliceMode.top), x + Geometry.d4x(dir) * tilesize * 0.75f, y + Geometry.d4y(dir) * tilesize * 0.75f, rot);
                 }
             }
 
@@ -191,7 +193,7 @@ public class BeltConveyor extends BlockF implements Autotiler{
             Draw.z(Layer.block - 0.1f);
             float layer = Layer.block - 0.1f, wwidth = world.unitWidth(), wheight = world.unitHeight(), scaling = 0.01f;
 
-            for(int i = 0; i < len; i++){
+            for (int i = 0; i < len; i++) {
                 Item item = ids[i];
                 Tmp.v1.trns(rotation * 90, tilesize, 0);
                 Tmp.v2.trns(rotation * 90, -tilesize / 2f, xs[i] * tilesize / 2f);
@@ -207,19 +209,19 @@ public class BeltConveyor extends BlockF implements Autotiler{
         }
 
         @Override
-        public void payloadDraw(){
+        public void payloadDraw() {
             Draw.rect(block.fullIcon, x, y);
         }
 
         @Override
-        public void drawCracks(){
+        public void drawCracks() {
             Draw.z(Layer.block - 0.15f);
             super.drawCracks();
         }
 
         @Override
-        public void overwrote(Seq<Building> builds){
-            if(builds.first() instanceof BeltConveyorBuild build){
+        public void overwrote(Seq<Building> builds) {
+            if (builds.first() instanceof BeltConveyorBuild build) {
                 ids = build.ids.clone();
                 xs = build.xs.clone();
                 ys = build.ys.clone();
@@ -233,12 +235,12 @@ public class BeltConveyor extends BlockF implements Autotiler{
         }
 
         @Override
-        public boolean shouldAmbientSound(){
+        public boolean shouldAmbientSound() {
             return clogHeat <= 0.5f;
         }
 
         @Override
-        public void onProximityUpdate(){
+        public void onProximityUpdate() {
             super.onProximityUpdate();
 
             int[] bits = buildBlending(tile, rotation, null, true);
@@ -248,14 +250,14 @@ public class BeltConveyor extends BlockF implements Autotiler{
             blending = bits[4];
 
             next = front();
-            nextc = next instanceof BeltConveyorBuild && next.team == team ? (BeltConveyorBuild)next : null;
+            nextc = next instanceof BeltConveyorBuild && next.team == team ? (BeltConveyorBuild) next : null;
             aligned = nextc != null && rotation == next.rotation;
         }
 
         @Override
-        public void unitOn(Unit unit){
+        public void unitOn(Unit unit) {
 
-            if(clogHeat > 0.5f || !enabled) return;
+            if (clogHeat > 0.5f || !enabled) return;
 
             noSleep();
 
@@ -266,26 +268,26 @@ public class BeltConveyor extends BlockF implements Autotiler{
 
             float centerx = 0f, centery = 0f;
 
-            if(Math.abs(tx) > Math.abs(ty)){
+            if (Math.abs(tx) > Math.abs(ty)) {
                 centery = Mathf.clamp((y - unit.y()) / centerDstScl, -centerSpeed, centerSpeed);
-                if(Math.abs(y - unit.y()) < 1f) centery = 0f;
-            }else{
+                if (Math.abs(y - unit.y()) < 1f) centery = 0f;
+            } else {
                 centerx = Mathf.clamp((x - unit.x()) / centerDstScl, -centerSpeed, centerSpeed);
-                if(Math.abs(x - unit.x()) < 1f) centerx = 0f;
+                if (Math.abs(x - unit.x()) < 1f) centerx = 0f;
             }
 
-            if(len * itemSpace < 0.9f){
+            if (len * itemSpace < 0.9f) {
                 unit.impulse((tx * mspeed + centerx) * delta(), (ty * mspeed + centery) * delta());
             }
         }
 
         @Override
-        public void updateTile(){
+        public void updateTile() {
             minitem = 1f;
             mid = 0;
 
             //skip updates if possible
-            if(len == 0){
+            if (len == 0) {
                 clogHeat = 0f;
                 sleep();
                 return;
@@ -294,40 +296,40 @@ public class BeltConveyor extends BlockF implements Autotiler{
             float nextMax = aligned ? 1f - Math.max(itemSpace - nextc.minitem, 0) : 1f;
             float moved = speed * edelta();
 
-            for(int i = len - 1; i >= 0; i--){
+            for (int i = len - 1; i >= 0; i--) {
                 float nextpos = (i == len - 1 ? 100f : ys[i + 1]) - itemSpace;
                 float maxmove = Mathf.clamp(nextpos - ys[i], 0, moved);
 
                 ys[i] += maxmove;
 
-                if(ys[i] > nextMax) ys[i] = nextMax;
-                if(ys[i] > 0.5 && i > 0) mid = i - 1;
-                xs[i] = Mathf.approach(xs[i], 0, moved*2);
+                if (ys[i] > nextMax) ys[i] = nextMax;
+                if (ys[i] > 0.5 && i > 0) mid = i - 1;
+                xs[i] = Mathf.approach(xs[i], 0, moved * 2);
 
-                if(ys[i] >= 1f && pass(ids[i])){
+                if (ys[i] >= 1f && pass(ids[i])) {
                     //align X position if passing forwards
-                    if(aligned){
+                    if (aligned) {
                         nextc.xs[nextc.lastInserted] = xs[i];
                     }
                     //remove last item
                     items.remove(ids[i], len - i);
                     len = Math.min(i, len);
-                }else if(ys[i] < minitem){
+                } else if (ys[i] < minitem) {
                     minitem = ys[i];
                 }
             }
 
-            if(minitem < itemSpace + (blendbits == 1 ? 0.3f : 0f)){
+            if (minitem < itemSpace + (blendbits == 1 ? 0.3f : 0f)) {
                 clogHeat = Mathf.approachDelta(clogHeat, 1f, 1f / 60f);
-            }else{
+            } else {
                 clogHeat = 0f;
             }
 
             noSleep();
         }
 
-        public boolean pass(Item item){
-            if(item != null && next != null && next.team == team && next.acceptItem(this, item)){
+        public boolean pass(Item item) {
+            if (item != null && next != null && next.team == team && next.acceptItem(this, item)) {
                 next.handleItem(this, item);
                 return true;
             }
@@ -335,15 +337,15 @@ public class BeltConveyor extends BlockF implements Autotiler{
         }
 
         @Override
-        public int removeStack(Item item, int amount){
+        public int removeStack(Item item, int amount) {
             noSleep();
             int removed = 0;
 
-            for(int j = 0; j < amount; j++){
-                for(int i = 0; i < len; i++){
-                    if(ids[i] == item){
+            for (int j = 0; j < amount; j++) {
+                for (int i = 0; i < len; i++) {
+                    if (ids[i] == item) {
                         remove(i);
-                        removed ++;
+                        removed++;
                         break;
                     }
                 }
@@ -354,20 +356,20 @@ public class BeltConveyor extends BlockF implements Autotiler{
         }
 
         @Override
-        public void getStackOffset(Item item, Vec2 trns){
+        public void getStackOffset(Item item, Vec2 trns) {
             trns.trns(rotdeg() + 180f, tilesize / 2f);
         }
 
         @Override
-        public int acceptStack(Item item, int amount, Teamc source){
-            return Math.min((int)(minitem / itemSpace), amount);
+        public int acceptStack(Item item, int amount, Teamc source) {
+            return Math.min((int) (minitem / itemSpace), amount);
         }
 
         @Override
-        public void handleStack(Item item, int amount, Teamc source){
+        public void handleStack(Item item, int amount, Teamc source) {
             amount = Math.min(amount, capacity - len);
 
-            for(int i = amount - 1; i >= 0; i--){
+            for (int i = amount - 1; i >= 0; i--) {
                 add(0);
                 xs[0] = 0;
                 ys[0] = i * itemSpace;
@@ -379,17 +381,17 @@ public class BeltConveyor extends BlockF implements Autotiler{
         }
 
         @Override
-        public boolean acceptItem(Building source, Item item){
-            if(len >= capacity) return false;
+        public boolean acceptItem(Building source, Item item) {
+            if (len >= capacity) return false;
             Tile facing = Edges.getFacingEdge(source.tile, tile);
-            if(facing == null) return false;
+            if (facing == null) return false;
             int direction = Math.abs(facing.relativeTo(tile.x, tile.y) - rotation);
             return (((direction == 0) && minitem >= itemSpace) || ((direction % 2 == 1) && minitem > 0.7f)) && !(source.block.rotate && next == source);
         }
 
         @Override
-        public void handleItem(Building source, Item item){
-            if(len >= capacity) return;
+        public void handleItem(Building source, Item item) {
+            if (len >= capacity) return;
 
             int r = rotation;
             Tile facing = Edges.getFacingEdge(source.tile, tile);
@@ -399,12 +401,12 @@ public class BeltConveyor extends BlockF implements Autotiler{
             noSleep();
             items.add(item, 1);
 
-            if(Math.abs(facing.relativeTo(tile.x, tile.y) - r) == 0){ //idx = 0
+            if (Math.abs(facing.relativeTo(tile.x, tile.y) - r) == 0) { //idx = 0
                 add(0);
                 xs[0] = x;
                 ys[0] = 0;
                 ids[0] = item;
-            }else{ //idx = mid
+            } else { //idx = mid
                 add(mid);
                 xs[mid] = x;
                 ys[mid] = 0.5f;
@@ -413,27 +415,27 @@ public class BeltConveyor extends BlockF implements Autotiler{
         }
 
         @Override
-        public void write(Writes write){
+        public void write(Writes write) {
             super.write(write);
             write.i(len);
 
-            for(int i = 0; i < len; i++){
-                write.i(Pack.intBytes((byte)ids[i].id, (byte)(xs[i] * 127), (byte)(ys[i] * 255 - 128), (byte)0));
+            for (int i = 0; i < len; i++) {
+                write.i(Pack.intBytes((byte) ids[i].id, (byte) (xs[i] * 127), (byte) (ys[i] * 255 - 128), (byte) 0));
             }
         }
 
         @Override
-        public void read(Reads read, byte revision){
+        public void read(Reads read, byte revision) {
             super.read(read, revision);
             int amount = read.i();
             len = Math.min(amount, capacity);
 
-            for(int i = 0; i < amount; i++){
+            for (int i = 0; i < amount; i++) {
                 int val = read.i();
-                short id = (short)(((byte)(val >> 24)) & 0xff);
-                float x = (float)((byte)(val >> 16)) / 127f;
-                float y = ((float)((byte)(val >> 8)) + 128f) / 255f;
-                if(i < capacity){
+                short id = (short) (((byte) (val >> 24)) & 0xff);
+                float x = (float) ((byte) (val >> 16)) / 127f;
+                float y = ((float) ((byte) (val >> 8)) + 128f) / 255f;
+                if (i < capacity) {
                     ids[i] = content.item(id);
                     xs[i] = x;
                     ys[i] = y;
@@ -445,13 +447,13 @@ public class BeltConveyor extends BlockF implements Autotiler{
         }
 
         @Override
-        public Object senseObject(LAccess sensor){
-            if(sensor == LAccess.firstItem && len > 0) return ids[len - 1];
+        public Object senseObject(LAccess sensor) {
+            if (sensor == LAccess.firstItem && len > 0) return ids[len - 1];
             return super.senseObject(sensor);
         }
 
-        public final void add(int o){
-            for(int i = Math.max(o + 1, len); i > o; i--){
+        public final void add(int o) {
+            for (int i = Math.max(o + 1, len); i > o; i--) {
                 ids[i] = ids[i - 1];
                 xs[i] = xs[i - 1];
                 ys[i] = ys[i - 1];
@@ -460,8 +462,8 @@ public class BeltConveyor extends BlockF implements Autotiler{
             len++;
         }
 
-        public final void remove(int o){
-            for(int i = o; i < len - 1; i++){
+        public final void remove(int o) {
+            for (int i = o; i < len - 1; i++) {
                 ids[i] = ids[i + 1];
                 xs[i] = xs[i + 1];
                 ys[i] = ys[i + 1];
@@ -472,7 +474,7 @@ public class BeltConveyor extends BlockF implements Autotiler{
 
         @Nullable
         @Override
-        public Building next(){
+        public Building next() {
             return nextc;
         }
     }

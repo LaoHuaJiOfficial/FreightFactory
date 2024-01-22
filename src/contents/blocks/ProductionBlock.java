@@ -1,6 +1,5 @@
 package contents.blocks;
 
-import prototypes.block.HeatBox.BlockF;
 import arc.struct.Seq;
 import mindustry.content.Items;
 import mindustry.gen.Sounds;
@@ -8,6 +7,7 @@ import mindustry.type.Category;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawMulti;
 import mindustry.world.draw.DrawRegion;
+import prototypes.block.HeatBox.BlockF;
 import prototypes.block.production.AssemblerBlock;
 import prototypes.drawer.DrawArcFurnace;
 

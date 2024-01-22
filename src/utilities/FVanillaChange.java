@@ -27,8 +27,6 @@ public class FVanillaChange {
         );
 
 
-
-
         BlockSetHidden(
 
             //turrets
@@ -124,7 +122,7 @@ public class FVanillaChange {
             SectorPresets.groundZero, SectorPresets.saltFlats, SectorPresets.frozenForest,
             SectorPresets.biomassFacility, SectorPresets.craters, SectorPresets.ruinousShores,
             SectorPresets.windsweptIslands, SectorPresets.stainedMountains, SectorPresets.extractionOutpost,
-            SectorPresets.coastline, SectorPresets. navalFortress, SectorPresets.fungalPass,
+            SectorPresets.coastline, SectorPresets.navalFortress, SectorPresets.fungalPass,
             SectorPresets.overgrowth, SectorPresets.tarFields, SectorPresets.impact0078,
             SectorPresets.desolateRift, SectorPresets.nuclearComplex, SectorPresets.planetaryTerminal,
             SectorPresets.onset, SectorPresets.aegis, SectorPresets.lake,
@@ -147,25 +145,26 @@ public class FVanillaChange {
         Planets.erekir.accessible = false;
     }
 
-    public static void UnitSetHidden(UnitType...units){
-        for (UnitType unit: units){
+    public static void UnitSetHidden(UnitType... units) {
+        for (UnitType unit : units) {
             unit.hidden = true;
         }
     }
+
     public static void BlockSetHidden(Block... blocks) {
         for (Block block : blocks) {
             block.buildVisibility = BuildVisibility.hidden;
         }
     }
 
-    public static void SectorSetHidden(SectorPreset...sectors){
-        for (SectorPreset sector: sectors){
+    public static void SectorSetHidden(SectorPreset... sectors) {
+        for (SectorPreset sector : sectors) {
             sector.description = null;
         }
     }
 
-    public static void StatusSetHidden(StatusEffect...statuses){
-        for(StatusEffect status: statuses){
+    public static void StatusSetHidden(StatusEffect... statuses) {
+        for (StatusEffect status : statuses) {
             status.show = false;
         }
     }

@@ -6,12 +6,12 @@ import arc.graphics.g2d.Fill;
 import arc.math.geom.Point2;
 import arc.struct.Seq;
 import arc.util.Strings;
-import utilities.FVars;
 import mindustry.Vars;
 import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.Block;
+import utilities.FVars;
 
 public class BlockF extends Block {
 

@@ -14,7 +14,7 @@ public class FFBlock {
     public static Block
         oreAluminium,
 
-        nexus,
+    nexus,
         RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode,
         HeatConduit, HeatProducer, HeatCond, HeatCrafter, RocketSilo,
 
@@ -22,24 +22,23 @@ public class FFBlock {
 
     //Production,Factory
     ArcFurnace,
-    conveyorT1, routerT1
-    ;
+        conveyorT1, routerT1;
 
 
     public static void load() {
-        conveyorT1 = new BeltConveyor("conveyor-t1"){{
+        conveyorT1 = new BeltConveyor("conveyor-t1") {{
             requirements(Category.distribution, with(Items.beryllium, 1));
             health = 100;
             itemPerSecond = 10f;
         }};
 
-        routerT1 = new BeltRouter("router-t1"){{
+        routerT1 = new BeltRouter("router-t1") {{
             requirements(Category.distribution, with(Items.beryllium, 1));
             health = 100;
             itemPerSecond = 10f;
         }};
 
-        HeatConduit = new HeatPipe("heat-pipe"){{
+        HeatConduit = new HeatPipe("heat-pipe") {{
             requirements(Category.power, with(Items.copper, 20));
             HasHeat = true;
 
