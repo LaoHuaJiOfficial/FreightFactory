@@ -14,12 +14,11 @@ import mindustry.ui.Fonts;
 import static mindustry.Vars.renderer;
 import static mindustry.Vars.tilesize;
 
-public class TextDisplay {
+public class TextUtil {
 
-    public TextDisplay(String text, int x, int y, boolean valid) {
+    public static void ShowText(String text, int x, int y) {
         if (renderer.pixelator.enabled()) return;
 
-        Color color = valid ? Pal.accent : Pal.remove;
         Font font = Fonts.outline;
         GlyphLayout layout = Pools.obtain(GlyphLayout.class, GlyphLayout::new);
         boolean ints = font.usesIntegerPositions();
@@ -27,14 +26,9 @@ public class TextDisplay {
         font.getData().setScale(1f / 4f / Scl.scl(1f));
         layout.setText(font, text);
 
-        font.setColor(color);
         float dx = x * tilesize, dy = y * tilesize;
         font.draw(text, dx, dy + layout.height + 1, Align.center);
         dy -= 1f;
-        Lines.stroke(2f, Color.darkGray);
-        Lines.line(dx - layout.width / 2f - 2f, dy, dx + layout.width / 2f + 1.5f, dy);
-        Lines.stroke(1f, color);
-        Lines.line(dx - layout.width / 2f - 2f, dy, dx + layout.width / 2f + 1.5f, dy);
 
         font.setUseIntegerPositions(ints);
         font.setColor(Color.white);

@@ -120,8 +120,6 @@ public class AssemblerBlock extends BlockF {
                 }
             }
         }
-
-        super.init();
     }
 
     @Override
@@ -362,6 +360,7 @@ public class AssemblerBlock extends BlockF {
                             CurrentRecipeIndex = recipes.indexOf(r);
                             this.items.clear();
                             this.liquids.clear();
+                            this.update();
                             configure(CurrentRecipeIndex);
                             control.input.config.hideConfig();
                         });

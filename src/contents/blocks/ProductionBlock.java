@@ -1,6 +1,7 @@
 package contents.blocks;
 
 import arc.struct.Seq;
+import contents.FFItems;
 import mindustry.content.Items;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
@@ -15,9 +16,31 @@ import static mindustry.type.ItemStack.with;
 
 public class ProductionBlock {
     public static BlockF
+        AluminiumFoundry,
         ArcFurnace;
 
     public static void load() {
+        AluminiumFoundry = new AssemblerBlock("aluminium-foundry"){{
+            requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
+
+            size = 3;
+
+            drawer = new DrawMulti(new DrawDefault(), new DrawArcFurnace());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipes = Seq.with(
+                new Recipe() {{
+                    InputItems = with(Items.sand, 4);
+                    InputPower = 30f / 60f;
+
+                    OutputItems = with(Items.silicon, 2);
+                }}
+            );
+        }};
+
+        /*
         ArcFurnace = new AssemblerBlock("arc-furnace") {{
             requirements(Category.crafting, with(Items.copper, 30, Items.beryllium, 25));
 
@@ -38,5 +61,7 @@ public class ProductionBlock {
                 }}
             );
         }};
+
+         */
     }
 }

@@ -1,9 +1,13 @@
 package contents;
 
+import contents.blocks.EnvironmentBlock;
+import contents.blocks.ProductionBlock;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.distribution.ItemBridge;
 import prototypes.block.HeatBox.HeatPipe;
+import prototypes.block.distribution.BeltBridge;
 import prototypes.block.distribution.BeltConveyor;
 import prototypes.block.distribution.BeltRouter;
 import utilities.FVars;
@@ -12,7 +16,7 @@ import static mindustry.type.ItemStack.with;
 
 public class FFBlock {
     public static Block
-        oreAluminium,
+
 
     nexus,
         RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode,
@@ -22,10 +26,14 @@ public class FFBlock {
 
     //Production,Factory
     ArcFurnace,
-        conveyorT1, routerT1;
+        conveyorT1, routerT1, bridgeT1,
+        conveyorT2, routerT2;
 
 
     public static void load() {
+
+        EnvironmentBlock.load();
+        ProductionBlock.load();
         conveyorT1 = new BeltConveyor("conveyor-t1") {{
             requirements(Category.distribution, with(Items.beryllium, 1));
             health = 100;
@@ -38,6 +46,29 @@ public class FFBlock {
             itemPerSecond = 10f;
         }};
 
+        bridgeT1 = new BeltBridge("bridge-t1") {{
+            requirements(Category.distribution, with(Items.beryllium, 1));
+            health = 100;
+
+            range = 5;
+            itemPerSecond = 10;
+
+            arrowPeriod = 0.9f;
+            arrowTimeScl = 2.75f;
+        }};
+
+        conveyorT2 = new BeltConveyor("conveyor-t2") {{
+            requirements(Category.distribution, with(Items.beryllium, 1));
+            health = 150;
+            itemPerSecond = 20f;
+        }};
+
+        routerT2 = new BeltRouter("router-t2") {{
+            requirements(Category.distribution, with(Items.beryllium, 1));
+            health = 150;
+            itemPerSecond = 20f;
+        }};
+
         HeatConduit = new HeatPipe("heat-pipe") {{
             requirements(Category.power, with(Items.copper, 20));
             HasHeat = true;
@@ -46,11 +77,7 @@ public class FFBlock {
             MinTemp = FVars.BaseLine - 100f;
         }};
         /*
-        oreAluminium = new OreBlock(FFItems.aluminium) {{
-            oreDefault = true;
-            oreThreshold = 0.81f;
-            oreScale = 23.47619f;
-        }};
+
 
         RemoteCoreInterface = new RemoteCoreBlock("remote-core-interface") {{
             requirements(Category.effect, ItemStack.with(Items.copper, 20));

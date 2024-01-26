@@ -42,8 +42,8 @@ public class DrawArcFurnace extends DrawBlock {
 
             Lines.circle(build.x, build.y, InnerCircleRad + RadSin * 0.3f);
 
-            Draw.color(Pal.reactorPurple2, Alpha);
-            Lines.circle(build.x, build.y, OuterCircleRad + RadSin * 0.3f);
+            //Draw.color(Pal.reactorPurple2, Alpha);
+            //Lines.circle(build.x, build.y, OuterCircleRad + RadSin * 0.3f);
 
 
             Draw.color(Pal.reactorPurple, Alpha);

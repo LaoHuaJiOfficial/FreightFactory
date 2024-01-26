@@ -1,27 +1,39 @@
 package prototypes.block.distribution;
 
 import arc.Core;
+import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Font;
+import arc.graphics.g2d.GlyphLayout;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
+import arc.scene.ui.Label;
+import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import arc.struct.Queue;
+import arc.util.Align;
 import arc.util.Nullable;
 import arc.util.Time;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
+import arc.util.pooling.Pools;
 import mindustry.entities.TargetPriority;
 import mindustry.gen.Building;
 import mindustry.gen.Icon;
 import mindustry.gen.Unit;
+import mindustry.graphics.Pal;
 import mindustry.type.Item;
+import mindustry.ui.Fonts;
 import mindustry.ui.Styles;
 import mindustry.world.DirectionalItemBuffer;
 import mindustry.world.Edges;
+import mindustry.world.ItemBuffer;
 import mindustry.world.Tile;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.meta.BlockGroup;
 import prototypes.block.HeatBox.BlockF;
+import utilities.ItemQueueBuffer;
+import utilities.ui.TextUtil;
 
 import static mindustry.Vars.*;
 
@@ -92,8 +104,11 @@ public class BeltRouter extends BlockF {
 
     public class BeltRouterBuild extends BuildF {
         public @Nullable Item sortItem;
-        public Queue<Item> ItemQueueBuffer = new Queue<>(10);
+        //public Queue<Item> ItemQueueBuffer = new Queue<>(10);
+        ItemQueueBuffer ItemQueueBuffer = new ItemQueueBuffer(10);
+
         public float speed = Time.toSeconds / itemPerSecond;
+        public float timeInterval = speed;
         public float progress;
         public boolean isSorter = true;
         public boolean invert;
@@ -116,6 +131,27 @@ public class BeltRouter extends BlockF {
         @Override
         public void drawSelect() {
             Draw.rect(selectRegion, x, y, rotation * 90);
+
+            String modeText = isSorter?"[accent]Sort Mode[]/Overflow Mode":"Sort Mode/[accent]Overflow Mode[]";
+            String invertText = !invert?"[accent]Normal[]/Invert":"Normal/[accent]Invert[]";
+
+            Font font = Fonts.outline;
+            GlyphLayout layout = Pools.obtain(GlyphLayout.class, GlyphLayout::new);
+            boolean ints = font.usesIntegerPositions();
+            font.setUseIntegerPositions(false);
+            font.getData().setScale(1f / 6f / Scl.scl(1f));
+
+            layout.setText(font, modeText);
+            font.draw(modeText, x, y + 10f, Align.center);
+
+            layout.setText(font, invertText);
+            font.draw(invertText, x, y + 14f, Align.center);
+
+            font.setUseIntegerPositions(ints);
+            font.setColor(Color.white);
+            font.getData().setScale(1f);
+            Draw.reset();
+            Pools.free(layout);
         }
 
         @Override
@@ -139,47 +175,45 @@ public class BeltRouter extends BlockF {
         @Override
         public boolean acceptItem(Building source, Item item) {
             return
-                !(ItemQueueBuffer.size >= 10) &&
+                ItemQueueBuffer.accepts() &&
                     (Edges.getFacingEdge(source.tile(), tile).relativeTo(tile) == rotation);
         }
 
         @Override
         public void handleItem(Building source, Item item) {
-            ItemQueueBuffer.addFirst(item);
+            ItemQueueBuffer.accept(item);
         }
 
         @Override
         public void updateTile() {
-            progress += edelta() / speed * 2f;
+            progress += edelta();
 
             if (isSorter) {
-                if (ItemQueueBuffer.size > 0) {
-                    if (progress >= (1f - 1f / speed)) {
+                if(ItemQueueBuffer.lastItem() != null){
+                    if (progress >= timeInterval) {
                         var target = routerTarget();
                         if (target != null) {
-                            target.handleItem(this, ItemQueueBuffer.last());
-                            ItemQueueBuffer.removeLast();
-                            progress %= (1f - 1f / speed);
+                            target.handleItem(this, ItemQueueBuffer.lastItem());
+                            ItemQueueBuffer.remove();
+                            progress = 0;
                         }
                     }
                 } else {
-                    progress = 0;
+                    progress = -80 / itemPerSecond;
                 }
             } else {
-
-                if (ItemQueueBuffer.size > 0) {
-                    if (progress >= (1f - 1f / speed)) {
+                if(ItemQueueBuffer.lastItem() != null){
+                    if (progress >= timeInterval) {
                         var target = overflowTarget();
                         if (target != null) {
-                            target.handleItem(this, ItemQueueBuffer.last());
+                            target.handleItem(this, ItemQueueBuffer.lastItem());
                             cdump = (byte) (cdump == 0 ? 2 : 0);
-                            items.remove(ItemQueueBuffer.last(), 1);
-                            ItemQueueBuffer.removeLast();
-                            progress %= (1f - 1f / speed);
+                            ItemQueueBuffer.remove();
+                            progress = 0;
                         }
                     }
                 } else {
-                    progress = 0;
+                    progress = -80 / itemPerSecond;
                 }
             }
 
@@ -187,7 +221,7 @@ public class BeltRouter extends BlockF {
 
         @Nullable
         public Building routerTarget() {
-            if (ItemQueueBuffer.last() == null) return null;
+            if (ItemQueueBuffer.lastItem() == null) return null;
 
             int dump = cdump;
 
@@ -196,18 +230,18 @@ public class BeltRouter extends BlockF {
                 int rel = relativeTo(other);
 
                 if (!invert) {
-                    if (!(sortItem != null && (ItemQueueBuffer.last() == sortItem) != (rel == rotation))
+                    if (!(sortItem != null && (ItemQueueBuffer.lastItem() == sortItem) != (rel == rotation))
                         && !(rel == (rotation + 2) % 4) && other.team == team
-                        && other.acceptItem(this, ItemQueueBuffer.last())) {
+                        && other.acceptItem(this, ItemQueueBuffer.lastItem())) {
 
 
                         incrementDump(proximity.size);
                         return other;
                     }
                 } else {
-                    if (!(sortItem != null && (ItemQueueBuffer.last() == sortItem) == (rel == rotation))
+                    if (!(sortItem != null && (ItemQueueBuffer.lastItem() == sortItem) == (rel == rotation))
                         && !(rel == (rotation + 2) % 4) && other.team == team
-                        && other.acceptItem(this, ItemQueueBuffer.last())) {
+                        && other.acceptItem(this, ItemQueueBuffer.lastItem())) {
 
 
                         incrementDump(proximity.size);
@@ -224,12 +258,12 @@ public class BeltRouter extends BlockF {
 
         @Nullable
         public Building overflowTarget() {
-            if (ItemQueueBuffer.last() == null) return null;
+            if (ItemQueueBuffer.lastItem() == null) return null;
 
             if (invert) {
                 Building l = left(), r = right();
-                boolean lc = l != null && l.team == team && l.acceptItem(this, ItemQueueBuffer.last()),
-                    rc = r != null && r.team == team && r.acceptItem(this, ItemQueueBuffer.last());
+                boolean lc = l != null && l.team == team && l.acceptItem(this, ItemQueueBuffer.lastItem()),
+                    rc = r != null && r.team == team && r.acceptItem(this, ItemQueueBuffer.lastItem());
 
                 if (lc && !rc) {
                     return l;
@@ -241,7 +275,7 @@ public class BeltRouter extends BlockF {
             }
 
             Building front = front();
-            if (front != null && front.team == team && front.acceptItem(this, ItemQueueBuffer.last())) {
+            if (front != null && front.team == team && front.acceptItem(this, ItemQueueBuffer.lastItem())) {
                 return front;
             }
 
@@ -251,7 +285,7 @@ public class BeltRouter extends BlockF {
                 int dir = Mathf.mod(rotation + (((i + cdump + 1) % 3) - 1), 4);
                 if (dir == rotation) continue;
                 Building other = nearby(dir);
-                if (other != null && other.team == team && other.acceptItem(this, ItemQueueBuffer.last())) {
+                if (other != null && other.team == team && other.acceptItem(this, ItemQueueBuffer.lastItem())) {
                     return other;
                 }
             }
@@ -260,10 +294,38 @@ public class BeltRouter extends BlockF {
         }
 
         @Override
+        public void drawConfigure(){
+            Draw.rect(selectRegion, x, y, rotation * 90);
+
+            String modeText = isSorter?"[accent]Sort Mode[]/Overflow Mode":"Sort Mode/[accent]Overflow Mode[]";
+            String invertText = !invert?"[accent]Normal[]/Invert":"Normal/[accent]Invert[]";
+
+            Font font = Fonts.outline;
+            GlyphLayout layout = Pools.obtain(GlyphLayout.class, GlyphLayout::new);
+            boolean ints = font.usesIntegerPositions();
+            font.setUseIntegerPositions(false);
+            font.getData().setScale(1f / 6f / Scl.scl(1f));
+
+            layout.setText(font, modeText);
+            font.draw(modeText, x, y + 10f, Align.center);
+
+            layout.setText(font, invertText);
+            font.draw(invertText, x, y + 14f, Align.center);
+
+            font.setUseIntegerPositions(ints);
+            font.setColor(Color.white);
+            font.getData().setScale(1f);
+            Draw.reset();
+            Pools.free(layout);
+        }
+
+        @Override
         public void buildConfiguration(Table table) {
+
             Table select = new Table();
-            select.button(Icon.add, Styles.defaulti, () -> isSorter = !isSorter).size(60f);
-            select.button(Icon.refresh, Styles.defaulti, () -> invert = !invert).size(60f);
+
+            select.button(Icon.diagonal, Styles.squarei, () -> isSorter = !isSorter).size(86f, 50).tooltip("Sort Mode/Overflow Mode").left();
+            select.button(Icon.refresh, Styles.squarei, () -> invert = !invert).size(86f, 50).tooltip("Normal Output/Invert Output").right();
             table.add(select);
             table.row();
             ItemSelection.buildTable(BeltRouter.this, table, content.items(), () -> sortItem, this::configure, selectionRows, selectionColumns);
@@ -275,16 +337,14 @@ public class BeltRouter extends BlockF {
         }
 
         @Override
-        public byte version() {
-            return 2;
-        }
-
-        @Override
         public void write(Writes write) {
             super.write(write);
             write.s(sortItem == null ? -1 : sortItem.id);
+            write.f(progress);
             write.bool(isSorter);
             write.bool(invert);
+
+            ItemQueueBuffer.write(write);
         }
 
         @Override
@@ -293,10 +353,9 @@ public class BeltRouter extends BlockF {
             sortItem = content.item(read.s());
             isSorter = read.bool();
             invert = read.bool();
+            progress = read.f();
 
-            if (revision == 1) {
-                new DirectionalItemBuffer(20).read(read);
-            }
+            ItemQueueBuffer.read(read);
         }
     }
 }

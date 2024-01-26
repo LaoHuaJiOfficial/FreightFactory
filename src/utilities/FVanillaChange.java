@@ -49,9 +49,9 @@ public class FVanillaChange {
 
             //transport
             Blocks.conveyor, Blocks.titaniumConveyor, Blocks.plastaniumConveyor, Blocks.armoredConveyor,
-            /*Blocks.junction, Blocks.itemBridge, Blocks.phaseConveyor, Blocks.sorter,
+            Blocks.junction, Blocks.itemBridge, Blocks.phaseConveyor, Blocks.sorter,
             Blocks.invertedSorter, Blocks.router, Blocks.distributor, Blocks.overflowGate,
-            Blocks.underflowGate, */Blocks.massDriver, Blocks.duct, Blocks.armoredDuct,
+            Blocks.underflowGate, Blocks.massDriver, Blocks.duct, Blocks.armoredDuct,
             Blocks.ductRouter, Blocks.overflowDuct, Blocks.underflowDuct, Blocks.ductBridge,
             Blocks.ductUnloader, Blocks.surgeConveyor, Blocks.surgeRouter, Blocks.unitCargoLoader,
             Blocks.unitCargoUnloadPoint,

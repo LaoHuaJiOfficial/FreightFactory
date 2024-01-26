@@ -15,6 +15,8 @@ import utilities.FVars;
 
 public class BlockF extends Block {
 
+
+    //todo may add a heat module later
     protected static final Point2[] AdjoinTile = {
         new Point2(1, 0),
         new Point2(0, 1),

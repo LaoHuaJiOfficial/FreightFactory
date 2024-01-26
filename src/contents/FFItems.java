@@ -5,13 +5,13 @@ import mindustry.type.Item;
 
 public class FFItems {
     public static Item
+        bauxite,
         aluminium;
 
     public static void load() {
-        aluminium = new Item("aluminium", Color.valueOf("c8c8c8")) {{
+        bauxite = new Item("bauxite", Color.valueOf("9391bb")){{
             hardness = 1;
             cost = 0.5f;
-            alwaysUnlocked = true;
         }};
     }
 }
