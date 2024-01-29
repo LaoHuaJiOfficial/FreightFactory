@@ -61,7 +61,7 @@ public class AssemblerBlock extends BlockF {
         //TODO maybe merge this?
 
         consume(new ConsumeItemDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputItems : null));
-        consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputLiquids : null));
+        consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputLiquids: null));
         consume(new ConsumePowerDynamic(p -> {
             AssemblerBlockBuild e = (AssemblerBlockBuild) p;
             return e.getInputPower();
@@ -118,6 +118,10 @@ public class AssemblerBlock extends BlockF {
                     capacities[stack.item.id] = Math.max(capacities[stack.item.id], stack.amount * 10);
                     itemCapacity = Math.max(itemCapacity, stack.amount * 2);
                 }
+            }
+
+            if (r.InputLiquids != null || r.OutputLiquids != null){
+                hasLiquids = true;
             }
         }
     }
@@ -253,6 +257,10 @@ public class AssemblerBlock extends BlockF {
                     for (var output : OutputLiquids) {
                         handleLiquid(this, output.liquid, Math.min(output.amount * inc, liquidCapacity - liquids.get(output.liquid)));
                     }
+                }
+
+                if(wasVisible && Mathf.chanceDelta(current().updateEffectChance)){
+                    current().updateEffect.at(x + Mathf.range(size * 4f), y + Mathf.range(size * 4));
                 }
 
             } else {
@@ -485,6 +493,10 @@ public class AssemblerBlock extends BlockF {
                             offload(output.item);
                         }
                     }
+                }
+
+                if(wasVisible){
+                    current().craftEffect.at(x, y);
                 }
 
                 progress %= 1f;

@@ -5,10 +5,10 @@ import mindustry.world.Block;
 import mindustry.world.blocks.environment.OreBlock;
 
 public class EnvironmentBlock {
-    public static Block oreAluminium;
+    public static Block OreBauxite;
 
     public static void load(){
-        oreAluminium = new OreBlock(FFItems.bauxite) {{
+        OreBauxite = new OreBlock("ore-bauxite", FFItems.bauxite) {{
             oreDefault = true;
             oreThreshold = 0.81f;
             oreScale = 23.47619f;
