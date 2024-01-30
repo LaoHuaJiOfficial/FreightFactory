@@ -28,6 +28,7 @@ import mindustry.world.meta.BlockFlag;
 import prototypes.block.HeatBox.BlockF;
 import prototypes.block.consumer.ConsumeItemDynamicF;
 import prototypes.block.consumer.ConsumeLiquidsDynamicF;
+import prototypes.block.consumer.ConsumeShow;
 import utilities.ui.ArrowTempDisplay;
 import utilities.ui.HeatDisplay;
 import utilities.ui.LiquidDisplayF;
@@ -66,6 +67,11 @@ public class AssemblerBlock extends BlockF {
             AssemblerBlockBuild e = (AssemblerBlockBuild) p;
             return e.getInputPower();
         }));
+
+        consume(new ConsumeShow(
+            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputItems : null,
+            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputLiquids: null
+        ));
 
         configurable = true;
         saveConfig = true;

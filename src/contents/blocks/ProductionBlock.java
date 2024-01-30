@@ -7,14 +7,9 @@ import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
-import mindustry.type.Liquid;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
-import mindustry.world.draw.DrawDefault;
-import mindustry.world.draw.DrawLiquidRegion;
-import mindustry.world.draw.DrawMulti;
-import mindustry.world.draw.DrawRegion;
-import prototypes.block.HeatBox.BlockF;
+import mindustry.world.draw.*;
 import prototypes.block.production.AreaDrill;
 import prototypes.block.production.AssemblerBlock;
 import prototypes.drawer.DrawArcFurnace;
@@ -26,7 +21,7 @@ public class ProductionBlock {
         //Production
         ResonanceDrill, Greenhouse,
         //Factories
-        AluminiumFoundry,
+        FoundryT1, CompressorT1,
         ArcFurnace;
 
     public static void load() {
@@ -49,7 +44,11 @@ public class ProductionBlock {
 
             size = 3;
 
-            drawer = new DrawMulti(new DrawRegion("-base"), new DrawLiquidRegion(), new DrawDefault());
+            drawer = new DrawMulti(
+                new DrawRegion("-base"),
+                new DrawLiquidRegion(Liquids.water),
+                new DrawCultivator(),
+                new DrawDefault());
 
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.09f;
@@ -59,18 +58,67 @@ public class ProductionBlock {
             recipes = Seq.with(
                 new Recipe() {{
                     InputLiquids = LiquidStack.with(Liquids.water, 12f / 60f);
-                    InputPower = 80f / 60f;
+                    InputPower = 40f / 60f;
 
                     OutputItems = with(FFItems.leaf, 2);
 
                     CraftTime = 120f;
 
                     craftEffect = Fx.smeltsmoke;
+                }},
+
+                new Recipe() {{
+                    InputLiquids = LiquidStack.with(Liquids.water, 10f / 60f);
+                    InputPower = 30f / 60f;
+
+                    OutputItems = with(FFItems.wheat, 3);
+
+                    CraftTime = 180f;
+
+                    craftEffect = Fx.smeltsmoke;
                 }}
             );
         }};
 
-        AluminiumFoundry = new AssemblerBlock("aluminium-foundry"){{
+        CompressorT1 = new AssemblerBlock("compressor-t1"){{
+            requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
+
+            size = 3;
+
+            drawer = new DrawMulti(new DrawDefault(), new DrawArcFurnace());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipes = Seq.with(
+                new Recipe() {{
+                    InputItems = with(Items.coal, 4);
+                    InputPower = 30f / 60f;
+
+                    OutputItems = with(Items.graphite, 2);
+
+                    CraftTime = 120f;
+
+                    updateEffect = craftEffect = Fx.smeltsmoke;
+                }},
+
+                new Recipe() {{
+                    InputItems = with(Items.coal, 6);
+                    InputLiquids = LiquidStack.with(Liquids.water, 4f / 60f);
+                    InputPower = 50f / 60f;
+
+                    OutputItems = with(Items.graphite, 4);
+
+                    CraftTime = 90f;
+
+                    updateEffect = craftEffect = Fx.smeltsmoke;
+
+                }}
+
+            );
+        }};
+
+        FoundryT1 = new AssemblerBlock("foundry-t1"){{
             requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
 
             size = 3;
@@ -89,8 +137,6 @@ public class ProductionBlock {
                 }}
             );
         }};
-
-
 
         /*
         ArcFurnace = new AssemblerBlock("arc-furnace") {{

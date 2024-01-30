@@ -5,7 +5,7 @@ import mindustry.type.Item;
 
 public class FFItems {
     public static Item
-        bauxite, leaf,
+        bauxite, leaf, wheat,
         aluminium;
 
     public static void load() {
@@ -15,6 +15,10 @@ public class FFItems {
         }};
 
         leaf = new Item("leaf", Color.valueOf("509f3f")){{
+            flammability = 0.8f;
+        }};
+
+        wheat = new Item("wheat", Color.valueOf("509f3f")){{
             flammability = 0.8f;
         }};
     }

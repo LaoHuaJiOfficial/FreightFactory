@@ -24,6 +24,7 @@ public class ConsumeLiquidsDynamicF extends Consume {
             block.hasLiquids = true;
         }
     }
+    /*
 
     @Override
     public void build(Building build, Table table) {
@@ -55,6 +56,8 @@ public class ConsumeLiquidsDynamicF extends Consume {
             }
         }
     }
+
+     */
 
     @Override
     public void update(Building build) {

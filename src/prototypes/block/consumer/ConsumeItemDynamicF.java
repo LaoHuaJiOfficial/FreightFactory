@@ -25,6 +25,7 @@ public class ConsumeItemDynamicF extends Consume {
         }
     }
 
+    /*
     @Override
     public void build(Building build, Table table) {
         if (items != null && items.get(build) != null) {
@@ -55,6 +56,7 @@ public class ConsumeItemDynamicF extends Consume {
             }
         }
     }
+     */
 
     @Override
     public void trigger(Building build) {
