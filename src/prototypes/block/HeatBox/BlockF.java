@@ -11,7 +11,7 @@ import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.Block;
-import utilities.FVars;
+import utilities.game.FVars;
 
 public class BlockF extends Block {
 
@@ -215,7 +215,7 @@ public class BlockF extends Block {
 
         public BuildF GetAdjoinTile(Point2 pos) {
             Building build = Vars.world.build(tileX() + pos.x, tileY() + pos.y);
-            return (build instanceof BuildF ? (BuildF) build : null);
+            return (build instanceof BuildF f? (f.HasHeat()?(BuildF) build: null) : null);
         }
     }
 }

@@ -1,4 +1,4 @@
-package utilities;
+package utilities.game;
 
 import mindustry.content.*;
 import mindustry.type.SectorPreset;

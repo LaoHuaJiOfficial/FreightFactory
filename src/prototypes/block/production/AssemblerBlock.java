@@ -29,10 +29,10 @@ import prototypes.block.HeatBox.BlockF;
 import prototypes.block.consumer.ConsumeItemDynamicF;
 import prototypes.block.consumer.ConsumeLiquidsDynamicF;
 import prototypes.block.consumer.ConsumeShow;
-import utilities.ui.ArrowTempDisplay;
-import utilities.ui.HeatDisplay;
-import utilities.ui.LiquidDisplayF;
-import utilities.ui.PowerDisplay;
+import utilities.ui.display.ArrowTempDisplay;
+import utilities.ui.display.HeatDisplay;
+import utilities.ui.display.LiquidDisplayF;
+import utilities.ui.display.PowerDisplay;
 
 import static mindustry.Vars.control;
 
@@ -61,16 +61,16 @@ public class AssemblerBlock extends BlockF {
 
         //TODO maybe merge this?
 
-        consume(new ConsumeItemDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputItems : null));
-        consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputLiquids: null));
+        consume(new ConsumeItemDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).inputItems : null));
+        consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).inputLiquids : null));
         consume(new ConsumePowerDynamic(p -> {
             AssemblerBlockBuild e = (AssemblerBlockBuild) p;
             return e.getInputPower();
         }));
 
         consume(new ConsumeShow(
-            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputItems : null,
-            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).InputLiquids: null
+            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).inputItems : null,
+            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).inputLiquids : null
         ));
 
         configurable = true;
@@ -113,20 +113,20 @@ public class AssemblerBlock extends BlockF {
             if (r.HasHeat()) {
                 HasHeat = true;
             }
-            if (r.OutputHeatAmount > 0) {
+            if (r.outputHeatAmount > 0) {
                 OutputHeat = true;
             }
-            if (r.InputHeatAmount > 0) {
+            if (r.inputHeatAmount > 0) {
                 InputHeat = true;
             }
-            if (r.InputItems != null) {
-                for (ItemStack stack : r.InputItems) {
+            if (r.inputItems != null) {
+                for (ItemStack stack : r.inputItems) {
                     capacities[stack.item.id] = Math.max(capacities[stack.item.id], stack.amount * 10);
                     itemCapacity = Math.max(itemCapacity, stack.amount * 2);
                 }
             }
 
-            if (r.InputLiquids != null || r.OutputLiquids != null){
+            if (r.inputLiquids != null || r.outputLiquids != null){
                 hasLiquids = true;
             }
         }
@@ -159,20 +159,20 @@ public class AssemblerBlock extends BlockF {
 
 
     public static class Recipe {
-        public @Nullable ItemStack[] InputItems;
-        public @Nullable ItemStack[] OutputItems;
-        public @Nullable LiquidStack[] InputLiquids;
-        public @Nullable LiquidStack[] OutputLiquids;
-        public float InputHeatAmount = 0f;
-        public float InputTempThreshold = 300f;
-        public float OutputHeatAmount = 0f;
-        public float OutputTempThreshold = 300f;
-        public boolean IsCoolant = false;
-        public @Nullable PayloadStack[] InputPayloads;
-        public @Nullable PayloadStack[] OutputPayloads;
-        public @Nullable float InputPower;
-        public @Nullable float OutputPower;
-        public float CraftTime = 60f;
+        public @Nullable ItemStack[] inputItems;
+        public @Nullable ItemStack[] outputItems;
+        public @Nullable LiquidStack[] inputLiquids;
+        public @Nullable LiquidStack[] outputLiquids;
+        public float inputHeatAmount = 0f;
+        public float inputTempThreshold = 300f;
+        public float outputHeatAmount = 0f;
+        public float outputTempThreshold = 300f;
+        public boolean isCoolant = false;
+        public @Nullable PayloadStack[] inputPayloads;
+        public @Nullable PayloadStack[] outputPayloads;
+        public @Nullable float inputPower;
+        public @Nullable float outputPower;
+        public float craftTime = 60f;
 
         public int[] liquidOutputDirections = {-1};
         public boolean dumpExtraLiquid = true;
@@ -183,8 +183,12 @@ public class AssemblerBlock extends BlockF {
         public float updateEffectChance = 0.04f;
         public @Nullable Color TintColor;
 
+        //TODO change to bundles
+        public @Nullable String recipeName;
+        public @Nullable String recipeDescription;
+
         public boolean HasHeat() {
-            return InputHeatAmount > 0 || OutputHeatAmount > 0;
+            return inputHeatAmount > 0 || outputHeatAmount > 0;
         }
 
     }
@@ -226,7 +230,7 @@ public class AssemblerBlock extends BlockF {
 
         public float getInputPower() {
             if (CurrentRecipeIndex != -1) {
-                return current().InputPower;
+                return current().inputPower;
             } else {
                 return 0f;
             }
@@ -252,9 +256,9 @@ public class AssemblerBlock extends BlockF {
 
             if (efficiency > 0 && CurrentRecipeIndex != -1) {
 
-                LiquidStack[] OutputLiquids = current().OutputLiquids;
+                LiquidStack[] OutputLiquids = current().outputLiquids;
 
-                progress += getProgressIncrease(current().CraftTime);
+                progress += getProgressIncrease(current().craftTime);
                 warmup = Mathf.approachDelta(warmup, warmupTarget(), warmupSpeed);
 
                 //continuously output based on efficiency
@@ -278,11 +282,11 @@ public class AssemblerBlock extends BlockF {
 
             if (progress >= 1f) {
                 craft();
-                if (current().OutputHeatAmount > 0) {
-                    HeatBox.HeatAdd(current().OutputHeatAmount, current().OutputTempThreshold);
+                if (current().outputHeatAmount > 0) {
+                    HeatBox.HeatAdd(current().outputHeatAmount, current().outputTempThreshold);
                 }
-                if (current().InputHeatAmount > 0) {
-                    HeatBox.HeatRemove(current().InputHeatAmount, current().InputTempThreshold);
+                if (current().inputHeatAmount > 0) {
+                    HeatBox.HeatRemove(current().inputHeatAmount, current().inputTempThreshold);
                 }
             }
 
@@ -310,64 +314,65 @@ public class AssemblerBlock extends BlockF {
                                 //input draw left
                                 t.left();
                                 //input items
-                                if (r.InputItems != null) {
-                                    for (int i = 0; i < r.InputItems.length; i++) {
-                                        ItemStack stack = r.InputItems[i];
+                                if (r.inputItems != null) {
+                                    for (int i = 0; i < r.inputItems.length; i++) {
+                                        ItemStack stack = r.inputItems[i];
                                         info.add(new ItemDisplay(stack.item, stack.amount, false)).left().pad(5);
                                     }
                                 }
                                 //input liquids
-                                if (r.InputLiquids != null) {
-                                    for (int i = 0; i < r.InputLiquids.length; i++) {
-                                        LiquidStack stack = r.InputLiquids[i];
+                                if (r.inputLiquids != null) {
+                                    for (int i = 0; i < r.inputLiquids.length; i++) {
+                                        LiquidStack stack = r.inputLiquids[i];
                                         info.add(new LiquidDisplayF(stack.liquid, stack.amount, false)).left().pad(5);
                                     }
                                 }
                                 //todo payload here
                                 //input heat
-                                if (r.InputHeatAmount > 0 && !r.IsCoolant) {
-                                    info.add(new HeatDisplay(r.InputHeatAmount, false));
+                                if (r.inputHeatAmount > 0 && !r.isCoolant) {
+                                    info.add(new HeatDisplay(r.inputHeatAmount, false));
                                 }
-                                if (r.OutputHeatAmount > 0 && r.IsCoolant) {
-                                    info.add(new HeatDisplay(r.OutputHeatAmount, true));
+                                if (r.outputHeatAmount > 0 && r.isCoolant) {
+                                    info.add(new HeatDisplay(r.outputHeatAmount, true));
                                 }
                                 //input power
-                                if (r.InputPower > 0) {
-                                    info.add(new PowerDisplay(r.InputPower, true));
+                                if (r.inputPower > 0) {
+                                    info.add(new PowerDisplay(r.inputPower, true));
                                 }
 
                                 //arrow
                                 info.add(new ArrowTempDisplay(0, true));
 
                                 //output items
-                                if (r.OutputItems != null) {
-                                    for (int i = 0; i < r.OutputItems.length; i++) {
-                                        ItemStack stack = r.OutputItems[i];
+                                if (r.outputItems != null) {
+                                    for (int i = 0; i < r.outputItems.length; i++) {
+                                        ItemStack stack = r.outputItems[i];
                                         info.add(new ItemDisplay(stack.item, stack.amount, false)).left().pad(5);
                                     }
                                 }
                                 //output liquids
-                                if (r.OutputLiquids != null) {
-                                    for (int i = 0; i < r.OutputLiquids.length; i++) {
-                                        LiquidStack stack = r.OutputLiquids[i];
+                                if (r.outputLiquids != null) {
+                                    for (int i = 0; i < r.outputLiquids.length; i++) {
+                                        LiquidStack stack = r.outputLiquids[i];
                                         info.add(new LiquidDisplayF(stack.liquid, stack.amount, false)).left().pad(5);
                                     }
                                 }
                                 //todo payload here
                                 //output heat
-                                if (r.InputHeatAmount > 0 && r.IsCoolant) {
-                                    info.add(new HeatDisplay(r.InputHeatAmount, false));
+                                if (r.inputHeatAmount > 0 && r.isCoolant) {
+                                    info.add(new HeatDisplay(r.inputHeatAmount, false));
                                 }
-                                if (r.OutputHeatAmount > 0 && !r.IsCoolant) {
-                                    info.add(new HeatDisplay(r.OutputHeatAmount, true));
+                                if (r.outputHeatAmount > 0 && !r.isCoolant) {
+                                    info.add(new HeatDisplay(r.outputHeatAmount, true));
                                 }
 
                                 //output power
-                                if (r.OutputPower > 0) {
-                                    info.add(new PowerDisplay(r.OutputPower, false));
+                                if (r.outputPower > 0) {
+                                    info.add(new PowerDisplay(r.outputPower, false));
                                 }
                             });
-                        }).grow().pad(10f);
+                        }).grow().pad(10f)
+                            .tooltip("[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription+"[]" );
 
                         button.setStyle(Styles.clearNoneTogglei);
                         button.changed(() -> {
@@ -406,16 +411,16 @@ public class AssemblerBlock extends BlockF {
         public boolean shouldConsume() {
             if (CurrentRecipeIndex == -1) return false;
 
-            if (current().OutputItems != null) {
-                for (var output : current().OutputItems) {
+            if (current().outputItems != null) {
+                for (var output : current().outputItems) {
                     if (items.get(output.item) + output.amount > itemCapacity) {
                         return false;
                     }
                 }
             }
-            if (current().OutputLiquids != null && !current().ignoreLiquidFullness) {
+            if (current().outputLiquids != null && !current().ignoreLiquidFullness) {
                 boolean allFull = true;
-                for (var output : current().OutputLiquids) {
+                for (var output : current().outputLiquids) {
                     if (liquids.get(output.liquid) >= liquidCapacity - 0.001f) {
                         if (!current().dumpExtraLiquid) {
                             return false;
@@ -442,20 +447,20 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public boolean acceptItem(Building source, Item item) {
-            return (CurrentRecipeIndex != -1 && current().InputItems != null && this.items.get(item) < this.getMaximumAccepted(item) &&
-                Structs.contains(current().InputItems, stack -> stack.item == item));
+            return (CurrentRecipeIndex != -1 && current().inputItems != null && this.items.get(item) < this.getMaximumAccepted(item) &&
+                Structs.contains(current().inputItems, stack -> stack.item == item));
         }
 
         @Override
         public boolean acceptLiquid(Building source, Liquid liquid) {
-            return (CurrentRecipeIndex != -1 && current().InputLiquids != null && this.liquids.get(liquid) < this.block.liquidCapacity) &&
-                Structs.contains(current().InputLiquids, stack -> stack.liquid == liquid);
+            return (CurrentRecipeIndex != -1 && current().inputLiquids != null && this.liquids.get(liquid) < this.block.liquidCapacity) &&
+                Structs.contains(current().inputLiquids, stack -> stack.liquid == liquid);
         }
 
 
         @Override
         public float getProgressIncrease(float baseTime) {
-            LiquidStack[] OutputLiquids = current().OutputLiquids;
+            LiquidStack[] OutputLiquids = current().outputLiquids;
             if (current().ignoreLiquidFullness) {
                 return super.getProgressIncrease(baseTime);
             }
@@ -492,7 +497,7 @@ public class AssemblerBlock extends BlockF {
         public void craft() {
             if (CurrentRecipeIndex != -1) {
                 consume();
-                ItemStack[] OutputItems = current().OutputItems;
+                ItemStack[] OutputItems = current().outputItems;
                 if (OutputItems != null) {
                     for (var output : OutputItems) {
                         for (int i = 0; i < output.amount; i++) {
@@ -512,8 +517,8 @@ public class AssemblerBlock extends BlockF {
         public void dumpOutputs() {
             if (CurrentRecipeIndex != -1) {
 
-                ItemStack[] OutputItems = current().OutputItems;
-                LiquidStack[] OutputLiquids = current().OutputLiquids;
+                ItemStack[] OutputItems = current().outputItems;
+                LiquidStack[] OutputLiquids = current().outputLiquids;
                 int[] liquidOutputDirections = current().liquidOutputDirections;
 
                 if (OutputItems != null && timer(timerDump, dumpTime / timeScale)) {

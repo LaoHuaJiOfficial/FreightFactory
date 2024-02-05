@@ -1,4 +1,4 @@
-package utilities;
+package utilities.game;
 
 import arc.ApplicationListener;
 import arc.Events;

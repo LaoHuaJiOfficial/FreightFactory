@@ -5,12 +5,11 @@ import contents.blocks.ProductionBlock;
 import mindustry.content.Items;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.distribution.ItemBridge;
 import prototypes.block.HeatBox.HeatPipe;
 import prototypes.block.distribution.BeltBridge;
 import prototypes.block.distribution.BeltConveyor;
 import prototypes.block.distribution.BeltRouter;
-import utilities.FVars;
+import utilities.game.FVars;
 
 import static mindustry.type.ItemStack.with;
 

@@ -1,6 +1,8 @@
+package utilities.game;
+
 import arc.util.Log;
 import mindustry.ui.fragments.HudFragment;
-import utilities.ui.PlacementFragmentF;
+import utilities.ui.fragment.PlacementFragmentF;
 
 import java.lang.reflect.Field;
 

@@ -1,4 +1,4 @@
-package utilities;
+package utilities.game;
 
 import arc.util.Time;
 import arc.util.io.Reads;

@@ -7,10 +7,9 @@ import mindustry.gen.Building;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.ui.ItemImage;
-import mindustry.ui.LiquidDisplay;
 import mindustry.ui.ReqImage;
 import mindustry.world.consumers.Consume;
-import utilities.ui.LiquidDisplayF;
+import utilities.ui.display.LiquidDisplayF;
 
 
 //This is just for show stats for annoying ConsumeDynamics

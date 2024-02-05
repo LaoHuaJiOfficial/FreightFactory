@@ -1,4 +1,4 @@
-package utilities.ui;
+package utilities.ui.display;
 
 import arc.graphics.Color;
 import arc.scene.ui.Image;

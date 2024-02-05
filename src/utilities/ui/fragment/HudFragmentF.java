@@ -1,4 +1,4 @@
-package utilities.ui;
+package utilities.ui.fragment;
 
 import arc.Core;
 import arc.Events;

@@ -1,4 +1,4 @@
-package utilities.ui;
+package utilities.ui.dialog;
 
 import mindustry.ui.dialogs.BaseDialog;
 
