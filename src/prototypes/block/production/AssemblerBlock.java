@@ -1,23 +1,24 @@
 package prototypes.block.production;
 
+import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
+import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.ScrollPane;
+import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
 import arc.struct.Seq;
-import arc.util.Eachable;
-import arc.util.Nullable;
-import arc.util.Structs;
-import arc.util.Time;
+import arc.util.*;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.gen.Sounds;
+import mindustry.gen.Tex;
 import mindustry.type.*;
 import mindustry.ui.ItemDisplay;
 import mindustry.ui.Styles;
@@ -29,12 +30,10 @@ import prototypes.block.HeatBox.BlockF;
 import prototypes.block.consumer.ConsumeItemDynamicF;
 import prototypes.block.consumer.ConsumeLiquidsDynamicF;
 import prototypes.block.consumer.ConsumeShow;
-import utilities.ui.display.ArrowTempDisplay;
-import utilities.ui.display.HeatDisplay;
-import utilities.ui.display.LiquidDisplayF;
-import utilities.ui.display.PowerDisplay;
+import utilities.ui.display.*;
 
 import static mindustry.Vars.control;
+import static mindustry.Vars.iconMed;
 
 public class AssemblerBlock extends BlockF {
 
@@ -42,6 +41,7 @@ public class AssemblerBlock extends BlockF {
     public int[] capacities = {};
     public Seq<Recipe> recipes = new Seq<>(4);
     public DrawBlock drawer = new DrawDefault();
+    public TextureRegion timeIcon;
 
     public AssemblerBlock(String name) {
         super(name);
@@ -100,8 +100,13 @@ public class AssemblerBlock extends BlockF {
     @Override
     public void load() {
         super.load();
-
+        timeIcon = Core.atlas.find("ff-time-icon");
         drawer.load(this);
+
+        for (Recipe r : recipes){
+            r.recipeName = Core.bundle.get("recipe." + r.name + ".name");
+            r.recipeDescription = Core.bundle.get("recipe." + r.name + ".desc");
+        }
     }
 
 
@@ -159,6 +164,9 @@ public class AssemblerBlock extends BlockF {
 
 
     public static class Recipe {
+
+        public String name = "recipe-name";
+
         public @Nullable ItemStack[] inputItems;
         public @Nullable ItemStack[] outputItems;
         public @Nullable LiquidStack[] inputLiquids;
@@ -183,7 +191,6 @@ public class AssemblerBlock extends BlockF {
         public float updateEffectChance = 0.04f;
         public @Nullable Color TintColor;
 
-        //TODO change to bundles
         public @Nullable String recipeName;
         public @Nullable String recipeDescription;
 
@@ -312,19 +319,26 @@ public class AssemblerBlock extends BlockF {
                         button.table(info -> {
                             info.table(t -> {
                                 //input draw left
+                                info.add(new Stack() {{
+                                    add(new Image(timeIcon).setScaling(Scaling.fit));
+
+                                    Table t = new Table().left().bottom();
+                                    t.add(Strings.autoFixed(r.craftTime / 60f , 1)+ "s").style(Styles.outlineLabel);
+                                    add(t);
+                                }}).size(iconMed).padRight(12);
                                 t.left();
                                 //input items
                                 if (r.inputItems != null) {
                                     for (int i = 0; i < r.inputItems.length; i++) {
                                         ItemStack stack = r.inputItems[i];
-                                        info.add(new ItemDisplay(stack.item, stack.amount, false)).left().pad(5);
+                                        info.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
                                     }
                                 }
                                 //input liquids
                                 if (r.inputLiquids != null) {
                                     for (int i = 0; i < r.inputLiquids.length; i++) {
                                         LiquidStack stack = r.inputLiquids[i];
-                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount, false)).left().pad(5);
+                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount, false)).padRight(3);
                                     }
                                 }
                                 //todo payload here
@@ -347,14 +361,14 @@ public class AssemblerBlock extends BlockF {
                                 if (r.outputItems != null) {
                                     for (int i = 0; i < r.outputItems.length; i++) {
                                         ItemStack stack = r.outputItems[i];
-                                        info.add(new ItemDisplay(stack.item, stack.amount, false)).left().pad(5);
+                                        info.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
                                     }
                                 }
                                 //output liquids
                                 if (r.outputLiquids != null) {
                                     for (int i = 0; i < r.outputLiquids.length; i++) {
                                         LiquidStack stack = r.outputLiquids[i];
-                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount, false)).left().pad(5);
+                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount, false)).padRight(3);
                                     }
                                 }
                                 //todo payload here
@@ -371,7 +385,7 @@ public class AssemblerBlock extends BlockF {
                                     info.add(new PowerDisplay(r.outputPower, false));
                                 }
                             });
-                        }).grow().pad(10f)
+                        }).style(recipes.indexOf(r) % 2 == 0? Styles.flati: Styles.cleari).left().expand().pad(10f)
                             .tooltip("[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription+"[]" );
 
                         button.setStyle(Styles.clearNoneTogglei);

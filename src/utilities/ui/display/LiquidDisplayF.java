@@ -33,7 +33,7 @@ public class LiquidDisplayF extends Table {
                 t.add(Strings.autoFixed(amount * 60f, 2)).style(Styles.outlineLabel);
                 add(t);
             }
-        }}).size(iconMed).padRight(3 + (amount != 0 && Strings.autoFixed(amount, 2).length() > 2 ? 8 : 0));
+        }}).size(iconMed);
 
         if (perSecond) {
             add(StatUnit.perSecond.localized()).padLeft(2).padRight(5).color(Color.lightGray).style(Styles.outlineLabel);

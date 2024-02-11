@@ -34,7 +34,7 @@ public class HeatDisplay extends Table {
     public HeatDisplay(float amount, boolean isInput) {
 
         add(new Stack() {{
-            var image = new Image(Icon.waves).setScaling(Scaling.fit);
+            var image = new Image(Icon.waves).setScaling(Scaling.bounded);
             if (isInput) {
                 image.setColor(Pal.remove);
             } else {
