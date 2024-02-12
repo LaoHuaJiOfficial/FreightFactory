@@ -1,7 +1,6 @@
 package prototypes.block.production;
 
 import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.scene.ui.Image;
@@ -13,12 +12,9 @@ import arc.struct.EnumSet;
 import arc.struct.Seq;
 import arc.util.*;
 import mindustry.Vars;
-import mindustry.content.Fx;
-import mindustry.entities.Effect;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.gen.Sounds;
-import mindustry.gen.Tex;
 import mindustry.type.*;
 import mindustry.ui.ItemDisplay;
 import mindustry.ui.Styles;
@@ -30,7 +26,11 @@ import prototypes.block.HeatBox.BlockF;
 import prototypes.block.consumer.ConsumeItemDynamicF;
 import prototypes.block.consumer.ConsumeLiquidsDynamicF;
 import prototypes.block.consumer.ConsumeShow;
-import utilities.ui.display.*;
+import prototypes.recipe.Recipe;
+import utilities.ui.display.ArrowTempDisplay;
+import utilities.ui.display.HeatDisplay;
+import utilities.ui.display.LiquidDisplayF;
+import utilities.ui.display.PowerDisplay;
 
 import static mindustry.Vars.control;
 import static mindustry.Vars.iconMed;
@@ -39,7 +39,7 @@ public class AssemblerBlock extends BlockF {
 
     public float warmupSpeed = 0.02f;
     public int[] capacities = {};
-    public Seq<Recipe> recipes = new Seq<>(4);
+    public Seq<Recipe> recipeSeq = new Seq<>(4);
     public DrawBlock drawer = new DrawDefault();
     public TextureRegion timeIcon;
 
@@ -61,16 +61,16 @@ public class AssemblerBlock extends BlockF {
 
         //TODO maybe merge this?
 
-        consume(new ConsumeItemDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).inputItems : null));
-        consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).inputLiquids : null));
+        consume(new ConsumeItemDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.CurrentRecipeIndex, recipeSeq.size - 1)).inputItems : null));
+        consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.CurrentRecipeIndex, recipeSeq.size - 1)).inputLiquids : null));
         consume(new ConsumePowerDynamic(p -> {
             AssemblerBlockBuild e = (AssemblerBlockBuild) p;
             return e.getInputPower();
         }));
 
         consume(new ConsumeShow(
-            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).inputItems : null,
-            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipes.get(Math.min(e.CurrentRecipeIndex, recipes.size - 1)).inputLiquids : null
+            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.CurrentRecipeIndex, recipeSeq.size - 1)).inputItems : null,
+            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.CurrentRecipeIndex, recipeSeq.size - 1)).inputLiquids : null
         ));
 
         configurable = true;
@@ -80,14 +80,14 @@ public class AssemblerBlock extends BlockF {
             if (!configurable) return;
 
             if (tile.CurrentRecipeIndex == i) return;
-            tile.CurrentRecipeIndex = i < 0 || i >= recipes.size ? -1 : i;
+            tile.CurrentRecipeIndex = i < 0 || i >= recipeSeq.size ? -1 : i;
             tile.progress = 0;
         });
 
         config(Recipe.class, (AssemblerBlockBuild tile, Recipe val) -> {
             if (!configurable) return;
 
-            int next = recipes.indexOf(val);
+            int next = recipeSeq.indexOf(val);
             if (tile.CurrentRecipeIndex == next) return;
             tile.CurrentRecipeIndex = next;
             tile.progress = 0;
@@ -103,7 +103,7 @@ public class AssemblerBlock extends BlockF {
         timeIcon = Core.atlas.find("ff-time-icon");
         drawer.load(this);
 
-        for (Recipe r : recipes){
+        for (Recipe r : recipeSeq){
             r.recipeName = Core.bundle.get("recipe." + r.name + ".name");
             r.recipeDescription = Core.bundle.get("recipe." + r.name + ".desc");
         }
@@ -114,7 +114,7 @@ public class AssemblerBlock extends BlockF {
     public void init() {
         super.init();
         capacities = new int[Vars.content.items().size];
-        for (Recipe r : recipes) {
+        for (Recipe r : recipeSeq) {
             if (r.HasHeat()) {
                 HasHeat = true;
             }
@@ -162,44 +162,6 @@ public class AssemblerBlock extends BlockF {
         drawer.getRegionsToOutline(this, out);
     }
 
-
-    public static class Recipe {
-
-        public String name = "recipe-name";
-
-        public @Nullable ItemStack[] inputItems;
-        public @Nullable ItemStack[] outputItems;
-        public @Nullable LiquidStack[] inputLiquids;
-        public @Nullable LiquidStack[] outputLiquids;
-        public float inputHeatAmount = 0f;
-        public float inputTempThreshold = 300f;
-        public float outputHeatAmount = 0f;
-        public float outputTempThreshold = 300f;
-        public boolean isCoolant = false;
-        public @Nullable PayloadStack[] inputPayloads;
-        public @Nullable PayloadStack[] outputPayloads;
-        public @Nullable float inputPower;
-        public @Nullable float outputPower;
-        public float craftTime = 60f;
-
-        public int[] liquidOutputDirections = {-1};
-        public boolean dumpExtraLiquid = true;
-        public boolean ignoreLiquidFullness = false;
-
-        public Effect craftEffect = Fx.none;
-        public Effect updateEffect = Fx.none;
-        public float updateEffectChance = 0.04f;
-        public @Nullable Color TintColor;
-
-        public @Nullable String recipeName;
-        public @Nullable String recipeDescription;
-
-        public boolean HasHeat() {
-            return inputHeatAmount > 0 || outputHeatAmount > 0;
-        }
-
-    }
-
     public class AssemblerBlockBuild extends BuildF {
         public float progress;
         public float totalProgress;
@@ -220,7 +182,7 @@ public class AssemblerBlock extends BlockF {
 
         public Recipe current() {
             if (CurrentRecipeIndex != -1) {
-                return recipes.get(CurrentRecipeIndex);
+                return recipeSeq.get(CurrentRecipeIndex);
             } else {
                 return null;
             }
@@ -257,7 +219,7 @@ public class AssemblerBlock extends BlockF {
                 CurrentRecipeIndex = 0;
             }
 
-            if (CurrentRecipeIndex < 0 || CurrentRecipeIndex >= recipes.size) {
+            if (CurrentRecipeIndex < 0 || CurrentRecipeIndex >= recipeSeq.size) {
                 CurrentRecipeIndex = -1;
             }
 
@@ -311,8 +273,8 @@ public class AssemblerBlock extends BlockF {
 
             Runnable rebuild = () -> {
                 selection.clearChildren();
-                if (recipes.size > 0) {
-                    for (Recipe r : recipes) {
+                if (recipeSeq.size > 0) {
+                    for (Recipe r : recipeSeq) {
 
                         ImageButton button = new ImageButton();
 
@@ -385,12 +347,12 @@ public class AssemblerBlock extends BlockF {
                                     info.add(new PowerDisplay(r.outputPower, false));
                                 }
                             });
-                        }).style(recipes.indexOf(r) % 2 == 0? Styles.flati: Styles.cleari).left().expand().pad(10f)
+                        }).style(recipeSeq.indexOf(r) % 2 == 0? Styles.flati: Styles.cleari).left().expand().pad(10f)
                             .tooltip("[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription+"[]" );
 
                         button.setStyle(Styles.clearNoneTogglei);
                         button.changed(() -> {
-                            CurrentRecipeIndex = recipes.indexOf(r);
+                            CurrentRecipeIndex = recipeSeq.indexOf(r);
                             this.items.clear();
                             this.liquids.clear();
                             this.update();
@@ -398,7 +360,7 @@ public class AssemblerBlock extends BlockF {
                             control.input.config.hideConfig();
                         });
                         button.update(() ->
-                            button.setChecked(CurrentRecipeIndex == recipes.indexOf(r))
+                            button.setChecked(CurrentRecipeIndex == recipeSeq.indexOf(r))
                         );
                         cont.add(button);
                         cont.row();

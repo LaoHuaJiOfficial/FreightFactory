@@ -21,5 +21,9 @@ public class FFItems {
         wheat = new Item("wheat", Color.valueOf("509f3f")){{
             flammability = 0.8f;
         }};
+
+        aluminium = new Item("aluminium", Color.valueOf("d8d8d8")){{
+            cost = 0.8f;
+        }};
     }
 }

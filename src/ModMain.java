@@ -3,6 +3,7 @@ import arc.Events;
 import arc.util.Log;
 import arc.util.Time;
 import contents.*;
+import contents.recipes.recipes;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.BaseDialog;
@@ -36,6 +37,9 @@ public class ModMain extends Mod {
         //Highest load priority
         FFSounds.load();
         FFItems.load();
+
+        recipes.load();
+
         FFBlock.load();
         FFPlanet.load();
 

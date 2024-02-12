@@ -1,19 +1,17 @@
 package contents.blocks;
 
-import arc.Core;
 import arc.struct.Seq;
 import contents.FFItems;
+import contents.recipes.recipes;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
-import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import mindustry.world.draw.*;
 import prototypes.block.production.AreaDrill;
 import prototypes.block.production.AssemblerBlock;
-import prototypes.drawer.DrawArcFurnace;
 
 import static mindustry.type.ItemStack.with;
 
@@ -22,7 +20,7 @@ public class ProductionBlock {
         //Production
         ResonanceDrill, Greenhouse,
         //Factories
-        FoundryT1, GraphiteCompressor, SmelterT1, KilnT1, ChemicalPlantT1,
+        AluminiumFoundry, GraphiteCompressor, SiliconSmelter, MetaglassKiln, ChemicalPlant,
         ArcFurnace;
 
     public static void load() {
@@ -56,29 +54,8 @@ public class ProductionBlock {
 
             hasLiquids = true;
 
-            recipes = Seq.with(
-                new Recipe() {{
-                    inputLiquids = LiquidStack.with(Liquids.water, 12f / 60f);
-                    inputPower = 40f / 60f;
+            recipeSeq = Seq.with(
 
-                    outputItems = with(FFItems.leaf, 2);
-
-                    craftTime = 120f;
-
-                    craftEffect = Fx.smeltsmoke;
-
-                }},
-
-                new Recipe() {{
-                    inputLiquids = LiquidStack.with(Liquids.water, 10f / 60f);
-                    inputPower = 30f / 60f;
-
-                    outputItems = with(FFItems.wheat, 3);
-
-                    craftTime = 180f;
-
-                    craftEffect = Fx.smeltsmoke;
-                }}
             );
         }};
 
@@ -92,85 +69,29 @@ public class ProductionBlock {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.09f;
 
-            recipes = Seq.with(
-                new Recipe() {{
-                    name = "graphite-0";
-
-                    inputItems = with(Items.coal, 4);
-                    inputPower = 30f / 60f;
-
-                    outputItems = with(Items.graphite, 2);
-
-                    craftTime = 120f;
-
-                    updateEffect = craftEffect = Fx.smeltsmoke;
-                }},
-                new Recipe() {{
-                    name = "graphite-1";
-
-                    inputItems = with(Items.coal, 4);
-                    inputLiquids = LiquidStack.with(Liquids.water, 4f / 60f);
-                    inputPower = 90f / 60f;
-
-                    outputItems = with(Items.graphite, 4);
-
-                    craftTime = 180f;
-
-                    updateEffect = craftEffect = Fx.smeltsmoke;
-                }}
+            recipeSeq = Seq.with(
+                recipes.graphite_0,
+                recipes.graphite_1
             );
         }};
 
-        SmelterT1 = new AssemblerBlock("smelter-t1"){{
+        SiliconSmelter = new AssemblerBlock("silicon-smelter"){{
             requirements(Category.crafting, with(Items.copper, 30, Items.graphite, 25));
 
             size = 3;
 
-            drawer = new DrawMulti(new DrawRegion("-base"), new DrawArcFurnace(), new DrawDefault());
+            drawer = new DrawMulti(new DrawRegion("-base"), new DrawArcSmelt(), new DrawDefault());
 
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.09f;
 
-            recipes = Seq.with(
-                new Recipe() {{
-                    inputItems = with(Items.sand, 6, Items.coal, 3);
-                    inputPower = 40f / 60f;
-
-                    outputItems = with(Items.silicon, 3);
-
-                    craftTime = 120f;
-
-                    updateEffect = craftEffect = Fx.smeltsmoke;
-
-                    recipeName = "Basic Silicon Smelt";
-                    recipeDescription = """
-                        Uses coal to refine silicon from sand.
-                        Doesn't need much power.""";
-                }},
-
-                new Recipe() {{
-                    inputItems = with(Items.sand, 6);
-                    inputLiquids = LiquidStack.with(Liquids.water, 6f/ 60f);
-                    inputPower = 240f / 60f;
-
-                    outputItems = with(Items.silicon, 4);
-                    outputLiquids = LiquidStack.with(Liquids.ozone, 4f/ 60f);
-
-                    craftTime = 150f;
-                    ignoreLiquidFullness = true;
-
-                    updateEffect = craftEffect = Fx.smeltsmoke;
-
-                    recipeName = "Advance Silicon Smelt";
-                    recipeDescription = """
-                        Electrolyzing water to produce hydrogen to process sand.
-                        Ozone as byproduct.
-                        Need significant larger amount of power but more productive.""";
-                }}
+            recipeSeq = Seq.with(
+                recipes.silicon_0,
+                recipes.silicon_1
             );
         }};
 
-        KilnT1 = new AssemblerBlock("kiln-t1"){{
+        MetaglassKiln = new AssemblerBlock("metaglass-kiln"){{
             requirements(Category.crafting, with(Items.copper, 30, Items.graphite, 25));
 
             size = 3;
@@ -180,41 +101,13 @@ public class ProductionBlock {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.09f;
 
-            recipes = Seq.with(
-                new Recipe() {{
-                    inputItems = with(Items.sand, 3, Items.lead, 3);
-                    inputPower = 40f / 60f;
-
-                    outputItems = with(Items.metaglass, 2);
-
-                    craftTime = 120f;
-
-                    updateEffect = craftEffect = Fx.smeltsmoke;
-
-                    recipeName = "Basic Metaglass Produce";
-                    recipeDescription = """
-                        Smelt sand and lead into metaglass.""";
-                }},
-
-                new Recipe() {{
-                    inputItems = with(Items.silicon, 3, Items.lead, 3);
-                    inputPower = 120f / 60f;
-
-                    outputItems = with(Items.metaglass, 4);
-
-                    craftTime = 180f;
-
-                    updateEffect = craftEffect = Fx.smeltsmoke;
-
-                    recipeName = "Sil-Metaglass Process";
-                    recipeDescription = """
-                        Use Refined Silicon to produce metaglass.
-                        Much more efficient than normal recipe.""";
-                }}
+            recipeSeq = Seq.with(
+                recipes.metaglass_0,
+                recipes.metaglass_1
             );
         }};
 
-        ChemicalPlantT1 = new AssemblerBlock("chemical-plant-t1"){{
+        ChemicalPlant = new AssemblerBlock("chemical-plant"){{
             requirements(Category.crafting, with(Items.lead, 20, Items.titanium, 30, Items.graphite, 25, Items.silicon, 20));
 
             size = 3;
@@ -224,46 +117,29 @@ public class ProductionBlock {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.09f;
 
-            recipes = Seq.with(
-                new Recipe() {{
-                    inputItems = with(Items.titanium, 4);
-                    inputLiquids = LiquidStack.with(Liquids.oil, 15f / craftTime);
-                    inputPower = 180f / 60f;
-
-                    outputItems = with(Items.plastanium, 2);
-
-                    craftTime = 120f;
-
-                    updateEffect = craftEffect = Fx.smeltsmoke;
-
-                    recipeName = "Basic Plastanium Produce";
-                    recipeDescription = """
-                        Plastanium.""";
-                }}
+            recipeSeq = Seq.with(
+                recipes.plastanium_0
             );
         }};
 
-        /*
-
-         FoundryT1 = new AssemblerBlock("foundry-t1"){{
+        AluminiumFoundry = new AssemblerBlock("foundry-t1"){{
             requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
 
             size = 3;
 
-            drawer = new DrawMulti(new DrawDefault(), new DrawArcFurnace());
+            drawer = new DrawMulti(new DrawDefault());
 
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.09f;
 
-            recipes = Seq.with(
-                new Recipe() {{
-                    InputItems = with(Items.sand, 4);
-                    InputPower = 30f / 60f;
-
-                    OutputItems = with(Items.silicon, 2);
-                }}
+            recipeSeq = Seq.with(
+                recipes.aluminium_0,
+                recipes.aluminium_1
             );
         }};
+        /*
+
+
 
         ArcFurnace = new AssemblerBlock("arc-furnace") {{
             requirements(Category.crafting, with(Items.copper, 30, Items.beryllium, 25));
