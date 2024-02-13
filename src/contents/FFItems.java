@@ -5,9 +5,32 @@ import mindustry.type.Item;
 
 public class FFItems {
     public static Item
-        bauxite, leaf, wheat, aluminium, iceCube;
+        hardCandy, rainbowCandy, cannedCola, cannedNucola, tinTea, radiantCake, bread,
+        bauxite, aluminium, crystalAlloy, multiCompound,
+        leaf, wheat, sugar, flour, dough, fermentedTea,
+        iceCube, colaIceCube, teaIceCube, redTeaIceCube;
 
     public static void load() {
+        //todo color
+        hardCandy = new Item("hard-candy", Color.valueOf("9391bb")){{
+            explosiveness = 0f;
+            flammability = 0f;
+            radioactivity = 0f;
+            charge = 0f;
+
+            buildable = false;
+        }};
+
+        //todo color
+        hardCandy = new Item("rainbow-candy", Color.valueOf("9391bb")){{
+            explosiveness = 40f;
+            flammability = 0f;
+            radioactivity = 180f;
+            charge = 150f;
+
+            buildable = false;
+        }};
+
         bauxite = new Item("bauxite", Color.valueOf("9391bb")){{
             hardness = 1;
             cost = 0.5f;
