@@ -300,7 +300,7 @@ public class AssemblerBlock extends BlockF {
                                 if (r.inputLiquids != null) {
                                     for (int i = 0; i < r.inputLiquids.length; i++) {
                                         LiquidStack stack = r.inputLiquids[i];
-                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount, false)).padRight(3);
+                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
                                     }
                                 }
                                 //todo payload here
@@ -330,7 +330,7 @@ public class AssemblerBlock extends BlockF {
                                 if (r.outputLiquids != null) {
                                     for (int i = 0; i < r.outputLiquids.length; i++) {
                                         LiquidStack stack = r.outputLiquids[i];
-                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount, false)).padRight(3);
+                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
                                     }
                                 }
                                 //todo payload here

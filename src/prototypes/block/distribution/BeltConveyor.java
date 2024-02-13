@@ -40,6 +40,7 @@ public class BeltConveyor extends BlockF implements Autotiler {
     private static final float itemSpace = 0.4f;
     private static final int capacity = 3;
 
+    public float realItemPerSecond = 0f;
     public TextureRegion icon;
     public TextureRegion conveyorPartAtlas, edgePartAtlas;
     public TextureRegion[][] conveyorParts, edgeParts;
@@ -73,9 +74,8 @@ public class BeltConveyor extends BlockF implements Autotiler {
         super.setStats();
 
         //have to add a custom calculated speed, since the actual movement speed is apparently not linear
-
         //anuke's speed is wired
-        stats.add(Stat.itemsMoved, itemPerSecond, StatUnit.itemsSecond);
+        stats.add(Stat.itemsMoved, realItemPerSecond, StatUnit.itemsSecond);
     }
 
     @Override

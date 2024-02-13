@@ -30,7 +30,7 @@ public class LiquidDisplayF extends Table {
 
             if (amount != 0) {
                 Table t = new Table().left().bottom();
-                t.add(Strings.autoFixed(amount * 60f, 2)).style(Styles.outlineLabel);
+                t.add(Strings.autoFixed(amount, 2)).style(Styles.outlineLabel);
                 add(t);
             }
         }}).size(iconMed);

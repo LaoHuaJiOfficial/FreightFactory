@@ -3,12 +3,14 @@ package contents.blocks;
 import arc.struct.Seq;
 import contents.FFItems;
 import contents.recipes.recipes;
+import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.draw.*;
 import prototypes.block.production.AreaDrill;
 import prototypes.block.production.AssemblerBlock;
@@ -21,7 +23,7 @@ public class ProductionBlock {
         ResonanceDrill, Greenhouse,
         //Factories
         AluminiumFoundry, GraphiteCompressor, SiliconSmelter, MetaglassKiln, ChemicalPlant,
-        ArcFurnace;
+        Freezer;
 
     public static void load() {
         ResonanceDrill = new AreaDrill("resonance-drill"){{
@@ -122,7 +124,7 @@ public class ProductionBlock {
             );
         }};
 
-        AluminiumFoundry = new AssemblerBlock("foundry-t1"){{
+        AluminiumFoundry = new AssemblerBlock("aluminium-foundry"){{
             requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
 
             size = 3;
@@ -135,6 +137,21 @@ public class ProductionBlock {
             recipeSeq = Seq.with(
                 recipes.aluminium_0,
                 recipes.aluminium_1
+            );
+        }};
+
+        Freezer = new AssemblerBlock("freezer"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 2;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                recipes.iceCube_0
             );
         }};
         /*
