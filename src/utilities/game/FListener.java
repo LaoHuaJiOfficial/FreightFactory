@@ -1,6 +1,7 @@
 package utilities.game;
 
 import arc.ApplicationListener;
+import arc.Core;
 import arc.Events;
 import mindustry.game.EventType;
 
@@ -13,11 +14,12 @@ public class FListener implements ApplicationListener {
     public void init() {
         ApplicationListener.super.init();
 
-        Events.run(EventType.Trigger.newGame, () -> {
+        Core.app.post(() -> Events.run(EventType.Trigger.newGame, () -> {
             Credit = 0;
             CreditPerMinute = 0;
 
             pads.clear();
-        });
+        }));
+
     }
 }
