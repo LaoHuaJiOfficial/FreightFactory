@@ -5,6 +5,9 @@ import contents.FFSounds;
 import mindustry.content.Items;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootAlternate;
+import mindustry.entities.pattern.ShootBarrel;
+import mindustry.entities.pattern.ShootMulti;
+import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -17,7 +20,7 @@ import static mindustry.type.ItemStack.with;
 
 public class TurretBlock {
     public static Block
-        IronCurtain, Crysta;
+        IronCurtain, Interferer, Crysta;
 
     public static void load(){
 
@@ -71,12 +74,61 @@ public class TurretBlock {
 
             shootWarmupSpeed = 0.08f;
 
+            minWarmup = 0.8f;
+
             scaledHealth = 300;
             range = 400f;
             size = 3;
 
             limitRange(-5f);
         }};
+
+        Interferer = new ItemTurret("interferer"){{
+            requirements(Category.turret, with(Items.copper, 10));
+
+            ammo(
+                Items.graphite, FFBullets.IronCurtain_0
+            );
+            shoot = new ShootAlternate(){{
+                spread = 11f;
+                shots = 2;
+                barrels = 2;
+            }};
+
+            reload = 40f;
+            shootY = 12f;
+            rotateSpeed = 5f;
+            shootCone = 15f;
+            consumeAmmoOnce = true;
+            shootSound = Sounds.mediumCannon;
+
+            drawer = new DrawTurret(){{
+                parts.add(
+                    new RegionPart("-barrel"){{
+                        under = true;
+                        moveY = -3.5f;
+                        progress = PartProgress.recoil;
+                    }},
+                    new RegionPart("-center"){{
+                        moveY = -2.5f;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-under"){{
+                        under = true;
+                    }});
+            }};
+
+            shootWarmupSpeed = 0.08f;
+
+            minWarmup = 0.8f;
+
+            scaledHealth = 300;
+            range = 400f;
+            size = 3;
+
+            limitRange(-5f);
+        }};
+
 
         Crysta = new ItemTurret("crysta"){{
             requirements(Category.turret, with(Items.copper, 10));
