@@ -1,25 +1,14 @@
-import arc.Core;
 import arc.Events;
-import arc.math.Mathf;
 import arc.util.Log;
 import arc.util.Time;
 import contents.*;
+import contents.FFBullets;
 import contents.recipes.recipes;
-import mindustry.Vars;
-import mindustry.content.Blocks;
-import mindustry.core.Logic;
 import mindustry.game.EventType;
 import mindustry.game.EventType.ClientLoadEvent;
-import mindustry.game.Team;
-import mindustry.gen.Groups;
 import mindustry.mod.Mod;
-import mindustry.ui.dialogs.BaseDialog;
-import mindustry.world.Block;
-import mindustry.world.blocks.distribution.BufferedItemBridge;
-import mindustry.world.blocks.distribution.ItemBridge;
 import utilities.game.FListener;
 import utilities.game.FVanillaChange;
-import utilities.ui.dialog.RecipePlannerDialog;
 
 public class ModMain extends Mod {
 
@@ -50,8 +39,10 @@ public class ModMain extends Mod {
         //Highest load priority
         FFSounds.load();
         FFItems.load();
+        //FFLiquids
 
         recipes.load();
+        FFBullets.load();
 
         FFBlock.load();
         FFPlanet.load();

@@ -24,7 +24,7 @@ import mindustry.world.meta.Env;
 import static mindustry.Vars.content;
 
 public class LiquidDiode extends Block {
-    public float speed = 1f;
+    public float speed = 5f;
     public boolean allowCoreUnload = false;
 
     public LiquidDiode(String name) {
@@ -33,14 +33,11 @@ public class LiquidDiode extends Block {
         group = BlockGroup.transportation;
         update = true;
         solid = true;
-        hasItems = true;
         configurable = true;
         saveConfig = true;
         rotate = true;
-        itemCapacity = 0;
         noUpdateDisabled = true;
         unloadable = false;
-        isDuct = true;
         envDisabled = Env.none;
         clearOnDoubleTap = true;
         priority = TargetPriority.transport;
@@ -84,7 +81,7 @@ public class LiquidDiode extends Block {
 
         @Override
         public void updateTile() {
-            if ((unloadTimer += edelta()) >= speed) {
+            if ((unloadTimer += edelta()) >= Time.delta) {
                 Building front = front(), back = back();
 
                 //CV from EU
@@ -92,7 +89,7 @@ public class LiquidDiode extends Block {
                     if (front.acceptLiquid(this, unloadLiquid)) {
                         float fl = front.liquids.get(unloadLiquid), bl = back.liquids.get(unloadLiquid), fc = front.block.liquidCapacity, bc = back.block.liquidCapacity;
                         if (bl > 0 && bl / bc > fl / fc) {
-                            float amount = Math.min(speed, back.liquids.get(unloadLiquid));
+                            float amount = Math.min(speed * Time.delta, back.liquids.get(unloadLiquid));
                             float a = Math.min(amount, front.block.liquidCapacity - front.liquids.get(unloadLiquid));
                             float balance = Math.min(a, (bl / bc - fl / fc) * bc);
                             front.handleLiquid(this, unloadLiquid, balance);

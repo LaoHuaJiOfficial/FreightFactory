@@ -1,61 +1,46 @@
 package contents.blocks;
 
-import arc.graphics.Color;
-import mindustry.content.Fx;
+import contents.FFBullets;
+import contents.FFSounds;
 import mindustry.content.Items;
-import mindustry.content.Liquids;
-import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootAlternate;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.consumers.ConsumeLiquid;
 import mindustry.world.draw.DrawTurret;
 
 import static mindustry.type.ItemStack.with;
 
 public class TurretBlock {
-    public static Block IronCurtain;
+    public static Block
+        IronCurtain, Crysta;
 
     public static void load(){
 
         IronCurtain = new ItemTurret("iron-curtain"){{
             requirements(Category.turret, with(Items.copper, 10));
 
-            ammo(Items.tungsten, new BasicBulletType(){{
-                damage = 65;
-                speed = 8.5f;
-                width = height = 16;
-                shrinkY = 0.3f;
-                backSprite = "large-bomb-back";
-                sprite = "mine-bullet";
-                velocityRnd = 0.11f;
-                collidesGround = false;
-                collidesTiles = false;
-                shootEffect = Fx.shootBig2;
-                smokeEffect = Fx.shootSmokeDisperse;
-                frontColor = Color.white;
-                backColor = trailColor = hitColor = Color.sky;
-                trailChance = 0.44f;
-                ammoMultiplier = 3f;
+            ammo(
+                Items.graphite, FFBullets.IronCurtain_0,
+                Items.thorium, FFBullets.IronCurtain_1
+            );
+            shoot = new ShootAlternate(){{
+                spread = 4.8f;
+                shotDelay = 4;
+                shots = 4;
+                barrels = 4;
+            }};
 
-                lifetime = 34f;
-                rotationOffset = 90f;
-                trailRotation = true;
-                trailEffect = Fx.disperseTrail;
-
-                hitEffect = despawnEffect = Fx.hitBulletColor;
-            }});
-
-            reload = 9f;
-            shootY = 15f;
+            reload = 40f;
+            shootY = 12f;
             rotateSpeed = 5f;
             shootCone = 15f;
             consumeAmmoOnce = true;
-            shootSound = Sounds.shootBig;
+            shootSound = Sounds.largeCannon;
 
             drawer = new DrawTurret(){{
                 parts.add(
@@ -84,17 +69,70 @@ public class TurretBlock {
                     }});
             }};
 
-            shoot = new ShootAlternate(){{
-                spread = 4.7f;
-                shots = 4;
-                barrels = 4;
+            shootWarmupSpeed = 0.08f;
+
+            scaledHealth = 300;
+            range = 400f;
+            size = 3;
+
+            limitRange(-5f);
+        }};
+
+        Crysta = new ItemTurret("crysta"){{
+            requirements(Category.turret, with(Items.copper, 10));
+
+            ammo(
+                Items.graphite, FFBullets.Crysta_0
+            );
+
+            reload = 20f;
+            shootY = 10f;
+            rotateSpeed = 5f;
+            shootCone = 15f;
+            consumeAmmoOnce = true;
+            shootSound = FFSounds.InfernoShoot;
+
+            drawer = new DrawTurret(){{
+                parts.add(
+                    new RegionPart("-blade"){{
+                        mirror = true;
+                        moveX = -1f;
+                        moveY = -2f;
+                        moveRot = 4f;
+                        progress = PartProgress.warmup;
+
+                        heatColor = Pal.techBlue;
+                        heatLightOpacity = 0.2f;
+                    }},
+                    new RegionPart("-barrel"){{
+                        moveY = -3f;
+                        progress = PartProgress.recoil;
+
+                        heatColor = Pal.techBlue;
+                        heatLightOpacity = 0.2f;
+                    }},
+                    new RegionPart("-bottom"){{
+                        mirror = true;
+                        under = true;
+                        moveY = -0.8f;
+                        moveX = 0.8f;
+                        progress = PartProgress.recoil;
+
+                        heatColor = Pal.techBlue;
+                        heatLightOpacity = 0.2f;
+                    }},
+                    new RegionPart("-upper"){{
+                        mirror = true;
+                        under = true;
+                    }}
+                    );
             }};
 
             shootWarmupSpeed = 0.08f;
 
-            scaledHealth = 280;
-            range = 310f;
-            size = 3;
+            scaledHealth = 300;
+            range = 1200f;
+            size = 4;
 
             limitRange(-5f);
         }};

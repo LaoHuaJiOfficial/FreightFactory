@@ -13,6 +13,8 @@ import prototypes.block.HeatBox.HeatPipe;
 import prototypes.block.distribution.BeltBridge;
 import prototypes.block.distribution.BeltConveyor;
 import prototypes.block.distribution.BeltRouter;
+import prototypes.block.distribution.ItemDiode;
+import prototypes.block.liquid.LiquidDiode;
 import prototypes.block.production.AssemblerBlock;
 import prototypes.recipe.Recipe;
 import utilities.game.FVars;
@@ -73,6 +75,16 @@ public class FFBlock {
             requirements(Category.distribution, with(Items.beryllium, 1));
             health = 150;
             itemPerSecond = 20f;
+        }};
+
+        ItemDiode = new ItemDiode("ItemDiode"){{
+            requirements(Category.distribution, with(Items.copper, 20));
+
+        }};
+
+        LiquidDiode = new LiquidDiode("LiquidDiode"){{
+            requirements(Category.distribution, with(Items.copper, 20));
+
         }};
 
         HeatConduit = new HeatPipe("heat-pipe") {{
@@ -159,15 +171,7 @@ public class FFBlock {
             size = 16;
         }};
 
-        ItemDiode = new ItemDiode("ItemDiode"){{
-            requirements(Category.distribution, ItemStack.with(Items.copper, 20));
 
-        }};
-
-        LiquidDiode = new LiquidDiode("LiquidDiode"){{
-            requirements(Category.distribution, ItemStack.with(Items.copper, 20));
-
-        }};
 
 
 
