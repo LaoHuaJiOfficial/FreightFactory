@@ -13,6 +13,7 @@ import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.defense.turrets.ContinuousTurret;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.draw.DrawTurret;
 
@@ -20,7 +21,7 @@ import static mindustry.type.ItemStack.with;
 
 public class TurretBlock {
     public static Block
-        IronCurtain, Interferer, Crysta;
+        IronCurtain, Interferer, Crysta, Cathode;
 
     public static void load(){
 
@@ -187,6 +188,54 @@ public class TurretBlock {
             size = 4;
 
             limitRange(-5f);
+        }};
+
+        Cathode = new ContinuousTurret("cathode"){{
+            requirements(Category.turret, with(Items.copper, 10));
+
+            shootType = FFBullets.Cathode_0;
+
+            reload = 60f;
+            shootY = 10f;
+            rotateSpeed = 5f;
+            shootCone = 15f;
+            consumeAmmoOnce = true;
+            shootSound = FFSounds.InfernoShoot;
+
+            drawer = new DrawTurret(){{
+                parts.add(
+                    new RegionPart("-middle"),
+                    new RegionPart("-front"){{
+                        mirror = true;
+                        moveX = 2.7f;
+                        moveY = -2.7f;
+                        moveRot = -10;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-upper"){{
+                        mirror = true;
+                        under = true;
+                        moveX = 12f;
+                        moveY = -1f;
+                        moveRot = -10;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-blade"){{
+                        mirror = true;
+                        under = true;
+                        moveY = 3.5f;
+                        moveX = 4f;
+                        moveRot = 25;
+                        progress = PartProgress.warmup;
+                    }}
+                );
+            }};
+
+            shootWarmupSpeed = 0.05f;
+
+            scaledHealth = 300;
+            range = 1200f;
+            size = 4;
         }};
     }
 }

@@ -1,6 +1,7 @@
 package contents;
 
 import arc.graphics.Color;
+import contents.bullets.HelixLaserBulletType;
 import contents.bullets.HelixTrailBulletType;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
@@ -9,7 +10,7 @@ import mindustry.graphics.Pal;
 
 public class FFBullets {
     public static BulletType
-        IronCurtain_0, IronCurtain_1, Crysta_0;
+        IronCurtain_0, IronCurtain_1, Crysta_0, Cathode_0;
 
     public static void load(){
         IronCurtain_0 = new BasicBulletType(){{
@@ -137,5 +138,7 @@ public class FFBullets {
             ammoMultiplier = 3f;
             lifetime = 200f;
         }};
+
+        Cathode_0 = new HelixLaserBulletType();
     }
 }
