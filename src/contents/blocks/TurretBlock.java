@@ -21,7 +21,7 @@ import static mindustry.type.ItemStack.with;
 
 public class TurretBlock {
     public static Block
-        IronCurtain, Interferer, Crysta, Cathode;
+        IronCurtain, Interferer, Crysta, anode, Cathode, testTurret;
 
     public static void load(){
 
@@ -47,7 +47,7 @@ public class TurretBlock {
             shootSound = Sounds.largeCannon;
 
             drawer = new DrawTurret(){{
-                parts.add(
+                parts.addAll(
                     new RegionPart("-barrel"){{
                         moveY = -2f;
                         progress = PartProgress.recoil;
@@ -104,7 +104,7 @@ public class TurretBlock {
             shootSound = Sounds.mediumCannon;
 
             drawer = new DrawTurret(){{
-                parts.add(
+                parts.addAll(
                     new RegionPart("-barrel"){{
                         under = true;
                         moveY = -3.5f;
@@ -146,7 +146,7 @@ public class TurretBlock {
             shootSound = FFSounds.InfernoShoot;
 
             drawer = new DrawTurret(){{
-                parts.add(
+                parts.addAll(
                     new RegionPart("-blade"){{
                         mirror = true;
                         moveX = -1f;
@@ -203,7 +203,7 @@ public class TurretBlock {
             shootSound = FFSounds.InfernoShoot;
 
             drawer = new DrawTurret(){{
-                parts.add(
+                parts.addAll(
                     new RegionPart("-middle"),
                     new RegionPart("-front"){{
                         mirror = true;
@@ -236,6 +236,94 @@ public class TurretBlock {
             scaledHealth = 300;
             range = 1200f;
             size = 4;
+        }};
+
+        anode = new ContinuousTurret("anode"){{
+            requirements(Category.turret, with(Items.copper, 10));
+
+            shootType = FFBullets.Cathode_0;
+
+            reload = 60f;
+            shootY = 10f;
+            rotateSpeed = 5f;
+            shootCone = 15f;
+            consumeAmmoOnce = true;
+            shootSound = FFSounds.InfernoShoot;
+
+            drawer = new DrawTurret(){{
+                parts.addAll(
+                    new RegionPart("-middle"){{
+                        moveY = 2f;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-ground"),
+                    new RegionPart("-blade"){{
+                        mirror = true;
+                        moveY = 3.5f;
+                        moveX = 4f;
+                        moveRot = 10;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-center"){{
+                        mirror = true;
+                        under = true;
+                        moveX = 1f;
+                        moveY = -2f;
+                        moveRot = -10;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-upper"){{
+                        mirror = true;
+                        under = true;
+                        moveX = 6f;
+                        moveY = -1f;
+                        moveRot = 0;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-upper"){{
+                        mirror = true;
+                        under = true;
+                        moveX = 4f;
+                        moveY = -2f;
+                        moveRot = -45;
+                        progress = PartProgress.warmup;
+                    }}
+                );
+            }};
+
+            shootWarmupSpeed = 0.05f;
+
+            scaledHealth = 300;
+            range = 1200f;
+            size = 4;
+        }};
+
+        testTurret = new ItemTurret("test-turret"){{
+            requirements(Category.turret, with(Items.copper, 10));
+
+            ammo(
+                Items.graphite, FFBullets.Crysta_0
+            );
+
+            drawer = new DrawTurret(){{
+                parts.addAll(
+                    new RegionPart("-upper")
+                );
+            }};
+            reload = 20f;
+            shootY = 10f;
+            rotateSpeed = 5f;
+            shootCone = 15f;
+            consumeAmmoOnce = true;
+            shootSound = FFSounds.InfernoShoot;
+
+            shootWarmupSpeed = 0.08f;
+
+            scaledHealth = 300;
+            range = 1200f;
+            size = 2;
+
+            limitRange(-5f);
         }};
     }
 }

@@ -9,6 +9,7 @@ import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import utilities.game.FListener;
 import utilities.game.FVanillaChange;
+import utilities.ui.dialog.RecipePlannerDialog;
 
 public class ModMain extends Mod {
 
@@ -24,11 +25,13 @@ public class ModMain extends Mod {
 
 
             Events.on(EventType.WorldLoadEvent.class, a -> {
-                Time.runTask(10f, () -> {
 
-                });
             });
 
+            Time.runTask(10f, () -> {
+                //RecipePlannerDialog dialog = new RecipePlannerDialog();
+                //dialog.show();
+            });
         });
 
     }
