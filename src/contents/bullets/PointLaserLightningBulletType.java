@@ -1,13 +1,13 @@
 package contents.bullets;
 
 import arc.Core;
+import arc.Events;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.math.Rand;
-import arc.math.geom.Geometry;
 import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.Time;
@@ -16,15 +16,15 @@ import mindustry.content.Fx;
 import mindustry.entities.Damage;
 import mindustry.entities.Effect;
 import mindustry.entities.bullet.BulletType;
+import mindustry.game.EventType;
 import mindustry.gen.Bullet;
 import mindustry.graphics.Drawf;
-import mindustry.graphics.Pal;
 import mindustry.graphics.Trail;
+import mindustry.world.Block;
 
 import static mindustry.Vars.headless;
 
-public class HelixLaserBulletType extends BulletType {
-
+public class PointLaserLightningBulletType extends BulletType {
     public String sprite = "point-laser";
     public TextureRegion laser, laserEnd;
 
@@ -38,7 +38,7 @@ public class HelixLaserBulletType extends BulletType {
 
     public float shake = 0f;
 
-    public HelixLaserBulletType(){
+    public PointLaserLightningBulletType(){
         removeAfterPierce = false;
         speed = 0f;
         despawnEffect = Fx.none;
@@ -130,23 +130,26 @@ public class HelixLaserBulletType extends BulletType {
         if (b.data instanceof Seq<?> data){
             @SuppressWarnings("unchecked")
             Seq<Vec2> points = (Seq<Vec2>) data;
-            if(b.timer.get(2, Time.delta)){
+            if(b.timer.get(2, 2)){
                 points.clear();
 
+                points.add(new Vec2(b.x, b.y));
+                points.add(new Vec2(b.x, b.y));
+
                 float len = Mathf.dst(b.x, b.y, b.aimX, b.aimY);
-                int steps = (int)(len / 2);
+                int steps = (int)(len / 60);
                 float step = 1f / steps;
-                Rand rand = new Rand(b.id);
-                float scale = Time.time + rand.random(360);
 
                 Tmp.v2.set(b.aimX, b.aimY);
                 for(int i = 0; i < steps; i++){
                     float s = step * i;
                     Tmp.v1.set(b.x, b.y);
                     Tmp.v1.lerp(Tmp.v2, s);
-                    points.add(new Vec2(Tmp.v1.x + Mathf.sinDeg(scale * 10 + 5 * i) * 4f, Tmp.v1.y + Mathf.cosDeg(scale * 10 + 5 * i) * 4f));
-                    points.add(new Vec2(Tmp.v1.x - Mathf.sinDeg(scale * 10 + 5 * i) * 4f, Tmp.v1.y - Mathf.cosDeg(scale * 10 + 5 * i) * 4f));
+                    points.add(new Vec2(Tmp.v1.x + Mathf.random(-30, 30), Tmp.v1.y + Mathf.random(-30, 30)));
+                    points.add(new Vec2(Tmp.v1.x - Mathf.random(-30, 30), Tmp.v1.y - Mathf.random(-30, 30)));
                 }
+                points.add(new Vec2(b.aimX, b.aimY));
+                points.add(new Vec2(b.aimX, b.aimY));
                 b.data = points;
             }
         }

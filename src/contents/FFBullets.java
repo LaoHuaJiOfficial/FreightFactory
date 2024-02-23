@@ -3,6 +3,7 @@ package contents;
 import arc.graphics.Color;
 import contents.bullets.HelixLaserBulletType;
 import contents.bullets.HelixTrailBulletType;
+import contents.bullets.PointLaserLightningBulletType;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BulletType;
@@ -139,6 +140,6 @@ public class FFBullets {
             lifetime = 200f;
         }};
 
-        Cathode_0 = new HelixLaserBulletType();
+        Cathode_0 = new PointLaserLightningBulletType();
     }
 }

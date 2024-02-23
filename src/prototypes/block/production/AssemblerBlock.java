@@ -1,6 +1,7 @@
 package prototypes.block.production;
 
 import arc.Core;
+import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.scene.ui.Image;
@@ -14,7 +15,9 @@ import arc.util.*;
 import mindustry.Vars;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
+import mindustry.gen.Icon;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.ui.ItemDisplay;
 import mindustry.ui.Styles;
@@ -22,6 +25,7 @@ import mindustry.world.consumers.ConsumePowerDynamic;
 import mindustry.world.draw.DrawBlock;
 import mindustry.world.draw.DrawDefault;
 import mindustry.world.meta.BlockFlag;
+import mindustry.world.meta.Stat;
 import prototypes.block.HeatBox.BlockF;
 import prototypes.block.consumer.ConsumeItemDynamicF;
 import prototypes.block.consumer.ConsumeLiquidsDynamicF;
@@ -146,6 +150,87 @@ public class AssemblerBlock extends BlockF {
         //todo add bar here..
     }
 
+    @Override
+    public void setStats(){
+        super.setStats();
+
+        stats.remove(Stat.itemCapacity);
+
+        stats.add(Stat.output, table -> {
+            table.row();
+
+            for(var r : recipeSeq){
+                table.table(Styles.grayPanel, t -> {
+                    table.add(new Stack() {{
+                        add(new Image(timeIcon).setScaling(Scaling.fit));
+
+                        Table t = new Table().left().bottom();
+                        t.add(Strings.autoFixed(r.craftTime / 60f , 1)+ "s").style(Styles.outlineLabel);
+                        add(t);
+                    }}).size(iconMed).padRight(12);
+                    t.left();
+                    //input items
+                    if (r.inputItems != null) {
+                        for (int i = 0; i < r.inputItems.length; i++) {
+                            ItemStack stack = r.inputItems[i];
+                            table.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
+                        }
+                    }
+                    //input liquids
+                    if (r.inputLiquids != null) {
+                        for (int i = 0; i < r.inputLiquids.length; i++) {
+                            LiquidStack stack = r.inputLiquids[i];
+                            table.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
+                        }
+                    }
+                    //todo payload here
+                    //input heat
+                    if (r.inputHeatAmount > 0 && !r.isCoolant) {
+                        table.add(new HeatDisplay(r.inputHeatAmount, false));
+                    }
+                    if (r.outputHeatAmount > 0 && r.isCoolant) {
+                        table.add(new HeatDisplay(r.outputHeatAmount, true));
+                    }
+                    //input power
+                    if (r.inputPower > 0) {
+                        table.add(new PowerDisplay(r.inputPower, true));
+                    }
+
+                    //arrow
+                    table.add(new ArrowTempDisplay(0, true));
+
+                    //output items
+                    if (r.outputItems != null) {
+                        for (int i = 0; i < r.outputItems.length; i++) {
+                            ItemStack stack = r.outputItems[i];
+                            table.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
+                        }
+                    }
+                    //output liquids
+                    if (r.outputLiquids != null) {
+                        for (int i = 0; i < r.outputLiquids.length; i++) {
+                            LiquidStack stack = r.outputLiquids[i];
+                            table.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
+                        }
+                    }
+                    //todo payload here
+                    //output heat
+                    if (r.inputHeatAmount > 0 && r.isCoolant) {
+                        table.add(new HeatDisplay(r.inputHeatAmount, false));
+                    }
+                    if (r.outputHeatAmount > 0 && !r.isCoolant) {
+                        table.add(new HeatDisplay(r.outputHeatAmount, true));
+                    }
+
+                    //output power
+                    if (r.outputPower > 0) {
+                        table.add(new PowerDisplay(r.outputPower, false));
+                    }
+                }).growX().pad(5);
+                table.row();
+            }
+        });
+    }
 
     @Override
     public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list) {
@@ -180,7 +265,7 @@ public class AssemblerBlock extends BlockF {
             drawer.drawLight(this);
         }
 
-        public Recipe current() {
+        public @Nullable Recipe current() {
             if (CurrentRecipeIndex != -1) {
                 return recipeSeq.get(CurrentRecipeIndex);
             } else {
@@ -212,8 +297,6 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public void updateTile() {
-
-            //this cv from UnitFactory.java
 
             if (!configurable) {
                 CurrentRecipeIndex = 0;

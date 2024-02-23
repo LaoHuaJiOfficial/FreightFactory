@@ -1,6 +1,7 @@
 package contents;
 
 import arc.struct.Seq;
+import contents.blocks.DefenseBlock;
 import contents.blocks.EnvironmentBlock;
 import contents.blocks.ProductionBlock;
 import contents.blocks.TurretBlock;
@@ -42,6 +43,7 @@ public class FFBlock {
         EnvironmentBlock.load();
         ProductionBlock.load();
         TurretBlock.load();
+        DefenseBlock.load();
         conveyorT1 = new BeltConveyor("conveyor-t1") {{
             requirements(Category.distribution, with(Items.beryllium, 1));
             health = 100;
