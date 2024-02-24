@@ -7,10 +7,24 @@ import mindustry.entities.Effect;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.type.PayloadStack;
+import prototypes.FFContent;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
 
 public class Recipe {
 
-    public String name = "recipe-name";
+    public Recipe(String name){
+        this.name = name;
+
+        FFContent.recipeAll.add(this);
+    }
+    public Recipe(){
+        new Recipe("recipe-name");
+    }
+
+    public String name;
     public boolean unlocked = true;
 
     public @Nullable ItemStack[] inputItems;
@@ -42,6 +56,16 @@ public class Recipe {
 
     public boolean HasHeat() {
         return inputHeatAmount > 0 || outputHeatAmount > 0;
+    }
+
+    public void write(DataOutput stream) throws IOException{
+        stream.writeBoolean(unlocked);
+    }
+
+    public void read(DataInput stream, short version) throws IOException{
+        if (version > 0){
+            unlocked = stream.readBoolean();
+        }
     }
 
 }

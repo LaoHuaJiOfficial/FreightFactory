@@ -1,14 +1,12 @@
-package utilities.ui.display;
+package prototypes.ui.display;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Font;
 import arc.graphics.g2d.GlyphLayout;
-import arc.graphics.g2d.Lines;
 import arc.scene.ui.layout.Scl;
 import arc.util.Align;
 import arc.util.pooling.Pools;
-import mindustry.graphics.Pal;
 import mindustry.ui.Fonts;
 
 import static mindustry.Vars.renderer;

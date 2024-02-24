@@ -1,15 +1,11 @@
-package utilities.ui.dialog;
+package prototypes.ui.dialog;
 
-import arc.Core;
-import arc.graphics.Color;
-import arc.scene.ui.Button;
 import arc.scene.ui.Dialog;
 import arc.scene.ui.Label;
 import arc.scene.ui.layout.Table;
 import mindustry.gen.Icon;
 import mindustry.gen.Tex;
 import mindustry.graphics.Pal;
-import mindustry.ui.Fonts;
 import mindustry.ui.Styles;
 
 import static mindustry.Vars.*;

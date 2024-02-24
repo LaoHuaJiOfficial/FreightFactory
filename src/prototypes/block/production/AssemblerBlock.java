@@ -1,7 +1,6 @@
 package prototypes.block.production;
 
 import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.scene.ui.Image;
@@ -17,7 +16,6 @@ import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.gen.Icon;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.ui.ItemDisplay;
 import mindustry.ui.Styles;
@@ -31,13 +29,12 @@ import prototypes.block.consumer.ConsumeItemDynamicF;
 import prototypes.block.consumer.ConsumeLiquidsDynamicF;
 import prototypes.block.consumer.ConsumeShow;
 import prototypes.recipe.Recipe;
-import utilities.ui.display.ArrowTempDisplay;
-import utilities.ui.display.HeatDisplay;
-import utilities.ui.display.LiquidDisplayF;
-import utilities.ui.display.PowerDisplay;
+import prototypes.ui.display.ArrowTempDisplay;
+import prototypes.ui.display.HeatDisplay;
+import prototypes.ui.display.LiquidDisplayF;
+import prototypes.ui.display.PowerDisplay;
 
-import static mindustry.Vars.control;
-import static mindustry.Vars.iconMed;
+import static mindustry.Vars.*;
 
 public class AssemblerBlock extends BlockF {
 
@@ -144,9 +141,9 @@ public class AssemblerBlock extends BlockF {
     @Override
     public void setBars() {
         super.setBars();
-        removeBar("items");
-        removeBar("liquid");
-        removeBar("power");
+        //removeBar("items");
+        //removeBar("liquid");
+        //removeBar("power");
         //todo add bar here..
     }
 
@@ -430,10 +427,11 @@ public class AssemblerBlock extends BlockF {
                                     info.add(new PowerDisplay(r.outputPower, false));
                                 }
                             });
-                        }).style(recipeSeq.indexOf(r) % 2 == 0? Styles.flati: Styles.cleari).left().expand().pad(10f)
-                            .tooltip("[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription+"[]" );
-
+                        }).left().expand().pad(10f);
+                        button.add(new Image(r.unlocked? Icon.infoCircle: Icon.lock).setScaling(Scaling.fit)).size(iconMed).padRight(5f)
+                            .tooltip(r.unlocked ? "[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription + "[]": "Need To research");
                         button.setStyle(Styles.clearNoneTogglei);
+
                         button.changed(() -> {
                             CurrentRecipeIndex = recipeSeq.indexOf(r);
                             this.items.clear();
@@ -441,6 +439,8 @@ public class AssemblerBlock extends BlockF {
                             this.update();
                             configure(CurrentRecipeIndex);
                             control.input.config.hideConfig();
+
+                            Log.info("recipe" + r.name + " " + r.unlocked);
                         });
                         button.update(() ->
                             button.setChecked(CurrentRecipeIndex == recipeSeq.indexOf(r))

@@ -6,6 +6,8 @@ import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
+import arc.util.Log;
+import contents.recipes.recipes;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.gen.Building;
@@ -18,7 +20,9 @@ import mindustry.ui.Styles;
 import mindustry.world.Block;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.Env;
+import prototypes.FFContent;
 import prototypes.FRules;
+import prototypes.recipe.Recipe;
 
 public class Nexus extends Block {
 
@@ -60,17 +64,18 @@ public class Nexus extends Block {
         public float launchCounter;
 
         public void buildConfiguration(Table table) {
-            table.button(Icon.warning, Styles.defaulti, () -> {
-                FRules.Credit -= 15;
-                table.row();
-                table.add("BAD JOB! FACTORY CREDIT - 15", Pal.remove);
+            table.button(Icon.zoom, Styles.defaulti, () -> {
+                recipes.graphite_1.unlocked = true;
+
+                for(Recipe recipe: FFContent.recipeAll){
+                    Log.info(recipe.name + " " + recipe.unlocked);
+                }
             }).size(40f);
 
-            table.button(Icon.add, Styles.defaulti, () -> {
-                FRules.Credit += 100;
-                table.row();
-                table.add("GOOD JOB! FACTORY CREDIT + 100", Pal.accent);
+            table.button(Icon.warning, Styles.defaulti, () -> {
+                Log.info(recipes.graphite_1.unlocked + "|" + FFContent.recipeAll.get(1).name + " " + FFContent.recipeAll.get(1).unlocked);
             }).size(40f);
+
         }
 
         @Override

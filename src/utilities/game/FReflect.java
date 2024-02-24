@@ -2,7 +2,7 @@ package utilities.game;
 
 import arc.util.Log;
 import mindustry.ui.fragments.HudFragment;
-import utilities.ui.fragment.PlacementFragmentF;
+import prototypes.ui.fragment.PlacementFragmentF;
 
 import java.lang.reflect.Field;
 

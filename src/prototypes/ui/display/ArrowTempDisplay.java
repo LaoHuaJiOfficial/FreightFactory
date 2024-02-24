@@ -1,4 +1,4 @@
-package utilities.ui.display;
+package prototypes.ui.display;
 
 import arc.scene.ui.Image;
 import arc.scene.ui.layout.Stack;

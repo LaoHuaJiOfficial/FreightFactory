@@ -17,6 +17,7 @@ import prototypes.block.distribution.BeltRouter;
 import prototypes.block.distribution.ItemDiode;
 import prototypes.block.liquid.LiquidDiode;
 import prototypes.block.production.AssemblerBlock;
+import prototypes.block.tech.Nexus;
 import prototypes.recipe.Recipe;
 import utilities.game.FVars;
 
@@ -97,6 +98,11 @@ public class FFBlock {
             MinTemp = FVars.BaseLine - 100f;
         }};
 
+        nexus = new Nexus("nexus") {{
+            requirements(Category.production, with(Items.copper, 20));
+            size = 4;
+        }};
+
         /*
         HeatCrafter = new AssemblerBlock("heat-crafter"){{
             requirements(Category.production, with(Items.copper, 1));
@@ -132,10 +138,7 @@ public class FFBlock {
         }};
 
         //TODO rework
-        test = new test("test") {{
-            requirements(Category.production, ItemStack.with(Items.copper, 20));
-            size = 2;
-        }};
+
 
         assembler = new AssemblerBlock("assembler"){{
             requirements(Category.production, with(Items.copper, 1));

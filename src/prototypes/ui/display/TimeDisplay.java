@@ -1,17 +1,12 @@
-package utilities.ui.display;
+package prototypes.ui.display;
 
 import arc.Core;
-import arc.graphics.Color;
 import arc.scene.ui.Image;
 import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.util.Scaling;
 import arc.util.Strings;
-import contents.FFImages;
-import mindustry.gen.Icon;
-import mindustry.type.Liquid;
 import mindustry.ui.Styles;
-import mindustry.world.meta.StatUnit;
 
 import static mindustry.Vars.iconMed;
 

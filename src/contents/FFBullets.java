@@ -7,6 +7,7 @@ import contents.bullets.PointLaserLightningBulletType;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BulletType;
+import mindustry.entities.bullet.PointLaserBulletType;
 import mindustry.graphics.Pal;
 
 public class FFBullets {
@@ -140,6 +141,6 @@ public class FFBullets {
             lifetime = 200f;
         }};
 
-        Cathode_0 = new PointLaserLightningBulletType();
+        Cathode_0 = new PointLaserBulletType();
     }
 }

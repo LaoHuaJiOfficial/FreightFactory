@@ -1,10 +1,9 @@
-package utilities.ui.display;
+package prototypes.ui.display;
 
 import arc.scene.ui.Image;
 import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.util.Scaling;
-import arc.util.Strings;
 import mindustry.core.UI;
 import mindustry.gen.Icon;
 import mindustry.graphics.Pal;

@@ -1,4 +1,4 @@
-package utilities.ui.display;
+package prototypes.ui.display;
 
 import arc.graphics.Color;
 import arc.scene.ui.Image;

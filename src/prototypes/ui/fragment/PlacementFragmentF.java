@@ -1,4 +1,4 @@
-package utilities.ui.fragment;
+package prototypes.ui.fragment;
 
 import arc.Core;
 import arc.Events;

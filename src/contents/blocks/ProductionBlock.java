@@ -73,7 +73,8 @@ public class ProductionBlock {
 
             recipeSeq = Seq.with(
                 recipes.graphite_0,
-                recipes.graphite_1
+                recipes.graphite_1,
+                recipes.graphite_2
             );
         }};
 
@@ -89,7 +90,9 @@ public class ProductionBlock {
 
             recipeSeq = Seq.with(
                 recipes.silicon_0,
-                recipes.silicon_1
+                recipes.silicon_1,
+                recipes.silicon_2,
+                recipes.silicon_3
             );
         }};
 
@@ -105,7 +108,8 @@ public class ProductionBlock {
 
             recipeSeq = Seq.with(
                 recipes.metaglass_0,
-                recipes.metaglass_1
+                recipes.metaglass_1,
+                recipes.metaglass_2
             );
         }};
 
