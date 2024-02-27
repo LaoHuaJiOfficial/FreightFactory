@@ -9,6 +9,9 @@ import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import prototypes.FFContent;
 import prototypes.FFVars;
+import prototypes.recipe.Recipe;
+import prototypes.ui.dialog.RecipePlannerDialog;
+import prototypes.ui.dialog.RecipeResearchDialog;
 import utilities.game.FListener;
 import utilities.game.FVanillaChange;
 
@@ -21,7 +24,7 @@ public class ModMain extends Mod {
         //listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
             Time.runTask(10f, () -> {
-                //RecipePlannerDialog dialog = new RecipePlannerDialog();
+                //RecipeResearchDialog dialog = new RecipeResearchDialog();
                 //dialog.show();
             });
         });
@@ -30,9 +33,10 @@ public class ModMain extends Mod {
     @Override
     public void init(){
         Events.on(EventType.WorldLoadEvent.class, e -> {
-            //FFContent.recipeAll.clear();
-            //recipes.init();
-            //Log.info("reset");
+            for (Recipe recipe: FFContent.recipeAll){
+                recipe.resetUnlock();
+            }
+            Log.info("reset");
         });
     }
 

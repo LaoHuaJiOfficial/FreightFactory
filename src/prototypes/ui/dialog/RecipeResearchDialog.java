@@ -2,41 +2,46 @@ package prototypes.ui.dialog;
 
 import arc.Core;
 import arc.graphics.Color;
+import arc.scene.Group;
+import arc.scene.ui.ButtonGroup;
 import arc.scene.ui.Dialog;
+import arc.scene.ui.ScrollPane;
+import arc.scene.ui.TextButton;
+import arc.scene.ui.layout.Table;
+import arc.util.Log;
 import mindustry.gen.Icon;
 import mindustry.gen.Tex;
 import mindustry.graphics.Pal;
+import mindustry.ui.Styles;
+import prototypes.FFContent;
+import prototypes.recipe.Recipe;
 
 import static mindustry.Vars.discordURL;
 import static mindustry.Vars.ui;
 
 public class RecipeResearchDialog extends Dialog {
     public RecipeResearchDialog(){
-        super("");
+        super("name");
+        addCloseButton();
+        setup();
+    }
 
-        float h = 70f;
+    private void setup(){
+        Table recipeList = new Table(Styles.grayPanel);
+        recipeList.marginRight(24f).marginLeft(24f);
 
-        cont.margin(12f);
+        ScrollPane pane = new ScrollPane(recipeList);
+        pane.setScrollingDisabled(true, false);
 
-        Color color = Color.valueOf("7289da");
+        ButtonGroup<TextButton> group = new ButtonGroup<>();
 
-        cont.table(t -> {
-            t.background(Tex.button).margin(0);
+        for (Recipe recipe: FFContent.recipeAll){
+            TextButton recipeSelect = new TextButton(recipe.recipeName, Styles.flatTogglet);
 
-            t.table(img -> {
-                img.image().height(h - 5).width(40f).color(color);
-                img.row();
-                img.image().height(5).width(40f).color(color.cpy().mul(0.8f, 0.8f, 0.8f, 1f));
-            }).expandY();
+            recipeList.add(recipeSelect).group(group).size(480, 80).row();
+            //recipeList.image().growX().pad(0).height(5).color(Pal.accent).row();
+        }
 
-            t.table(i -> {
-                i.image(Icon.discord);
-            }).size(h).left();
-
-            t.add("@discord").color(Pal.accent).growX().padLeft(10f);
-        }).size(520f, h).pad(10f);
-
-        buttons.defaults().size(170f, 50);
-        buttons.button("@back", Icon.left, this::hide);
+        cont.add(pane);
     }
 }

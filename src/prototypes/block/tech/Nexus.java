@@ -23,6 +23,7 @@ import mindustry.world.meta.Env;
 import prototypes.FFContent;
 import prototypes.FRules;
 import prototypes.recipe.Recipe;
+import prototypes.ui.dialog.RecipeResearchDialog;
 
 public class Nexus extends Block {
 
@@ -65,11 +66,8 @@ public class Nexus extends Block {
 
         public void buildConfiguration(Table table) {
             table.button(Icon.zoom, Styles.defaulti, () -> {
-                recipes.graphite_1.unlocked = true;
-
-                for(Recipe recipe: FFContent.recipeAll){
-                    Log.info(recipe.name + " " + recipe.unlocked);
-                }
+                //RecipeResearchDialog dialog = new RecipeResearchDialog();
+                //dialog.show();
             }).size(40f);
 
             table.button(Icon.warning, Styles.defaulti, () -> {

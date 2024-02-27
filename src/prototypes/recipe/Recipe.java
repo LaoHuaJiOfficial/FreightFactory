@@ -3,6 +3,7 @@ package prototypes.recipe;
 import arc.graphics.Color;
 import arc.util.Nullable;
 import mindustry.content.Fx;
+import mindustry.content.Items;
 import mindustry.entities.Effect;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
@@ -15,17 +16,18 @@ import java.io.IOException;
 
 public class Recipe {
 
-    public Recipe(String name){
+    public Recipe(String name, Boolean unlocked){
         this.name = name;
 
+        this.unlocked = unlocked;
+        this.needUnlock = !unlocked;
         FFContent.recipeAll.add(this);
     }
-    public Recipe(){
-        new Recipe("recipe-name");
-    }
 
-    public String name;
+    public String name = "recipe-name";
     public boolean unlocked = true;
+    public boolean needUnlock = false;
+    public ItemStack[] unlockCost = ItemStack.with(Items.copper, 10);
 
     public @Nullable ItemStack[] inputItems;
     public @Nullable ItemStack[] outputItems;
@@ -56,6 +58,10 @@ public class Recipe {
 
     public boolean HasHeat() {
         return inputHeatAmount > 0 || outputHeatAmount > 0;
+    }
+
+    public void resetUnlock(){
+        unlocked = !needUnlock;
     }
 
     public void write(DataOutput stream) throws IOException{

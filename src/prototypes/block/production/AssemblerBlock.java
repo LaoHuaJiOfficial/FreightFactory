@@ -358,88 +358,134 @@ public class AssemblerBlock extends BlockF {
 
                         ImageButton button = new ImageButton();
 
-                        button.table(info -> {
-                            info.table(t -> {
-                                //input draw left
-                                info.add(new Stack() {{
-                                    add(new Image(timeIcon).setScaling(Scaling.fit));
+                        if (r.unlocked){
+                            button.table(info -> {
+                                info.table(t -> {
+                                    //input draw left
+                                    info.add(new Stack() {{
+                                        add(new Image(timeIcon).setScaling(Scaling.fit));
 
-                                    Table t = new Table().left().bottom();
-                                    t.add(Strings.autoFixed(r.craftTime / 60f , 1)+ "s").style(Styles.outlineLabel);
-                                    add(t);
-                                }}).size(iconMed).padRight(12);
-                                t.left();
-                                //input items
-                                if (r.inputItems != null) {
-                                    for (int i = 0; i < r.inputItems.length; i++) {
-                                        ItemStack stack = r.inputItems[i];
-                                        info.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
+                                        Table t = new Table().left().bottom();
+                                        t.add(Strings.autoFixed(r.craftTime / 60f , 1)+ "s").style(Styles.outlineLabel);
+                                        add(t);
+                                    }}).size(iconMed).padRight(12);
+                                    t.left();
+                                    //input items
+                                    if (r.inputItems != null) {
+                                        for (int i = 0; i < r.inputItems.length; i++) {
+                                            ItemStack stack = r.inputItems[i];
+                                            info.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
+                                        }
                                     }
-                                }
-                                //input liquids
-                                if (r.inputLiquids != null) {
-                                    for (int i = 0; i < r.inputLiquids.length; i++) {
-                                        LiquidStack stack = r.inputLiquids[i];
-                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
+                                    //input liquids
+                                    if (r.inputLiquids != null) {
+                                        for (int i = 0; i < r.inputLiquids.length; i++) {
+                                            LiquidStack stack = r.inputLiquids[i];
+                                            info.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
+                                        }
                                     }
-                                }
-                                //todo payload here
-                                //input heat
-                                if (r.inputHeatAmount > 0 && !r.isCoolant) {
-                                    info.add(new HeatDisplay(r.inputHeatAmount, false));
-                                }
-                                if (r.outputHeatAmount > 0 && r.isCoolant) {
-                                    info.add(new HeatDisplay(r.outputHeatAmount, true));
-                                }
-                                //input power
-                                if (r.inputPower > 0) {
-                                    info.add(new PowerDisplay(r.inputPower, true));
-                                }
+                                    //todo payload here
+                                    //input heat
+                                    if (r.inputHeatAmount > 0 && !r.isCoolant) {
+                                        info.add(new HeatDisplay(r.inputHeatAmount, false));
+                                    }
+                                    if (r.outputHeatAmount > 0 && r.isCoolant) {
+                                        info.add(new HeatDisplay(r.outputHeatAmount, true));
+                                    }
+                                    //input power
+                                    if (r.inputPower > 0) {
+                                        info.add(new PowerDisplay(r.inputPower, true));
+                                    }
 
-                                //arrow
-                                info.add(new ArrowTempDisplay(0, true));
+                                    //arrow
+                                    info.add(new ArrowTempDisplay(0, true));
 
-                                //output items
-                                if (r.outputItems != null) {
-                                    for (int i = 0; i < r.outputItems.length; i++) {
-                                        ItemStack stack = r.outputItems[i];
-                                        info.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
+                                    //output items
+                                    if (r.outputItems != null) {
+                                        for (int i = 0; i < r.outputItems.length; i++) {
+                                            ItemStack stack = r.outputItems[i];
+                                            info.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
+                                        }
                                     }
-                                }
-                                //output liquids
-                                if (r.outputLiquids != null) {
-                                    for (int i = 0; i < r.outputLiquids.length; i++) {
-                                        LiquidStack stack = r.outputLiquids[i];
-                                        info.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
+                                    //output liquids
+                                    if (r.outputLiquids != null) {
+                                        for (int i = 0; i < r.outputLiquids.length; i++) {
+                                            LiquidStack stack = r.outputLiquids[i];
+                                            info.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
+                                        }
                                     }
-                                }
-                                //todo payload here
-                                //output heat
-                                if (r.inputHeatAmount > 0 && r.isCoolant) {
-                                    info.add(new HeatDisplay(r.inputHeatAmount, false));
-                                }
-                                if (r.outputHeatAmount > 0 && !r.isCoolant) {
-                                    info.add(new HeatDisplay(r.outputHeatAmount, true));
-                                }
+                                    //todo payload here
+                                    //output heat
+                                    if (r.inputHeatAmount > 0 && r.isCoolant) {
+                                        info.add(new HeatDisplay(r.inputHeatAmount, false));
+                                    }
+                                    if (r.outputHeatAmount > 0 && !r.isCoolant) {
+                                        info.add(new HeatDisplay(r.outputHeatAmount, true));
+                                    }
 
-                                //output power
-                                if (r.outputPower > 0) {
-                                    info.add(new PowerDisplay(r.outputPower, false));
-                                }
-                            });
-                        }).left().expand().pad(10f);
+                                    //output power
+                                    if (r.outputPower > 0) {
+                                        info.add(new PowerDisplay(r.outputPower, false));
+                                    }
+                                });
+                            }).left().expand().pad(10f);
+                        }else {
+                            button.table(require -> {
+                                require.table(t -> {
+                                    for (ItemStack item: r.unlockCost){
+                                        t.add(new ItemDisplay(item.item, item.amount ,false));
+                                    }
+                                });
+                            }).left().expand().pad(10f);
+                        }
+
                         button.add(new Image(r.unlocked? Icon.infoCircle: Icon.lock).setScaling(Scaling.fit)).size(iconMed).padRight(5f)
-                            .tooltip(r.unlocked ? "[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription + "[]": "Need To research");
+                            .tooltip(r.unlocked ? "[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription + "[]": "Research Required");
                         button.setStyle(Styles.clearNoneTogglei);
 
                         button.changed(() -> {
-                            CurrentRecipeIndex = recipeSeq.indexOf(r);
-                            this.items.clear();
-                            this.liquids.clear();
-                            this.update();
-                            configure(CurrentRecipeIndex);
-                            control.input.config.hideConfig();
+                            if (r.unlocked){
+                                CurrentRecipeIndex = recipeSeq.indexOf(r);
+                                this.items.clear();
+                                this.liquids.clear();
+                                this.update();
+                                configure(CurrentRecipeIndex);
+                                control.input.config.hideConfig();
+                            }else {
+                                boolean allowUnlock = true;
+                                Building core = player.core();
+                                if(core == null){
+                                    allowUnlock = false;
+                                }else {
+                                    if(!state.rules.infiniteResources){
+                                       //todo infinite resource case
+                                    }
+                                    for(ItemStack item: r.unlockCost){
+                                        if (core.items.get(item.item) < item.amount){
+                                            allowUnlock = false;
+                                            break;
+                                        }
+                                    }
+                                }
 
+                                if (allowUnlock){
+                                    Log.info("able unlock " + allowUnlock);
+                                    for(ItemStack item: r.unlockCost){
+                                        core.items.remove(item.item, item.amount);
+                                    }
+                                    r.unlocked = true;
+                                    CurrentRecipeIndex = recipeSeq.indexOf(r);
+                                    this.items.clear();
+                                    this.liquids.clear();
+                                    this.update();
+                                    configure(CurrentRecipeIndex);
+                                    control.input.config.hideConfig();
+                                }else {
+                                    Log.info("unable unlock " + allowUnlock);
+                                    ui.showInfoFade("Insufficient Resource!");
+                                    //control.input.config.hideConfig();
+                                }
+                            }
                             Log.info("recipe" + r.name + " " + r.unlocked);
                         });
                         button.update(() ->
@@ -462,7 +508,7 @@ public class AssemblerBlock extends BlockF {
                 pane.update(() -> this.block.selectScroll = pane.getScrollY());
             }
             pane.setOverscroll(false, false);
-            main.add(pane).maxHeight(500.0F);
+            main.add(pane).maxHeight(400f);
             table.top().add(main);
         }
 
