@@ -15,6 +15,9 @@ import mindustry.entities.Effect;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 
+import static arc.graphics.g2d.Lines.lineAngle;
+import static arc.graphics.g2d.Lines.stroke;
+
 public class FFFx {
 
     public static final Rand rand = Fx.rand;
@@ -49,5 +52,9 @@ public class FFFx {
 
         Fill.poly(e.x, e.y ,6, 2 + 4 * e.fout(), e.rotation);
         Draw.reset();
+    }),
+
+        CathodeLaserEffect = new Effect(20f, e -> {
+
     });
 }

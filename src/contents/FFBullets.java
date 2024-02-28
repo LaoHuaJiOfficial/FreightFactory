@@ -141,6 +141,6 @@ public class FFBullets {
             lifetime = 200f;
         }};
 
-        Cathode_0 = new PointLaserBulletType();
+        Cathode_0 = new PointLaserLightningBulletType();
     }
 }
