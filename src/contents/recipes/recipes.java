@@ -32,7 +32,7 @@ public class recipes {
         graphite_1 = new Recipe("graphite-1", false) {{
             craftTime = 120f;
 
-            unlockCost = with(FFItems.aluminium, 1000);
+            unlockCost = with(Items.graphite, 200, Items.metaglass, 200, Items.silicon, 300, Items.titanium, 100);
 
             inputItems = with(Items.coal, 2);
             inputLiquids = LiquidStack.with(Liquids.water, 3f / 60f);
@@ -45,6 +45,8 @@ public class recipes {
 
         graphite_2 = new Recipe("graphite-2", false) {{
             craftTime = 240f;
+
+            unlockCost = with(Items.graphite, 500, Items.metaglass, 300, Items.silicon, 300, Items.titanium, 300, Items.thorium, 200, Items.plastanium, 200);
 
             inputItems = with(Items.coal, 2);
             inputLiquids = LiquidStack.with(Liquids.water, 3f / 60f);

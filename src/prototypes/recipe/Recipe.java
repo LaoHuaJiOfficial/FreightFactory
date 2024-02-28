@@ -55,6 +55,7 @@ public class Recipe {
 
     public @Nullable String recipeName;
     public @Nullable String recipeDescription;
+    public @Nullable String recipeDetail;
 
     public boolean HasHeat() {
         return inputHeatAmount > 0 || outputHeatAmount > 0;

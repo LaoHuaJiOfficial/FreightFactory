@@ -104,9 +104,11 @@ public class AssemblerBlock extends BlockF {
         timeIcon = Core.atlas.find("ff-time-icon");
         drawer.load(this);
 
+        //todo move to Recipe
         for (Recipe r : recipeSeq){
             r.recipeName = Core.bundle.get("recipe." + r.name + ".name");
             r.recipeDescription = Core.bundle.get("recipe." + r.name + ".desc");
+            r.recipeDetail = Core.bundle.get("recipe." + r.name + ".deta");
         }
     }
 
@@ -154,6 +156,7 @@ public class AssemblerBlock extends BlockF {
         stats.remove(Stat.itemCapacity);
 
         stats.add(Stat.output, table -> {
+            table.add("[red]RECIPE LIST STAT STILL WIP![]");
             table.row();
 
             for(var r : recipeSeq){
@@ -429,7 +432,7 @@ public class AssemblerBlock extends BlockF {
                                     }
                                 });
                             }).left().expand().pad(10f);
-                        }else {
+                        } else {
                             button.table(require -> {
                                 require.table(t -> {
                                     for (ItemStack item: r.unlockCost){
@@ -438,10 +441,25 @@ public class AssemblerBlock extends BlockF {
                                 });
                             }).left().expand().pad(10f);
                         }
-
-                        button.add(new Image(r.unlocked? Icon.infoCircle: Icon.lock).setScaling(Scaling.fit)).size(iconMed).padRight(5f)
-                            .tooltip(r.unlocked ? "[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription + "[]": "Research Required");
                         button.setStyle(Styles.clearNoneTogglei);
+
+                        ImageButton infoTrigger = new ImageButton();
+                        infoTrigger.table(t -> {
+                            t.add(new Image(r.unlocked? Icon.infoCircle: Icon.lock).setScaling(Scaling.fit)).size(iconLarge).pad(6,8,6,8).expandY();
+                        }).tooltip(t -> {
+                            t.setBackground(Styles.grayPanel);
+                            t.add(r.unlocked ? "[accent]"+ r.recipeName+ "[]\n[white]"+ r.recipeDescription + "[]": "[accent]"+ r.recipeName+ "[]\n[red]Research Required[]").wrap().width(300).pad(8,8,8,-6);
+                            }
+                        );
+                        infoTrigger.setStyle(Styles.clearNonei);
+
+                        /*
+                        Table info = new Table();
+                        info.table(t -> {
+                            t.label(() -> r.recipeName);
+                        });
+
+                         */
 
                         button.changed(() -> {
                             if (r.unlocked){
@@ -491,7 +509,12 @@ public class AssemblerBlock extends BlockF {
                         button.update(() ->
                             button.setChecked(CurrentRecipeIndex == recipeSeq.indexOf(r))
                         );
+
+                        infoTrigger.changed(() -> {
+                            //info.visible = true;
+                        });
                         cont.add(button);
+                        cont.add(infoTrigger);
                         cont.row();
                     }
                 }
@@ -508,7 +531,7 @@ public class AssemblerBlock extends BlockF {
                 pane.update(() -> this.block.selectScroll = pane.getScrollY());
             }
             pane.setOverscroll(false, false);
-            main.add(pane).maxHeight(400f);
+            main.add(pane).maxHeight(500f);
             table.top().add(main);
         }
 
