@@ -1,7 +1,0 @@
-{
-  "type": "StaticWall",
-  "name": "红斑金属墙",
-  "isLiquid": false,
-  "variants": 1,
-  "playerUnminable": 1
-}
