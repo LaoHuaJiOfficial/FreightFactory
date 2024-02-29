@@ -147,6 +147,8 @@ public class TurretBlock {
             consumeAmmoOnce = true;
             shootSound = FFSounds.InfernoShoot;
 
+            consumePower(1000/60f);
+
             drawer = new DrawTurret(){{
                 parts.addAll(
                     new RegionPart("-blade"){{
@@ -188,7 +190,7 @@ public class TurretBlock {
             shootWarmupSpeed = 0.08f;
 
             scaledHealth = 300;
-            range = 1200f;
+            range = 600f;
             size = 4;
 
             limitRange(-5f);

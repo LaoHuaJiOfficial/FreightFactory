@@ -136,9 +136,9 @@ public class FFBullets {
 
             //Meta Part
             ammoMultiplier = 3f;
-            lifetime = 200f;
+            lifetime = 60f;
 
-            despawnSound = Sounds.explosionbig;
+            hitSound = despawnSound = Sounds.explosionbig;
         }};
 
         Cathode_0 = new PointLaserLightningBulletType(){{
