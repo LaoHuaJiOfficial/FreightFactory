@@ -1,7 +1,0 @@
-{
-  "type": "Floor",
-  "name": "装甲地板",
-  "isLiquid": false,
-  "variants": 1,
-  "playerUnminable": 1
-}

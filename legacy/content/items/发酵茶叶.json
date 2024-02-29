@@ -1,7 +1,0 @@
-{
-  "type": "resource",
-  "name": "发酵茶叶",
-  "description": "经过萎凋、揉捻、发酵、干燥制成，用于配红茶.",
-  "flammability": 1.2,
-  "color": "#423a2d"
-}
