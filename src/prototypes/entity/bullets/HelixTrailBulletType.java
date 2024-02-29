@@ -1,16 +1,10 @@
-package contents.bullets;
+package prototypes.entity.bullets;
 
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
-import arc.math.Angles;
 import arc.math.Mathf;
-import arc.util.Log;
-import arc.util.Nullable;
 import arc.util.Time;
 import mindustry.content.Fx;
-import mindustry.entities.Mover;
 import mindustry.entities.bullet.BasicBulletType;
-import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.graphics.Trail;
 

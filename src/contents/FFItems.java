@@ -92,7 +92,7 @@ public class FFItems {
 
         iceCube = new Item("ice-cube", Color.valueOf("d2e5ff")){{
             explosiveness = 0f;
-            flammability = 0.8f;
+            flammability = 0f;
             radioactivity = 0f;
             charge = 0f;
 
@@ -101,7 +101,7 @@ public class FFItems {
 
         teaIceCube = new Item("tea-ice-cube", Color.valueOf("9be08e")){{
             explosiveness = 0f;
-            flammability = 0.8f;
+            flammability = 0f;
             radioactivity = 0f;
             charge = 0f;
 
@@ -110,7 +110,7 @@ public class FFItems {
 
         blackTeaIceCube = new Item("black-tea-ice-cube", Color.valueOf("cb7b71")){{
             explosiveness = 0f;
-            flammability = 0.8f;
+            flammability = 0f;
             radioactivity = 0f;
             charge = 0f;
 
@@ -119,7 +119,7 @@ public class FFItems {
 
         colaIceCube = new Item("cola-ice-cube", Color.valueOf("858491")){{
             explosiveness = 0f;
-            flammability = 0.8f;
+            flammability = 0f;
             radioactivity = 0f;
             charge = 0f;
 

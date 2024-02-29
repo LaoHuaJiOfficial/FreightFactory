@@ -1,4 +1,4 @@
-package prototypes.entity.bullet;
+package prototypes.entity.bullets;
 
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BulletType;

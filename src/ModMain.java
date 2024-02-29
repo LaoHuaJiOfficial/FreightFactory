@@ -47,6 +47,7 @@ public class ModMain extends Mod {
         //Highest load priority
         FFSounds.load();
         FFItems.load();
+        FFLiquids.load();
         //FFLiquids
 
         recipes.init();

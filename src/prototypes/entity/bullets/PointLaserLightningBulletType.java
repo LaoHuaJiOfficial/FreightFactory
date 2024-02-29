@@ -1,30 +1,25 @@
-package contents.bullets;
+package prototypes.entity.bullets;
 
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
-import arc.math.Rand;
-import arc.math.geom.Geometry;
 import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.Time;
-import arc.util.Tmp;
+import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Damage;
 import mindustry.entities.Effect;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Bullet;
 import mindustry.graphics.Drawf;
-import mindustry.graphics.Pal;
 import mindustry.graphics.Trail;
 
 import static mindustry.Vars.headless;
 
-public class HelixLaserBulletType extends BulletType {
-
+public class PointLaserLightningBulletType extends BulletType {
     public String sprite = "point-laser";
     public TextureRegion laser, laserEnd;
 
@@ -38,7 +33,7 @@ public class HelixLaserBulletType extends BulletType {
 
     public float shake = 0f;
 
-    public HelixLaserBulletType(){
+    public PointLaserLightningBulletType(){
         removeAfterPierce = false;
         speed = 0f;
         despawnEffect = Fx.none;
@@ -88,28 +83,6 @@ public class HelixLaserBulletType extends BulletType {
         Draw.color(color);
         float scale = b.fslope() * (1f - oscMag + Mathf.absin(Time.time, oscScl, oscMag));
         Drawf.laser(laser, laserEnd, b.x, b.y, b.aimX, b.aimY, scale);
-
-
-        if (b.data instanceof Seq<?> data){
-            @SuppressWarnings("unchecked")
-            Seq<Vec2> points = (Seq<Vec2>) data;
-            if (points.any()){
-                Draw.color(Color.sky);
-                Lines.stroke(5f * scale);
-                Lines.beginLine();
-                for (int i = 0; i < points.size; i +=2){
-                    Lines.linePoint(points.get(i));
-                }
-                Lines.endLine();
-
-                Lines.stroke(3f * scale);
-                Lines.beginLine();
-                for (int i = 0; i < points.size; i +=2){
-                    Lines.linePoint(points.get(i + 1));
-                }
-                Lines.endLine();
-            }
-        }
         Draw.reset();
     }
 
@@ -127,28 +100,11 @@ public class HelixLaserBulletType extends BulletType {
             beamEffect.at(b.aimX, b.aimY, beamEffectSize * b.fslope(), hitColor);
         }
 
-        if (b.data instanceof Seq<?> data){
-            @SuppressWarnings("unchecked")
-            Seq<Vec2> points = (Seq<Vec2>) data;
-            if(b.timer.get(2, Time.delta)){
-                points.clear();
-
-                float len = Mathf.dst(b.x, b.y, b.aimX, b.aimY);
-                int steps = (int)(len / 2);
-                float step = 1f / steps;
-                Rand rand = new Rand(b.id);
-                float scale = Time.time + rand.random(360);
-
-                Tmp.v2.set(b.aimX, b.aimY);
-                for(int i = 0; i < steps; i++){
-                    float s = step * i;
-                    Tmp.v1.set(b.x, b.y);
-                    Tmp.v1.lerp(Tmp.v2, s);
-                    points.add(new Vec2(Tmp.v1.x + Mathf.sinDeg(scale * 10 + 5 * i) * 4f, Tmp.v1.y + Mathf.cosDeg(scale * 10 + 5 * i) * 4f));
-                    points.add(new Vec2(Tmp.v1.x - Mathf.sinDeg(scale * 10 + 5 * i) * 4f, Tmp.v1.y - Mathf.cosDeg(scale * 10 + 5 * i) * 4f));
-                }
-                b.data = points;
-            }
+        if(!Vars.headless && b.timer(2, 1)){
+            //PosLightning.createEffect(b, Tmp.v1.set(b.aimX, b.aimY), Color.sky, 1, 2);
+            //if(Mathf.chance(0.25)) NHFx.hitSparkLarge.at(b.x, b.y, tmpColor);
+            //float scale = Mathf.random(1f);
+            //Fx.instTrail.at(b.x + (b.aimX - b.x) * scale, b.y + (b.aimY - b.y) * scale, b.rotation());
         }
 
     }

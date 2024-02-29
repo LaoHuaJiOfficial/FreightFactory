@@ -1,4 +1,4 @@
-package prototypes.entity.bullet;
+package prototypes.entity.bulletUtil;
 
 import arc.func.Cons;
 import arc.graphics.Color;
@@ -28,6 +28,7 @@ import mindustry.gen.Bullet;
 import mindustry.gen.Entityc;
 import mindustry.gen.Healthc;
 import mindustry.graphics.Layer;
+import prototypes.entity.bullets.EffectBulletType;
 import utilities.struct.Vec2Seq;
 
 /**

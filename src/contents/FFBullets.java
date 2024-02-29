@@ -1,13 +1,11 @@
 package contents;
 
 import arc.graphics.Color;
-import contents.bullets.HelixLaserBulletType;
-import contents.bullets.HelixTrailBulletType;
-import contents.bullets.PointLaserLightningBulletType;
+import prototypes.entity.bullets.HelixTrailBulletType;
+import prototypes.entity.bullets.PointLaserLightningBulletType;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.bullet.BulletType;
-import mindustry.entities.bullet.PointLaserBulletType;
 import mindustry.graphics.Pal;
 
 public class FFBullets {
