@@ -2,15 +2,13 @@ package contents.blocks;
 
 import arc.struct.Seq;
 import contents.FFItems;
-import contents.recipes.recipes;
-import mindustry.content.Blocks;
+import contents.Recipes;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.world.Block;
-import mindustry.world.blocks.distribution.BufferedItemBridge;
 import mindustry.world.draw.*;
 import prototypes.block.production.AreaDrill;
 import prototypes.block.production.AssemblerBlock;
@@ -72,9 +70,9 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                recipes.graphite_0,
-                recipes.graphite_1,
-                recipes.graphite_2
+                Recipes.graphite_0,
+                Recipes.graphite_1,
+                Recipes.graphite_2
             );
         }};
 
@@ -89,10 +87,10 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                recipes.silicon_0,
-                recipes.silicon_1,
-                recipes.silicon_2,
-                recipes.silicon_3
+                Recipes.silicon_0,
+                Recipes.silicon_1,
+                Recipes.silicon_2,
+                Recipes.silicon_3
             );
         }};
 
@@ -107,9 +105,9 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                recipes.metaglass_0,
-                recipes.metaglass_1,
-                recipes.metaglass_2
+                Recipes.metaglass_0,
+                Recipes.metaglass_1,
+                Recipes.metaglass_2
             );
         }};
 
@@ -124,7 +122,7 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                recipes.plastanium_0
+                Recipes.plastanium_0
             );
         }};
 
@@ -139,8 +137,8 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                recipes.aluminium_0,
-                recipes.aluminium_1
+                Recipes.aluminium_0,
+                Recipes.aluminium_1
             );
         }};
 
@@ -155,7 +153,7 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                recipes.iceCube_0
+                Recipes.iceCube_0
             );
         }};
         /*

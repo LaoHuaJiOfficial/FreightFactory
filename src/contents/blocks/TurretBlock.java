@@ -1,6 +1,7 @@
 package contents.blocks;
 
 import contents.FFBullets;
+import contents.FFItems;
 import contents.FFSounds;
 import mindustry.content.Items;
 import mindustry.entities.part.RegionPart;
@@ -15,6 +16,7 @@ import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ContinuousTurret;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.PowerTurret;
 import mindustry.world.draw.DrawTurret;
 
 import static mindustry.type.ItemStack.with;
@@ -88,7 +90,7 @@ public class TurretBlock {
             requirements(Category.turret, with(Items.copper, 10));
 
             ammo(
-                Items.graphite, FFBullets.IronCurtain_0
+                FFItems.aluminium, FFBullets.IronCurtain_0
             );
             shoot = new ShootAlternate(){{
                 spread = 11f;
@@ -138,7 +140,7 @@ public class TurretBlock {
                 Items.graphite, FFBullets.Crysta_0
             );
 
-            reload = 20f;
+            reload = 60f;
             shootY = 10f;
             rotateSpeed = 5f;
             shootCone = 15f;
@@ -181,6 +183,8 @@ public class TurretBlock {
                     );
             }};
 
+            minWarmup = 0.8f;
+
             shootWarmupSpeed = 0.08f;
 
             scaledHealth = 300;
@@ -197,10 +201,14 @@ public class TurretBlock {
 
             reload = 60f;
             shootY = 10f;
-            rotateSpeed = 5f;
-            shootCone = 15f;
+            rotateSpeed = 1f;
+            aimChangeSpeed = 5f;
+            shootCone = 8f;
             consumeAmmoOnce = true;
-            shootSound = FFSounds.InfernoShoot;
+            shootSound = Sounds.none;
+            loopSound = Sounds.pulse;
+
+            consumePower(2000/60f);
 
             drawer = new DrawTurret(){{
                 parts.addAll(
@@ -231,24 +239,31 @@ public class TurretBlock {
                 );
             }};
 
+            minWarmup = 0.8f;
+
             shootWarmupSpeed = 0.05f;
 
             scaledHealth = 300;
-            range = 1200f;
+            range = 400f;
             size = 4;
         }};
 
-        anode = new ContinuousTurret("anode"){{
+        anode = new PowerTurret("anode"){{
             requirements(Category.turret, with(Items.copper, 10));
 
-            shootType = FFBullets.Cathode_0;
+            shootType = FFBullets.Anode_0;
 
-            reload = 60f;
+            reload = 120f;
             shootY = 10f;
             rotateSpeed = 5f;
             shootCone = 15f;
             consumeAmmoOnce = true;
             shootSound = FFSounds.InfernoShoot;
+
+            moveWhileCharging = false;
+            accurateDelay = false;
+
+            consumePower(1500/60f);
 
             drawer = new DrawTurret(){{
                 parts.addAll(
@@ -291,10 +306,12 @@ public class TurretBlock {
                 );
             }};
 
+            minWarmup = 0.8f;
+
             shootWarmupSpeed = 0.05f;
 
             scaledHealth = 300;
-            range = 1200f;
+            range = 380f;
             size = 4;
         }};
 

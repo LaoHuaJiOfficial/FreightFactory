@@ -7,7 +7,7 @@ import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
 import arc.util.Log;
-import contents.recipes.recipes;
+import contents.Recipes;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.gen.Building;
@@ -22,8 +22,6 @@ import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.Env;
 import prototypes.FFContent;
 import prototypes.FRules;
-import prototypes.recipe.Recipe;
-import prototypes.ui.dialog.RecipeResearchDialog;
 
 public class Nexus extends Block {
 
@@ -71,7 +69,7 @@ public class Nexus extends Block {
             }).size(40f);
 
             table.button(Icon.warning, Styles.defaulti, () -> {
-                Log.info(recipes.graphite_1.unlocked + "|" + FFContent.recipeAll.get(1).name + " " + FFContent.recipeAll.get(1).unlocked);
+                Log.info(Recipes.graphite_1.unlocked + "|" + FFContent.recipeAll.get(1).name + " " + FFContent.recipeAll.get(1).unlocked);
             }).size(40f);
 
         }

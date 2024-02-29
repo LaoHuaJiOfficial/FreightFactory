@@ -1,6 +1,9 @@
 package contents;
 
 import arc.graphics.Color;
+import mindustry.entities.bullet.LaserBulletType;
+import mindustry.entities.effect.MultiEffect;
+import mindustry.gen.Sounds;
 import prototypes.entity.bullets.HelixTrailBulletType;
 import prototypes.entity.bullets.PointLaserLightningBulletType;
 import mindustry.content.Fx;
@@ -10,7 +13,7 @@ import mindustry.graphics.Pal;
 
 public class FFBullets {
     public static BulletType
-        IronCurtain_0, IronCurtain_1, Crysta_0, Cathode_0;
+        IronCurtain_0, IronCurtain_1, Crysta_0, Cathode_0, Anode_0;
 
     public static void load(){
         IronCurtain_0 = new BasicBulletType(){{
@@ -42,7 +45,7 @@ public class FFBullets {
             //Damage Part
             damage = 40;
             splashDamageRadius = 25f;
-            splashDamage = 20f;
+            splashDamage = 150f;
             scaledSplashDamage = true;
 
             //Homing
@@ -83,7 +86,7 @@ public class FFBullets {
             //Damage Part
             damage = 100;
             splashDamageRadius = 35f;
-            splashDamage = 50f;
+            splashDamage = 250f;
             scaledSplashDamage = true;
 
             //Homing
@@ -100,17 +103,14 @@ public class FFBullets {
 
         Crysta_0 = new HelixTrailBulletType(){{
             //Draw Part
-            backSprite = "missile-large-back";
-            sprite = "mine-bullet";
-
-            height = 18f;
-            width = 14f;
+            sprite = "large-bomb";
+            width = height = 120/4f;
 
             frontColor = Color.white;
             backColor = trailColor = hitColor = Color.sky;
 
             trailInterval = 3f;
-            trailLength = 20;
+            trailLength = 25;
             trailWidth = 2f;
             trailRotation = true;
 
@@ -121,7 +121,7 @@ public class FFBullets {
 
             shootEffect = Fx.shootBig2;
             smokeEffect = Fx.shootSmokeDisperse;
-            hitEffect = despawnEffect = Fx.hitBulletColor;
+            hitEffect = despawnEffect = FFFx.CrystaHit;
 
             despawnShake = 7f;
 
@@ -129,16 +129,36 @@ public class FFBullets {
             shrinkY = 0.3f;
 
             //Damage Part
-            damage = 40;
+            damage = 500;
             splashDamageRadius = 25f;
-            splashDamage = 20f;
+            splashDamage = 1000f;
             scaledSplashDamage = true;
 
             //Meta Part
             ammoMultiplier = 3f;
             lifetime = 200f;
+
+            despawnSound = Sounds.explosionbig;
         }};
 
-        Cathode_0 = new PointLaserLightningBulletType();
+        Cathode_0 = new PointLaserLightningBulletType(){{
+            damage = 400;
+        }};
+
+        Anode_0 = new LaserBulletType(3000){{
+            colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
+            //TODO merge
+            chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
+            shootEffect = Fx.none;
+
+            hitEffect = Fx.hitLancer;
+            hitSize = 15;
+            lifetime = 35f;
+            drawSize = 1000f;
+            collidesAir = false;
+            width = 30f;
+            length = 420f;
+            ammoMultiplier = 1f;
+        }};
     }
 }

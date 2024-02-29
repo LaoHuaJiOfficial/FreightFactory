@@ -1,6 +1,5 @@
-package contents.recipes;
+package contents;
 
-import contents.FFItems;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -9,12 +8,14 @@ import prototypes.recipe.Recipe;
 
 import static mindustry.type.ItemStack.with;
 
-public class recipes {
+public class Recipes {
     public static Recipe
         graphite_0, graphite_1, graphite_2,
         silicon_0, silicon_1, silicon_2, silicon_3,
         metaglass_0, metaglass_1, metaglass_2,
-        plastanium_0, aluminium_0, aluminium_1, iceCube_0,
+        plastanium_0,
+        aluminium_0, aluminium_1,
+        iceCube_0,
         wheatCultivate_0, teaCultivate_0;
 
     public static void init(){
@@ -71,6 +72,9 @@ public class recipes {
         silicon_1 = new Recipe("silicon-1", false) {{
             craftTime = 240f;
 
+            unlockCost = with(Items.graphite, 500, Items.metaglass, 400, Items.silicon, 400, Items.titanium, 200);
+
+
             inputItems = with(Items.sand, 4, Items.graphite, 1);
             inputPower = 300f / 60f;
 
@@ -81,6 +85,8 @@ public class recipes {
 
         silicon_2 = new Recipe("silicon-2", false) {{
             craftTime = 240f;
+
+            unlockCost = with(Items.graphite, 300, Items.metaglass, 600, Items.silicon, 800, Items.titanium, 500, FFItems.aluminium, 800, FFItems.crystalAlloy, 500);
 
             inputItems = with(Items.sand, 4, Items.pyratite, 1);
             inputPower = 480f / 60f;
@@ -93,6 +99,8 @@ public class recipes {
         silicon_3 = new Recipe("silicon-3", false) {{
             craftTime = 240f;
 
+            unlockCost = with(Items.graphite, 600, Items.metaglass, 400, Items.silicon, 600, Items.titanium, 800, Items.thorium, 800, Items.plastanium, 500, FFItems.aluminium, 600, FFItems.crystalAlloy, 500);
+
             inputItems = with(Items.sand, 4);
             inputLiquids = LiquidStack.with(Liquids.water, 12f/ 60f);
             inputPower = 720f / 60f;
@@ -104,6 +112,8 @@ public class recipes {
 
         metaglass_0 = new Recipe("metaglass-0", true) {{
             craftTime = 120f;
+
+            unlockCost = with(Items.graphite, 500, Items.metaglass, 400, Items.silicon, 400, Items.titanium, 200);
 
             inputItems = with(Items.sand, 2, Items.lead, 2);
             inputPower = 45f / 60f;
@@ -126,6 +136,8 @@ public class recipes {
 
         metaglass_2 = new Recipe("metaglass-2", false) {{
             craftTime = 180f;
+
+            unlockCost = with(Items.graphite, 300, Items.silicon, 800, Items.titanium, 500, FFItems.aluminium, 800, FFItems.crystalAlloy, 500);
 
             inputItems = with(Items.sand, 3);
             inputLiquids = LiquidStack.with(Liquids.nitrogen, 6f / 60f);

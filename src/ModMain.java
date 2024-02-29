@@ -3,15 +3,13 @@ import arc.util.Log;
 import arc.util.Time;
 import contents.*;
 import contents.FFBullets;
-import contents.recipes.recipes;
+import contents.Recipes;
 import mindustry.game.EventType;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.mod.Mod;
 import prototypes.FFContent;
 import prototypes.FFVars;
 import prototypes.recipe.Recipe;
-import prototypes.ui.dialog.RecipePlannerDialog;
-import prototypes.ui.dialog.RecipeResearchDialog;
 import utilities.game.FListener;
 import utilities.game.FVanillaChange;
 
@@ -50,7 +48,7 @@ public class ModMain extends Mod {
         FFLiquids.load();
         //FFLiquids
 
-        recipes.init();
+        Recipes.init();
         FFBullets.load();
 
         FFBlock.load();

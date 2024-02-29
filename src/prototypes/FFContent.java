@@ -1,7 +1,6 @@
 package prototypes;
 
 import arc.struct.Seq;
-import contents.recipes.recipes;
 import prototypes.recipe.Recipe;
 
 public class FFContent {
