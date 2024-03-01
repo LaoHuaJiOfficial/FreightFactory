@@ -1,6 +1,7 @@
 package prototypes.block.production;
 
 import arc.Core;
+import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.scene.ui.Image;
@@ -16,6 +17,7 @@ import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.gen.Icon;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.ui.ItemDisplay;
 import mindustry.ui.Styles;
@@ -112,7 +114,6 @@ public class AssemblerBlock extends BlockF {
         }
     }
 
-
     @Override
     public void init() {
         super.init();
@@ -156,76 +157,57 @@ public class AssemblerBlock extends BlockF {
         stats.remove(Stat.itemCapacity);
 
         stats.add(Stat.output, table -> {
-            table.add("[red]RECIPE LIST STAT STILL WIP![]");
             table.row();
 
             for(var r : recipeSeq){
-                table.table(Styles.grayPanel, t -> {
-                    table.add(new Stack() {{
-                        add(new Image(timeIcon).setScaling(Scaling.fit));
+                table.table(Styles.grayPanel, info -> {
+                    info.label(() -> "[accent]" + r.recipeName).pad(5,5,0,0).left().row();
+                    info.label(() -> "[white]" + r.recipeDescription).pad(5,10,5,10).size(480, 0).wrap().left().row();
+                    info.table(recipeInfo -> {
+                        recipeInfo.table(time -> {
+                            time.left();
+                            time.add(new Stack() {{
+                                add(new Image(timeIcon).setScaling(Scaling.fit));
 
-                        Table t = new Table().left().bottom();
-                        t.add(Strings.autoFixed(r.craftTime / 60f , 1)+ "s").style(Styles.outlineLabel);
-                        add(t);
-                    }}).size(iconMed).padRight(12);
-                    t.left();
-                    //input items
-                    if (r.inputItems != null) {
-                        for (int i = 0; i < r.inputItems.length; i++) {
-                            ItemStack stack = r.inputItems[i];
-                            table.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
-                        }
-                    }
-                    //input liquids
-                    if (r.inputLiquids != null) {
-                        for (int i = 0; i < r.inputLiquids.length; i++) {
-                            LiquidStack stack = r.inputLiquids[i];
-                            table.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
-                        }
-                    }
-                    //todo payload here
-                    //input heat
-                    if (r.inputHeatAmount > 0 && !r.isCoolant) {
-                        table.add(new HeatDisplay(r.inputHeatAmount, false));
-                    }
-                    if (r.outputHeatAmount > 0 && r.isCoolant) {
-                        table.add(new HeatDisplay(r.outputHeatAmount, true));
-                    }
-                    //input power
-                    if (r.inputPower > 0) {
-                        table.add(new PowerDisplay(r.inputPower, true));
-                    }
+                                Table t = new Table().left().bottom();
+                                t.add(Strings.autoFixed(r.craftTime / 60f, 1) + "s").style(Styles.outlineLabel);
+                                add(t);
+                            }});
+                        }).size(40,0);
+                        recipeInfo.image().growY().pad(0,10,0,10).width(5).color(Pal.gray);
+                        recipeInfo.table(input -> {
+                            input.left();
+                            if(r.inputItems != null){
+                                for(ItemStack stack: r.inputItems){
+                                    input.add(new ItemDisplay(stack.item, stack.amount, false));
+                                }
+                            }
+                            if(r.inputLiquids != null){
+                                for(LiquidStack stack: r.inputLiquids){
+                                    input.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false));
+                                }
+                            }
+                        }).size(200,0);
 
-                    //arrow
-                    table.add(new ArrowTempDisplay(0, true));
+                        recipeInfo.table(middle -> {
+                            middle.add(new ArrowTempDisplay(0, true));
+                        }).grow();
 
-                    //output items
-                    if (r.outputItems != null) {
-                        for (int i = 0; i < r.outputItems.length; i++) {
-                            ItemStack stack = r.outputItems[i];
-                            table.add(new ItemDisplay(stack.item, stack.amount, false)).padRight(3);
-                        }
-                    }
-                    //output liquids
-                    if (r.outputLiquids != null) {
-                        for (int i = 0; i < r.outputLiquids.length; i++) {
-                            LiquidStack stack = r.outputLiquids[i];
-                            table.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false)).padRight(3);
-                        }
-                    }
-                    //todo payload here
-                    //output heat
-                    if (r.inputHeatAmount > 0 && r.isCoolant) {
-                        table.add(new HeatDisplay(r.inputHeatAmount, false));
-                    }
-                    if (r.outputHeatAmount > 0 && !r.isCoolant) {
-                        table.add(new HeatDisplay(r.outputHeatAmount, true));
-                    }
-
-                    //output power
-                    if (r.outputPower > 0) {
-                        table.add(new PowerDisplay(r.outputPower, false));
-                    }
+                        recipeInfo.table(output -> {
+                            output.right();
+                            if(r.outputItems != null){
+                                for(ItemStack stack: r.outputItems){
+                                    output.add(new ItemDisplay(stack.item, stack.amount, false));
+                                }
+                            }
+                            if(r.outputLiquids != null){
+                                for(LiquidStack stack: r.outputLiquids){
+                                    output.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false));
+                                }
+                            }
+                        }).size(200,0);;
+                    }).right().grow().pad(20f).row();
+                    info.label(() -> "[gray]" + r.recipeDetail).pad(5,20,5,15).size(480, 0).wrap().left().row();
                 }).growX().pad(5);
                 table.row();
             }

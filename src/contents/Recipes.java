@@ -86,7 +86,7 @@ public class Recipes {
         silicon_2 = new Recipe("silicon-2", false) {{
             craftTime = 240f;
 
-            unlockCost = with(Items.graphite, 300, Items.metaglass, 600, Items.silicon, 800, Items.titanium, 500, FFItems.aluminium, 800, FFItems.crystalAlloy, 500);
+            unlockCost = with(Items.graphite, 300, Items.silicon, 800, Items.titanium, 500, FFItems.aluminium, 800, FFItems.crystalAlloy, 500);
 
             inputItems = with(Items.sand, 4, Items.pyratite, 1);
             inputPower = 480f / 60f;
@@ -99,7 +99,7 @@ public class Recipes {
         silicon_3 = new Recipe("silicon-3", false) {{
             craftTime = 240f;
 
-            unlockCost = with(Items.graphite, 600, Items.metaglass, 400, Items.silicon, 600, Items.titanium, 800, Items.thorium, 800, Items.plastanium, 500, FFItems.aluminium, 600, FFItems.crystalAlloy, 500);
+            unlockCost = with(Items.silicon, 600, Items.titanium, 800, Items.thorium, 800, Items.plastanium, 500, FFItems.aluminium, 600, FFItems.crystalAlloy, 500);
 
             inputItems = with(Items.sand, 4);
             inputLiquids = LiquidStack.with(Liquids.water, 12f/ 60f);

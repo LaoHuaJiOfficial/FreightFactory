@@ -253,6 +253,8 @@ public class TurretBlock {
         anode = new PowerTurret("anode"){{
             requirements(Category.turret, with(Items.copper, 10));
 
+            shoot.firstShotDelay = 40f;
+
             shootType = FFBullets.Anode_0;
 
             reload = 120f;
@@ -310,7 +312,7 @@ public class TurretBlock {
 
             minWarmup = 0.8f;
 
-            shootWarmupSpeed = 0.05f;
+            shootWarmupSpeed = 0.04f;
 
             scaledHealth = 300;
             range = 380f;
