@@ -7,6 +7,7 @@ import arc.math.Mathf;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.ScrollPane;
+import arc.scene.ui.layout.Collapser;
 import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
@@ -187,7 +188,7 @@ public class AssemblerBlock extends BlockF {
                                     input.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false));
                                 }
                             }
-                        }).size(200,0);
+                        }).size(160,0);
 
                         recipeInfo.table(middle -> {
                             middle.add(new ArrowTempDisplay(0, true));
@@ -205,9 +206,20 @@ public class AssemblerBlock extends BlockF {
                                     output.add(new LiquidDisplayF(stack.liquid, stack.amount * r.craftTime, false));
                                 }
                             }
-                        }).size(200,0);;
+                        }).size(160,0);;
                     }).right().grow().pad(20f).row();
-                    info.label(() -> "[gray]" + r.recipeDetail).pad(5,20,5,15).size(480, 0).wrap().left().row();
+                    Table deta = new Table();
+                    deta.label(() -> "[gray]" + r.recipeDetail).pad(5,15,5,15).size(460, 0).wrap().left().row();
+                    Collapser coll = new Collapser(deta, true);
+                    coll.setDuration(0.1f);
+
+                    info.table(ft -> {
+                        ft.left();
+                        ft.label(() -> "Recipe Detail:");
+                        ft.button(Icon.downOpen, Styles.emptyi, () -> coll.toggle(false)).update(i -> i.getStyle().imageUp = (!coll.isCollapsed() ? Icon.upOpen : Icon.downOpen)).size(8).padLeft(16f).expandX();
+                    }).pad(0,10,5,0).left();
+                    info.row();
+                    info.add(coll);
                 }).growX().pad(5);
                 table.row();
             }
@@ -325,6 +337,11 @@ public class AssemblerBlock extends BlockF {
             }
 
             dumpOutputs();
+        }
+
+        @Override
+        public float getPowerProduction(){
+            return current().outputPower > 0 ? current().outputPower * warmup: 0;
         }
 
         @Override

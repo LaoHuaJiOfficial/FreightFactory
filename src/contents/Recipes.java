@@ -26,6 +26,7 @@ public class Recipes {
             inputPower = 0f;
 
             outputItems = with(Items.graphite, 1);
+            outputPower = 1000f;
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
