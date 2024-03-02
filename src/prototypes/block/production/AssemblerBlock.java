@@ -1,7 +1,6 @@
 package prototypes.block.production;
 
 import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.scene.ui.Image;
@@ -13,6 +12,8 @@ import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
 import arc.struct.Seq;
 import arc.util.*;
+import arc.util.io.Reads;
+import arc.util.io.Writes;
 import mindustry.Vars;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
@@ -54,6 +55,7 @@ public class AssemblerBlock extends BlockF {
 
         itemCapacity = 30;
         liquidCapacity = 30f;
+
         update = true;
         solid = true;
         hasItems = true;
@@ -65,16 +67,16 @@ public class AssemblerBlock extends BlockF {
 
         //TODO maybe merge this?
 
-        consume(new ConsumeItemDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.CurrentRecipeIndex, recipeSeq.size - 1)).inputItems : null));
-        consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.CurrentRecipeIndex, recipeSeq.size - 1)).inputLiquids : null));
+        consume(new ConsumeItemDynamicF((AssemblerBlockBuild e) -> e.currentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.currentRecipeIndex, recipeSeq.size - 1)).inputItems : null));
+        consume(new ConsumeLiquidsDynamicF((AssemblerBlockBuild e) -> e.currentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.currentRecipeIndex, recipeSeq.size - 1)).inputLiquids : null));
         consume(new ConsumePowerDynamic(p -> {
             AssemblerBlockBuild e = (AssemblerBlockBuild) p;
             return e.getInputPower();
         }));
 
         consume(new ConsumeShow(
-            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.CurrentRecipeIndex, recipeSeq.size - 1)).inputItems : null,
-            (AssemblerBlockBuild e) -> e.CurrentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.CurrentRecipeIndex, recipeSeq.size - 1)).inputLiquids : null
+            (AssemblerBlockBuild e) -> e.currentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.currentRecipeIndex, recipeSeq.size - 1)).inputItems : null,
+            (AssemblerBlockBuild e) -> e.currentRecipeIndex != -1 ? recipeSeq.get(Math.min(e.currentRecipeIndex, recipeSeq.size - 1)).inputLiquids : null
         ));
 
         configurable = true;
@@ -83,8 +85,8 @@ public class AssemblerBlock extends BlockF {
         config(Integer.class, (AssemblerBlockBuild tile, Integer i) -> {
             if (!configurable) return;
 
-            if (tile.CurrentRecipeIndex == i) return;
-            tile.CurrentRecipeIndex = i < 0 || i >= recipeSeq.size ? -1 : i;
+            if (tile.currentRecipeIndex == i) return;
+            tile.currentRecipeIndex = i < 0 || i >= recipeSeq.size ? -1 : i;
             tile.progress = 0;
         });
 
@@ -92,12 +94,12 @@ public class AssemblerBlock extends BlockF {
             if (!configurable) return;
 
             int next = recipeSeq.indexOf(val);
-            if (tile.CurrentRecipeIndex == next) return;
-            tile.CurrentRecipeIndex = next;
+            if (tile.currentRecipeIndex == next) return;
+            tile.currentRecipeIndex = next;
             tile.progress = 0;
         });
 
-        configClear((AssemblerBlockBuild tile) -> tile.CurrentRecipeIndex = -1);
+        configClear((AssemblerBlockBuild tile) -> tile.currentRecipeIndex = -1);
 
     }
 
@@ -138,6 +140,14 @@ public class AssemblerBlock extends BlockF {
 
             if (r.inputLiquids != null || r.outputLiquids != null){
                 hasLiquids = true;
+            }
+
+            if (r.inputPower > 0){
+                consumesPower = true;
+            }
+
+            if (r.outputPower > 0){
+                outputsPower = true;
             }
         }
     }
@@ -209,13 +219,13 @@ public class AssemblerBlock extends BlockF {
                         }).size(160,0);;
                     }).right().grow().pad(20f).row();
                     Table deta = new Table();
-                    deta.label(() -> "[gray]" + r.recipeDetail).pad(5,15,5,15).size(460, 0).wrap().left().row();
+                    deta.label(() -> "[gray]" + r.recipeDetail).pad(0,15,8,15).size(460, 0).wrap().left().row();
                     Collapser coll = new Collapser(deta, true);
                     coll.setDuration(0.1f);
 
                     info.table(ft -> {
                         ft.left();
-                        ft.label(() -> "Recipe Detail:");
+                        ft.label(() -> Core.bundle.get("recipe.expand-detail"));
                         ft.button(Icon.downOpen, Styles.emptyi, () -> coll.toggle(false)).update(i -> i.getStyle().imageUp = (!coll.isCollapsed() ? Icon.upOpen : Icon.downOpen)).size(8).padLeft(16f).expandX();
                     }).pad(0,10,5,0).left();
                     info.row();
@@ -245,7 +255,7 @@ public class AssemblerBlock extends BlockF {
         public float progress;
         public float totalProgress;
         public float warmup;
-        public int CurrentRecipeIndex = -1;
+        public int currentRecipeIndex = -1;
 
 
         @Override
@@ -260,8 +270,8 @@ public class AssemblerBlock extends BlockF {
         }
 
         public @Nullable Recipe current() {
-            if (CurrentRecipeIndex != -1) {
-                return recipeSeq.get(CurrentRecipeIndex);
+            if (currentRecipeIndex != -1) {
+                return recipeSeq.get(currentRecipeIndex);
             } else {
                 return null;
             }
@@ -277,7 +287,7 @@ public class AssemblerBlock extends BlockF {
         }
 
         public float getInputPower() {
-            if (CurrentRecipeIndex != -1) {
+            if (currentRecipeIndex != -1) {
                 return current().inputPower;
             } else {
                 return 0f;
@@ -286,21 +296,21 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public Object config() {
-            return CurrentRecipeIndex;
+            return currentRecipeIndex;
         }
 
         @Override
         public void updateTile() {
 
             if (!configurable) {
-                CurrentRecipeIndex = 0;
+                currentRecipeIndex = 0;
             }
 
-            if (CurrentRecipeIndex < 0 || CurrentRecipeIndex >= recipeSeq.size) {
-                CurrentRecipeIndex = -1;
+            if (currentRecipeIndex < 0 || currentRecipeIndex >= recipeSeq.size) {
+                currentRecipeIndex = -1;
             }
 
-            if (efficiency > 0 && CurrentRecipeIndex != -1) {
+            if (efficiency > 0 && currentRecipeIndex != -1) {
 
                 LiquidStack[] OutputLiquids = current().outputLiquids;
 
@@ -341,7 +351,9 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public float getPowerProduction(){
-            return current().outputPower > 0 ? current().outputPower * warmup: 0;
+            if (current() == null) return 0;
+            //just prevent awwwwwwwful situation
+            return current().outputPower > 0 ? current().outputPower * warmup() + 0.00001f: 0;
         }
 
         @Override
@@ -462,11 +474,11 @@ public class AssemblerBlock extends BlockF {
 
                         button.changed(() -> {
                             if (r.unlocked){
-                                CurrentRecipeIndex = recipeSeq.indexOf(r);
+                                currentRecipeIndex = recipeSeq.indexOf(r);
                                 this.items.clear();
                                 this.liquids.clear();
                                 this.update();
-                                configure(CurrentRecipeIndex);
+                                configure(currentRecipeIndex);
                                 control.input.config.hideConfig();
                             }else {
                                 boolean allowUnlock = true;
@@ -491,11 +503,11 @@ public class AssemblerBlock extends BlockF {
                                         core.items.remove(item.item, item.amount);
                                     }
                                     r.unlocked = true;
-                                    CurrentRecipeIndex = recipeSeq.indexOf(r);
+                                    currentRecipeIndex = recipeSeq.indexOf(r);
                                     this.items.clear();
                                     this.liquids.clear();
                                     this.update();
-                                    configure(CurrentRecipeIndex);
+                                    configure(currentRecipeIndex);
                                     control.input.config.hideConfig();
                                 }else {
                                     Log.info("unable unlock " + allowUnlock);
@@ -506,7 +518,7 @@ public class AssemblerBlock extends BlockF {
                             Log.info("recipe" + r.name + " " + r.unlocked);
                         });
                         button.update(() ->
-                            button.setChecked(CurrentRecipeIndex == recipeSeq.indexOf(r))
+                            button.setChecked(currentRecipeIndex == recipeSeq.indexOf(r))
                         );
 
                         infoTrigger.changed(() -> {
@@ -536,7 +548,7 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public boolean shouldConsume() {
-            if (CurrentRecipeIndex == -1) return false;
+            if (currentRecipeIndex == -1) return false;
 
             if (current().outputItems != null) {
                 for (var output : current().outputItems) {
@@ -574,13 +586,13 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public boolean acceptItem(Building source, Item item) {
-            return (CurrentRecipeIndex != -1 && current().inputItems != null && this.items.get(item) < this.getMaximumAccepted(item) &&
+            return (currentRecipeIndex != -1 && current().inputItems != null && this.items.get(item) < this.getMaximumAccepted(item) &&
                 Structs.contains(current().inputItems, stack -> stack.item == item));
         }
 
         @Override
         public boolean acceptLiquid(Building source, Liquid liquid) {
-            return (CurrentRecipeIndex != -1 && current().inputLiquids != null && this.liquids.get(liquid) < this.block.liquidCapacity) &&
+            return (currentRecipeIndex != -1 && current().inputLiquids != null && this.liquids.get(liquid) < this.block.liquidCapacity) &&
                 Structs.contains(current().inputLiquids, stack -> stack.liquid == liquid);
         }
 
@@ -622,7 +634,7 @@ public class AssemblerBlock extends BlockF {
         }
 
         public void craft() {
-            if (CurrentRecipeIndex != -1) {
+            if (currentRecipeIndex != -1) {
                 consume();
                 ItemStack[] OutputItems = current().outputItems;
                 if (OutputItems != null) {
@@ -642,7 +654,7 @@ public class AssemblerBlock extends BlockF {
         }
 
         public void dumpOutputs() {
-            if (CurrentRecipeIndex != -1) {
+            if (currentRecipeIndex != -1) {
 
                 ItemStack[] OutputItems = current().outputItems;
                 LiquidStack[] OutputLiquids = current().outputLiquids;
@@ -662,6 +674,22 @@ public class AssemblerBlock extends BlockF {
                     }
                 }
             }
+        }
+
+        @Override
+        public void write(Writes write){
+            super.write(write);
+            write.i(currentRecipeIndex);
+            write.f(progress);
+            write.f(warmup);
+        }
+
+        @Override
+        public void read(Reads read, byte revision){
+            super.read(read, revision);
+            currentRecipeIndex = read.i();
+            progress = read.f();
+            warmup = read.f();
         }
     }
 }

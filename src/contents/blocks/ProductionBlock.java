@@ -122,7 +122,10 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                Recipes.plastanium_0
+                Recipes.plastanium_0,
+                Recipes.plastanium_1,
+                Recipes.plastanium_2,
+                Recipes.plastanium_3
             );
         }};
 

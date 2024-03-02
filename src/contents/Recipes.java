@@ -13,7 +13,7 @@ public class Recipes {
         graphite_0, graphite_1, graphite_2,
         silicon_0, silicon_1, silicon_2, silicon_3,
         metaglass_0, metaglass_1, metaglass_2,
-        plastanium_0,
+        plastanium_0, plastanium_1, plastanium_2, plastanium_3,
         aluminium_0, aluminium_1,
         iceCube_0,
         wheatCultivate_0, teaCultivate_0;
@@ -26,11 +26,9 @@ public class Recipes {
             inputPower = 0f;
 
             outputItems = with(Items.graphite, 1);
-            outputPower = 1000f;
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         graphite_1 = new Recipe("graphite-1", false) {{
             craftTime = 120f;
 
@@ -44,21 +42,19 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         graphite_2 = new Recipe("graphite-2", false) {{
             craftTime = 240f;
 
             unlockCost = with(Items.graphite, 500, Items.metaglass, 300, Items.silicon, 300, Items.titanium, 300, Items.thorium, 200, Items.plastanium, 200);
 
             inputItems = with(Items.coal, 2);
-            inputLiquids = LiquidStack.with(Liquids.water, 3f / 60f);
+            inputLiquids = LiquidStack.with(Liquids.nitrogen, 3f / 60f);
             inputPower = 90f / 60f;
 
             outputItems = with(Items.graphite, 3);
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         silicon_0 = new Recipe("silicon-0", true) {{
             craftTime = 120f;
 
@@ -69,7 +65,6 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         silicon_1 = new Recipe("silicon-1", false) {{
             craftTime = 240f;
 
@@ -83,20 +78,18 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         silicon_2 = new Recipe("silicon-2", false) {{
             craftTime = 240f;
 
             unlockCost = with(Items.graphite, 300, Items.silicon, 800, Items.titanium, 500, FFItems.aluminium, 800, FFItems.crystalAlloy, 500);
 
-            inputItems = with(Items.sand, 4, Items.pyratite, 1);
+            inputItems = with(Items.sand, 4, Items.coal, 1, Items.pyratite, 1);
             inputPower = 480f / 60f;
 
             outputItems = with(Items.silicon, 6);
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         silicon_3 = new Recipe("silicon-3", false) {{
             craftTime = 240f;
 
@@ -110,7 +103,6 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         metaglass_0 = new Recipe("metaglass-0", true) {{
             craftTime = 120f;
 
@@ -123,7 +115,6 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         metaglass_1 = new Recipe("metaglass-1", false) {{
             craftTime = 180f;
 
@@ -134,7 +125,6 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
         metaglass_2 = new Recipe("metaglass-2", false) {{
             craftTime = 180f;
 
@@ -148,10 +138,7 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
-        plastanium_0 = new Recipe("recipe-name", true) {{
-            name = "plastanium-0";
-
+        plastanium_0 = new Recipe("plastanium-0", true) {{
             craftTime = 120f;
 
             inputItems = with(Items.titanium, 4);
@@ -162,10 +149,40 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
+        plastanium_1 = new Recipe("plastanium-1", true) {{
+            craftTime = 120f;
 
-        aluminium_0 = new Recipe("recipe-name", true) {{
-            name = "aluminium-0";
+            inputItems = with(Items.titanium, 4);
+            inputLiquids = LiquidStack.with(Liquids.arkycite, 10f / craftTime);
+            inputPower = 180f / 60f;
 
+            outputItems = with(Items.plastanium, 2);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
+        plastanium_2 = new Recipe("plastanium-2", true) {{
+            craftTime = 240f;
+
+            inputItems = with(Items.titanium, 2);
+            inputLiquids = LiquidStack.with(Liquids.oil, 8f / craftTime, Liquids.hydrogen, 2 / craftTime);
+            inputPower = 240f / 60f;
+
+            outputItems = with(Items.plastanium, 2);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
+        plastanium_3 = new Recipe("plastanium-3", true) {{
+            craftTime = 600f;
+
+            inputItems = with(FFItems.crystalAlloy, 1);
+            inputLiquids = LiquidStack.with(Liquids.oil, 8f / craftTime, Liquids.hydrogen, 8f / craftTime);
+            inputPower = 900f / 60f;
+
+            outputItems = with(Items.plastanium, 2, FFItems.aluminium, 1);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
+        aluminium_0 = new Recipe("aluminium-0", true) {{
             craftTime = 120f;
 
             inputItems = with(FFItems.bauxite, 3);
@@ -175,10 +192,7 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
-        aluminium_1 = new Recipe("recipe-name", true) {{
-            name = "aluminium-1";
-
+        aluminium_1 = new Recipe("aluminium-1", true) {{
             craftTime = 180f;
 
             inputItems = with(FFItems.bauxite, 3, Items.copper, 1);
@@ -188,10 +202,7 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
-
-        iceCube_0 = new Recipe("recipe-name", true) {{
-            name = "ice-cube-0";
-
+        iceCube_0 = new Recipe("ice-cube-0", true) {{
             craftTime = 300f;
 
             inputLiquids = LiquidStack.with(Liquids.water, 12f / craftTime);
@@ -213,7 +224,6 @@ public class Recipes {
 
         }};
         teaCultivate_0 = new Recipe("recipe-name", true) {{
-
             craftTime = 180f;
 
             inputLiquids = LiquidStack.with(Liquids.water, 10f / 60f);
