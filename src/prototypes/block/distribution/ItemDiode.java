@@ -49,6 +49,8 @@ public class ItemDiode extends Block {
         envDisabled = Env.none;
         clearOnDoubleTap = true;
         priority = TargetPriority.transport;
+        unloadable = false;
+        envDisabled = Env.none;
 
         config(Item.class, (ItemDiodeBuild tile, Item item) -> tile.unloadItem = item);
         configClear((ItemDiodeBuild tile) -> tile.unloadItem = null);

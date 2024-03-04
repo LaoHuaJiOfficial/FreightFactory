@@ -11,10 +11,7 @@ import mindustry.type.Category;
 import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import prototypes.block.HeatBox.HeatPipe;
-import prototypes.block.distribution.BeltBridge;
-import prototypes.block.distribution.BeltConveyor;
-import prototypes.block.distribution.BeltRouter;
-import prototypes.block.distribution.ItemDiode;
+import prototypes.block.distribution.*;
 import prototypes.block.liquid.LiquidDiode;
 import prototypes.block.production.AssemblerBlock;
 import prototypes.block.tech.Nexus;
@@ -80,7 +77,7 @@ public class FFBlock {
             itemPerSecond = 20f;
         }};
 
-        ItemDiode = new ItemDiode("ItemDiode"){{
+        ItemDiode = new TransportValve("ItemDiode"){{
             requirements(Category.distribution, with(Items.copper, 20));
 
         }};
