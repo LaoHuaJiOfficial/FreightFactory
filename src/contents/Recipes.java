@@ -234,7 +234,7 @@ public class Recipes {
             inputItems = with(Items.copper, 3, Items.lead, 3, Items.silicon, 3, Items.titanium, 3);
             inputPower = 120f / 60f;
 
-            outputItems = with(FFItems.aluminium, 2);
+            outputItems = with(Items.surgeAlloy, 1);
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
@@ -272,7 +272,7 @@ public class Recipes {
             inputLiquids = LiquidStack.with(FFLiquids.mineralFluid, 10f / craftTime);
             inputPower = 120f / 60f;
 
-            outputItems = with(FFItems.aluminium, 2);
+            outputItems = with(Items.surgeAlloy, 2);
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
@@ -340,10 +340,10 @@ public class Recipes {
             unlockCost = with(Items.silicon, 800, Items.titanium, 500, FFItems.aluminium, 800, FFItems.crystalAlloy, 500);
 
             inputItems = with(Items.graphite, 1);
-            inputLiquids = LiquidStack.with(Liquids.arkycite, 60f / craftTime);
+            inputLiquids = LiquidStack.with(Liquids.arkycite, 12f / craftTime);
             inputPower = 300f / 60f;
 
-            outputLiquids = LiquidStack.with(Liquids.oil, 40 / craftTime);
+            outputLiquids = LiquidStack.with(Liquids.oil, 15 / craftTime);
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
@@ -356,7 +356,7 @@ public class Recipes {
             inputPower = 300f / 60f;
 
             outputItems = with(Items.dormantCyst, 2);
-            outputLiquids = LiquidStack.with(Liquids.oil, 90 / craftTime);
+            outputLiquids = LiquidStack.with(Liquids.arkycite, 60 / craftTime);
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
@@ -384,7 +384,7 @@ public class Recipes {
             craftTime = 120f;
 
             inputItems = with(FFItems.flour, 1);
-            inputLiquids = LiquidStack.with(FFLiquids.syrup, 4);
+            inputLiquids = LiquidStack.with(FFLiquids.syrup, 4 / craftTime);
             inputPower = 120f / 60f;
 
             outputItems = with(FFItems.bread, 1);
