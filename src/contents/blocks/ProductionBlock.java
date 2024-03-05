@@ -10,6 +10,7 @@ import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.draw.*;
+import prototypes.FFContent;
 import prototypes.block.production.AreaDrill;
 import prototypes.block.production.AssemblerBlock;
 
@@ -21,7 +22,8 @@ public class ProductionBlock {
         ResonanceDrill, Greenhouse,
         //Factories
         AluminiumFoundry, GraphiteCompressor, SiliconSmelter, MetaglassKiln, ChemicalPlant,
-        Freezer;
+        Freezer,
+        test;
 
     public static void load() {
         ResonanceDrill = new AreaDrill("resonance-drill"){{
@@ -157,6 +159,21 @@ public class ProductionBlock {
 
             recipeSeq = Seq.with(
                 Recipes.iceCube_0
+            );
+        }};
+
+        test = new AssemblerBlock("test"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 2;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                FFContent.recipeAll
             );
         }};
         /*
