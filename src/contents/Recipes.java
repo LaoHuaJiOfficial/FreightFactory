@@ -20,13 +20,14 @@ public class Recipes {
         biomass_0, biomass_1, biomass_2, biomass_3,
         crystalAlloy_0, crystalAlloy_1,
         baking_0,
+        iceCube_0, iceCube_1, iceCube_2, iceCube_3,
+        ferment_0, ferment_1,
         canning_0, canning_1, canning_2,
         fluidMix_0,
         grind_0, grind_1,
         teaMix_0, teaMix_1,
         frying_0,
         compression_0, compression_1,
-        iceCube_0, iceCube_1, iceCube_2, iceCube_3,
         wheatCultivate_0, teaCultivate_0;
 
     public static void init(){
@@ -391,6 +392,66 @@ public class Recipes {
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
+        ferment_0 = new Recipe("ferment-0", true) {{
+            craftTime = 120f;
+
+            inputItems = with(FFItems.leaf, 1);
+            inputPower = 120f / 60f;
+
+            outputItems = with(FFItems.fermentedTea, 1);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
+        ferment_1 = new Recipe("ferment-1", true) {{
+            craftTime = 120f;
+
+            inputItems = with(FFItems.wheat, 2);
+            inputPower = 120f / 60f;
+
+            outputLiquids = LiquidStack.with(Liquids.arkycite, 12);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
+        iceCube_0 = new Recipe("ice-cube-0", true) {{
+            craftTime = 120f;
+
+            inputLiquids = LiquidStack.with(Liquids.water, 12f / craftTime);
+            inputPower = 200f / 60f;
+
+            outputItems = with(FFItems.iceCube, 1);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
+        iceCube_1 = new Recipe("ice-cube-1", true) {{
+            craftTime = 120f;
+
+            inputLiquids = LiquidStack.with(FFLiquids.greenTea, 12f / craftTime);
+            inputPower = 200f / 60f;
+
+            outputItems = with(FFItems.teaIceCube, 1);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
+        iceCube_2 = new Recipe("ice-cube-2", true) {{
+            craftTime = 120f;
+
+            inputLiquids = LiquidStack.with(FFLiquids.blackTea, 12f / craftTime);
+            inputPower = 200f / 60f;
+
+            outputItems = with(FFItems.blackTeaIceCube, 1);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
+        iceCube_3 = new Recipe("ice-cube-3", true) {{
+            craftTime = 120f;
+
+            inputLiquids = LiquidStack.with(FFLiquids.cola, 12f / craftTime);
+            inputPower = 200f / 60f;
+
+            outputItems = with(FFItems.colaIceCube, 1);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
         canning_0 = new Recipe("canning-0", true) {{
             craftTime = 120f;
 
@@ -504,46 +565,6 @@ public class Recipes {
             inputPower = 200f / 60f;
 
             outputItems = with(FFItems.rainbowCandy, 1);
-
-            updateEffect = craftEffect = Fx.smeltsmoke;
-        }};
-        iceCube_0 = new Recipe("ice-cube-0", true) {{
-            craftTime = 120f;
-
-            inputLiquids = LiquidStack.with(Liquids.water, 12f / craftTime);
-            inputPower = 200f / 60f;
-
-            outputItems = with(FFItems.iceCube, 1);
-
-            updateEffect = craftEffect = Fx.smeltsmoke;
-        }};
-        iceCube_1 = new Recipe("ice-cube-1", true) {{
-            craftTime = 120f;
-
-            inputLiquids = LiquidStack.with(FFLiquids.greenTea, 12f / craftTime);
-            inputPower = 200f / 60f;
-
-            outputItems = with(FFItems.teaIceCube, 1);
-
-            updateEffect = craftEffect = Fx.smeltsmoke;
-        }};
-        iceCube_2 = new Recipe("ice-cube-2", true) {{
-            craftTime = 120f;
-
-            inputLiquids = LiquidStack.with(FFLiquids.blackTea, 12f / craftTime);
-            inputPower = 200f / 60f;
-
-            outputItems = with(FFItems.blackTeaIceCube, 1);
-
-            updateEffect = craftEffect = Fx.smeltsmoke;
-        }};
-        iceCube_3 = new Recipe("ice-cube-3", true) {{
-            craftTime = 120f;
-
-            inputLiquids = LiquidStack.with(FFLiquids.cola, 12f / craftTime);
-            inputPower = 200f / 60f;
-
-            outputItems = with(FFItems.colaIceCube, 1);
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};

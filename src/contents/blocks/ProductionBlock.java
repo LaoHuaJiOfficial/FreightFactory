@@ -21,8 +21,9 @@ public class ProductionBlock {
         //Production
         ResonanceDrill, Greenhouse,
         //Factories
-        AluminiumFoundry, GraphiteCompressor, SiliconSmelter, MetaglassKiln, ChemicalPlant,
-        Freezer,
+        GraphiteCompressor, SiliconSmelter, MetaglassKiln, ChemicalPlant,
+        AluminiumFoundry, SurgeAlloyFurnace, PhaseWeaver, BiomassExtractor, CrystallizationFacility,
+        BakingStation, Freezer, FermentChamber, CanningFacility, FluidMixer, Grinder, FryingMachine, FoodCompressor,
         test;
 
     public static void load() {
@@ -146,8 +147,72 @@ public class ProductionBlock {
                 Recipes.aluminium_1
             );
         }};
+        SurgeAlloyFurnace = new AssemblerBlock("surge-alloy-furnace"){{
+            requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
 
-        Freezer = new AssemblerBlock("freezer"){{
+            size = 4;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.surgeAlloy_0,
+                Recipes.surgeAlloy_1,
+                Recipes.surgeAlloy_2,
+                Recipes.surgeAlloy_3
+            );
+        }};
+        PhaseWeaver = new AssemblerBlock("phase-weaver"){{
+            requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
+
+            size = 3;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.phaseWeaver_0,
+                Recipes.phaseWeaver_1,
+                Recipes.phaseWeaver_2
+            );
+        }};
+        BiomassExtractor = new AssemblerBlock("biomass-extractor"){{
+            requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
+
+            size = 3;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.biomass_0,
+                Recipes.biomass_1,
+                Recipes.biomass_2,
+                Recipes.biomass_3
+            );
+        }};
+        CrystallizationFacility = new AssemblerBlock("crystallization-facility"){{
+            requirements(Category.crafting, with(Items.copper, 30, FFItems.bauxite, 25));
+
+            size = 3;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.crystalAlloy_0,
+                Recipes.crystalAlloy_1
+            );
+        }};
+        BakingStation = new AssemblerBlock("baking-station"){{
             requirements(Category.crafting, with(Items.copper, 30));
 
             size = 2;
@@ -161,7 +226,114 @@ public class ProductionBlock {
                 Recipes.iceCube_0
             );
         }};
+        Freezer = new AssemblerBlock("freezer"){{
+            requirements(Category.crafting, with(Items.copper, 30));
 
+            size = 2;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.iceCube_0,
+                Recipes.iceCube_1,
+                Recipes.iceCube_2,
+                Recipes.iceCube_3
+            );
+        }};
+        FermentChamber = new AssemblerBlock("ferment-chamber"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 2;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.ferment_0,
+                Recipes.ferment_1
+            );
+        }};
+        CanningFacility = new AssemblerBlock("canning-facility"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 2;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.canning_0,
+                Recipes.canning_1,
+                Recipes.canning_2
+            );
+        }};
+        FluidMixer = new AssemblerBlock("fluid-mixer"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 3;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.fluidMix_0,
+                Recipes.teaMix_0,
+                Recipes.teaMix_1
+            );
+        }};
+        Grinder = new AssemblerBlock("grinder"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 2;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.grind_0,
+                Recipes.grind_1
+            );
+        }};
+        FryingMachine = new AssemblerBlock("frying-machine"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 3;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.frying_0
+            );
+        }};
+        FoodCompressor = new AssemblerBlock("food-compressor"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 2;
+
+            drawer = new DrawMulti(new DrawDefault());
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.compression_0,
+                Recipes.compression_1
+            );
+        }};
         test = new AssemblerBlock("test"){{
             requirements(Category.crafting, with(Items.copper, 30));
 
