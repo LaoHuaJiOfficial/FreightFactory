@@ -25,37 +25,25 @@ public class FFFx {
     public static final Rand rand = Fx.rand;
     public static final Vec2 v = Fx.v;
     public static final Effect
-        CrystaTrail_0 = new Effect(30f, e -> {
-        Draw.color(Color.sky);
+        AirBlastHit = new Effect(42f, 160f, e -> {
+            color(e.color);
+            stroke(e.fout() * 5f);
+            rand.setSeed(e.id);
 
-        Drawf.tri(
-            e.x + v.trns(e.rotation + 120, 4 * e.fout()).x, e.y + v.trns(e.rotation + 120, 4 * e.fout()).y,
-            3 + 8 * e.fout(),  10 + 45 * e.fout(), e.rotation + 135
-        );
+            float circleRad = 6f + e.finpow() * 12f;
+            Lines.circle(e.x, e.y, circleRad);
 
-        Drawf.tri(
-            e.x + v.trns(e.rotation - 120, 4 * e.fout()).x, e.y + v.trns(e.rotation - 120, 4 * e.fout()).y,
-            3 + 8 * e.fout(), 10 + 45 * e.fout(), e.rotation - 135
-        );
+            int num = rand.random(4 , 6);
+            for(int i = 0; i < num; i++){
+                float angle = rand.random(360f);
+                float lenRand = rand.random(0.5f, 1f);
+                Tmp.v1.trns(angle, circleRad);
 
-        Fill.poly(e.x, e.y ,6, 3 + 7 * e.fout(), e.rotation);
-
-        Draw.color(Color.black);
-
-        Drawf.tri(
-            e.x + v.trns(e.rotation + 120, 4 * e.fout()).x, e.y + v.trns(e.rotation + 120, 4 * e.fout()).y,
-            2 + 3 * e.fout(),  5 + 30 * e.fout(), e.rotation + 135
-        );
-
-        Drawf.tri(
-            e.x + v.trns(e.rotation - 120, 4 * e.fout()).x, e.y + v.trns(e.rotation - 120, 4 * e.fout()).y,
-            2 + 3 * e.fout(),  5 + 30 * e.fout(), e.rotation - 135
-        );
-
-        Fill.poly(e.x, e.y ,6, 2 + 4 * e.fout(), e.rotation);
-        Draw.reset();
-    }),
-
+                for(int s : Mathf.signs){
+                    Drawf.tri(e.x + Tmp.v1.x, e.y + Tmp.v1.y, e.foutpow() * 12f, e.fout() * 12f * lenRand + 3f, angle + 90f + s * 90f);
+                }
+            }
+        }),
         CrystaHit = new Effect(50f, 100f, e -> {
             color(Color.sky);
             stroke(e.fout() * 2f);
@@ -74,7 +62,6 @@ public class FFFx {
 
             Drawf.light(e.x, e.y, circleRad * 1.6f, Color.sky, e.fout());
         }),
-
         CathodeLaserEffect = new Effect(20f, e -> {
 
     });

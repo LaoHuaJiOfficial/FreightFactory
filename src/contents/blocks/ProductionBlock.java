@@ -223,7 +223,7 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                Recipes.iceCube_0
+                Recipes.baking_0
             );
         }};
         Freezer = new AssemblerBlock("freezer"){{
@@ -334,6 +334,7 @@ public class ProductionBlock {
                 Recipes.compression_1
             );
         }};
+        /*
         test = new AssemblerBlock("test"){{
             requirements(Category.crafting, with(Items.copper, 30));
 
@@ -346,30 +347,6 @@ public class ProductionBlock {
 
             recipeSeq = Seq.with(
                 FFContent.recipeAll
-            );
-        }};
-        /*
-
-
-
-        ArcFurnace = new AssemblerBlock("arc-furnace") {{
-            requirements(Category.crafting, with(Items.copper, 30, Items.beryllium, 25));
-
-            size = 4;
-
-            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawDefault(), new DrawArcFurnace());
-
-
-            ambientSound = Sounds.smelter;
-            ambientSoundVolume = 0.09f;
-
-            recipes = Seq.with(
-                new Recipe() {{
-                    InputItems = with(Items.sand, 4);
-                    InputPower = 30f / 60f;
-
-                    OutputItems = with(Items.silicon, 2);
-                }}
             );
         }};
 

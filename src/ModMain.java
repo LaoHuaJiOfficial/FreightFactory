@@ -40,13 +40,12 @@ public class ModMain extends Mod {
 
     @Override
     public void loadContent() {
-        FFVars.load();
-
         //Highest load priority
         FFSounds.load();
         FFItems.load();
         FFLiquids.load();
-        //FFLiquids
+
+        FFVars.load();
 
         Recipes.init();
         FFBullets.load();

@@ -14,6 +14,7 @@ import prototypes.block.HeatBox.HeatPipe;
 import prototypes.block.distribution.*;
 import prototypes.block.liquid.LiquidDiode;
 import prototypes.block.production.AssemblerBlock;
+import prototypes.block.storage.RemoteCoreBlock;
 import prototypes.block.tech.Nexus;
 import prototypes.recipe.Recipe;
 import utilities.game.FVars;
@@ -100,6 +101,11 @@ public class FFBlock {
             size = 4;
         }};
 
+        RemoteCoreInterface = new RemoteCoreBlock("remote-core-interface") {{
+            requirements(Category.effect, with(Items.copper, 20));
+            size = 3;
+        }};
+
         /*
         HeatCrafter = new AssemblerBlock("heat-crafter"){{
             requirements(Category.production, with(Items.copper, 1));
@@ -126,12 +132,6 @@ public class FFBlock {
 
                 }}
             );
-        }};
-
-
-        RemoteCoreInterface = new RemoteCoreBlock("remote-core-interface") {{
-            requirements(Category.effect, ItemStack.with(Items.copper, 20));
-            size = 3;
         }};
 
         //TODO rework

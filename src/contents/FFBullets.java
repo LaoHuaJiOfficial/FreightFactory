@@ -1,6 +1,7 @@
 package contents;
 
 import arc.graphics.Color;
+import mindustry.entities.bullet.FlakBulletType;
 import mindustry.entities.bullet.LaserBulletType;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.gen.Sounds;
@@ -13,9 +14,50 @@ import mindustry.graphics.Pal;
 
 public class FFBullets {
     public static BulletType
-        IronCurtain_0, IronCurtain_1, Crysta_0, Cathode_0, Anode_0;
+        AirBlast_0,
+        IronCurtain_0, IronCurtain_1,
+        Crysta_0, Cathode_0, Anode_0;
 
     public static void load(){
+        AirBlast_0 = new FlakBulletType(){{
+            //Draw Part
+            sprite = "mine-bullet";
+
+            height = 12f;
+            width = 12f;
+
+            frontColor = Color.white;
+            backColor = trailColor = hitColor = Pal.heal;
+
+            trailChance = 0.2f;
+            trailEffect = Fx.smeltsmoke;
+            trailRotation = true;
+
+            shootEffect = Fx.shootBig;
+            smokeEffect = Fx.shootBigSmoke;
+            hitEffect = despawnEffect = FFFx.AirBlastHit;
+
+            despawnShake = 1f;
+
+            speed = 3.2f;
+            shrinkY = 0.3f;
+
+            //Damage Part
+            damage = 80;
+            splashDamageRadius = 20f;
+            splashDamage = 200f;
+            scaledSplashDamage = true;
+
+            //Homing
+            homingDelay = 0f;
+            homingRange = 0f;
+            homingPower = 0f;
+
+            //Meta Part
+            ammoMultiplier = 4f;
+            lifetime = 40f;
+            collidesGround = true;
+        }};
         IronCurtain_0 = new BasicBulletType(){{
             //Draw Part
             backSprite = "missile-large-back";
@@ -25,12 +67,12 @@ public class FFBullets {
             width = 10f;
 
             frontColor = Color.white;
-            backColor = trailColor = hitColor = Color.sky;
+            backColor = trailColor = hitColor = Pal.bulletYellow;
 
             trailChance = 0.44f;
             trailLength = 12;
             trailWidth = 2f;
-            trailEffect = Fx.disperseTrail;
+            trailEffect = Fx.artilleryTrailSmoke;
             trailRotation = true;
 
             shootEffect = Fx.shootBig2;

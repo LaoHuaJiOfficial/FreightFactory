@@ -6,11 +6,7 @@ import contents.FFSounds;
 import mindustry.content.Items;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.ShootAlternate;
-import mindustry.entities.pattern.ShootBarrel;
-import mindustry.entities.pattern.ShootMulti;
-import mindustry.entities.pattern.ShootPattern;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.world.Block;
@@ -23,10 +19,57 @@ import static mindustry.type.ItemStack.with;
 
 public class TurretBlock {
     public static Block
-        IronCurtain, Interferer, Crysta, anode, Cathode, testTurret;
+        AirBlast, IronCurtain, Interferer, Crysta, Anode, Cathode;
 
     public static void load(){
+        AirBlast = new ItemTurret("air-blast"){{
+            requirements(Category.turret, with(Items.copper, 10));
 
+            ammo(
+                FFItems.teaIceCube, FFBullets.AirBlast_0
+            );
+
+            shoot = new ShootAlternate(){{
+                spread = 1.2f;
+                shotDelay = 3f;
+                shots = 3;
+            }};
+
+            drawer = new DrawTurret(){{
+                parts.addAll(
+                    new RegionPart("-upper"){{
+                        mirror = true;
+                        under = true;
+                        moveX = 0.5f;
+                        moveY = 0.5f;
+                        moveRot = -5f;
+                        progress = PartProgress.warmup;
+                    }},
+                    new RegionPart("-barrel"){{
+                        moveY = -2f;
+                        progress = PartProgress.recoil;
+                    }}
+                );
+            }};
+            inaccuracy = 5f;
+            velocityRnd = 0.2f;
+            reload = 60f;
+            shootY = 10f;
+            rotateSpeed = 5f;
+            shootCone = 15f;
+            consumeAmmoOnce = true;
+            shootSound = Sounds.cannon;
+
+            minWarmup = 0.8f;
+
+            shootWarmupSpeed = 0.08f;
+
+            scaledHealth = 280;
+            range = 250f;
+            size = 2;
+
+            limitRange(-5f);
+        }};
         IronCurtain = new ItemTurret("iron-curtain"){{
             requirements(Category.turret, with(Items.copper, 10));
 
@@ -250,7 +293,7 @@ public class TurretBlock {
             size = 4;
         }};
 
-        anode = new PowerTurret("anode"){{
+        Anode = new PowerTurret("anode"){{
             requirements(Category.turret, with(Items.copper, 10));
 
             shoot.firstShotDelay = 40f;
@@ -319,32 +362,5 @@ public class TurretBlock {
             size = 4;
         }};
 
-        testTurret = new ItemTurret("test-turret"){{
-            requirements(Category.turret, with(Items.copper, 10));
-
-            ammo(
-                Items.graphite, FFBullets.Crysta_0
-            );
-
-            drawer = new DrawTurret(){{
-                parts.addAll(
-                    new RegionPart("-upper")
-                );
-            }};
-            reload = 20f;
-            shootY = 10f;
-            rotateSpeed = 5f;
-            shootCone = 15f;
-            consumeAmmoOnce = true;
-            shootSound = FFSounds.InfernoShoot;
-
-            shootWarmupSpeed = 0.08f;
-
-            scaledHealth = 300;
-            range = 1200f;
-            size = 2;
-
-            limitRange(-5f);
-        }};
     }
 }

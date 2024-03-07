@@ -396,6 +396,7 @@ public class Recipes {
             craftTime = 120f;
 
             inputItems = with(FFItems.leaf, 1);
+            inputLiquids = LiquidStack.with(Liquids.ozone, 4 / craftTime);
             inputPower = 120f / 60f;
 
             outputItems = with(FFItems.fermentedTea, 1);
@@ -406,9 +407,10 @@ public class Recipes {
             craftTime = 120f;
 
             inputItems = with(FFItems.wheat, 2);
+            inputLiquids = LiquidStack.with(Liquids.ozone, 6 / craftTime);
             inputPower = 120f / 60f;
 
-            outputLiquids = LiquidStack.with(Liquids.arkycite, 12);
+            outputLiquids = LiquidStack.with(Liquids.arkycite, 12 / craftTime);
 
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
