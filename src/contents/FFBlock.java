@@ -1,10 +1,7 @@
 package contents;
 
 import arc.struct.Seq;
-import contents.blocks.DefenseBlock;
-import contents.blocks.EnvironmentBlock;
-import contents.blocks.ProductionBlock;
-import contents.blocks.TurretBlock;
+import contents.blocks.*;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
 import mindustry.type.Category;
@@ -29,8 +26,6 @@ public class FFBlock {
         RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode,
         HeatConduit, HeatProducer, HeatCond, HeatCrafter, RocketSilo,
 
-    //Actually new stuffs here
-
     //Production,Factory
     ArcFurnace,
         conveyorT1, routerT1, bridgeT1,
@@ -43,6 +38,7 @@ public class FFBlock {
         ProductionBlock.load();
         TurretBlock.load();
         DefenseBlock.load();
+        SpecialBlock.load();
         conveyorT1 = new BeltConveyor("conveyor-t1") {{
             requirements(Category.distribution, with(Items.beryllium, 1));
             health = 100;
