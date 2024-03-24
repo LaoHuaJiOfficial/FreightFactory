@@ -42,8 +42,8 @@ public class FVanillaChange {
             //drills
             Blocks.mechanicalDrill, Blocks.pneumaticDrill, Blocks.laserDrill, Blocks.blastDrill,
             Blocks.waterExtractor, Blocks.cultivator, Blocks.oilExtractor, Blocks.ventCondenser,
-            Blocks.cliffCrusher, Blocks.plasmaBore, Blocks.largePlasmaBore, Blocks.impactDrill,
-            Blocks.eruptionDrill,
+            Blocks.cliffCrusher, Blocks.plasmaBore, Blocks.largePlasmaBore,
+            //Blocks.impactDrill, Blocks.eruptionDrill,
 
             //todo current don't change this
 
@@ -57,7 +57,8 @@ public class FVanillaChange {
             Blocks.unitCargoUnloadPoint,
 
             //liquid
-            Blocks.mechanicalPump, Blocks.rotaryPump, Blocks.impulsePump, Blocks.conduit,
+            //Blocks.mechanicalPump, Blocks.rotaryPump, Blocks.impulsePump,
+            Blocks.conduit,
             /*Blocks.pulseConduit, */Blocks.armoredConveyor, /*Blocks.liquidRouter, Blocks.liquidContainer,
             Blocks.liquidTank, Blocks.liquidJunction, Blocks.bridgeConduit, */Blocks.phaseConduit,
             Blocks.reinforcedPump, Blocks.reinforcedConduit, Blocks.reinforcedLiquidJunction, Blocks.reinforcedBridgeConduit,
@@ -100,7 +101,9 @@ public class FVanillaChange {
             Blocks.tankFabricator, Blocks.shipFabricator, Blocks.mechFabricator, Blocks.tankRefabricator,
             Blocks.shipRefabricator, Blocks.mechRefabricator, Blocks.primeRefabricator, Blocks.tankAssembler,
             Blocks.shipAssembler, Blocks.mechAssembler, Blocks.basicAssemblerModule, Blocks.unitRepairTower,
-            Blocks.payloadConveyor, Blocks.payloadRouter, Blocks.reinforcedPayloadConveyor, Blocks.reinforcedPayloadRouter,
+
+            //Blocks.payloadConveyor, Blocks.payloadRouter,
+            Blocks.reinforcedPayloadConveyor, Blocks.reinforcedPayloadRouter,
             Blocks.payloadMassDriver, Blocks.largePayloadMassDriver, Blocks.smallDeconstructor, Blocks.deconstructor,
             Blocks.constructor, Blocks.largeConstructor, Blocks.payloadLoader, Blocks.payloadUnloader,
 

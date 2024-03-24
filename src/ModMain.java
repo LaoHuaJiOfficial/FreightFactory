@@ -1,11 +1,16 @@
+import arc.Core;
 import arc.Events;
+import arc.func.Cons;
+import arc.input.KeyCode;
 import arc.util.Log;
 import arc.util.Time;
 import contents.*;
 import contents.FFBullets;
 import contents.Recipes;
+import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.game.EventType.ClientLoadEvent;
+import mindustry.gen.Call;
 import mindustry.mod.Mod;
 import prototypes.FFContent;
 import prototypes.FFVars;
@@ -22,8 +27,6 @@ public class ModMain extends Mod {
         //listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
             Time.runTask(10f, () -> {
-                //RecipeResearchDialog dialog = new RecipeResearchDialog();
-                //dialog.show();
             });
         });
 

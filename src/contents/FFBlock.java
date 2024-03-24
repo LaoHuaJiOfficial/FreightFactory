@@ -1,19 +1,14 @@
 package contents;
 
-import arc.struct.Seq;
 import contents.blocks.*;
 import mindustry.content.Items;
-import mindustry.content.Liquids;
 import mindustry.type.Category;
-import mindustry.type.LiquidStack;
 import mindustry.world.Block;
 import prototypes.block.HeatBox.HeatPipe;
 import prototypes.block.distribution.*;
 import prototypes.block.liquid.LiquidDiode;
-import prototypes.block.production.AssemblerBlock;
 import prototypes.block.storage.RemoteCoreBlock;
 import prototypes.block.tech.Nexus;
-import prototypes.recipe.Recipe;
 import utilities.game.FVars;
 
 import static mindustry.type.ItemStack.with;
@@ -39,6 +34,7 @@ public class FFBlock {
         TurretBlock.load();
         DefenseBlock.load();
         SpecialBlock.load();
+        ModuleBlock.load();
         conveyorT1 = new BeltConveyor("conveyor-t1") {{
             requirements(Category.distribution, with(Items.beryllium, 1));
             health = 100;
