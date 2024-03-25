@@ -2,58 +2,104 @@ package prototypes.block.module;
 
 import arc.Events;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Angles;
 import arc.math.Mathf;
+import arc.math.geom.Geometry;
 import arc.math.geom.Vec2;
+import arc.util.Eachable;
 import arc.util.Log;
 import arc.util.Tmp;
+import arc.util.io.Reads;
+import arc.util.io.Writes;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
+import mindustry.entities.units.BuildPlan;
 import mindustry.game.EventType;
+import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Icon;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.graphics.Shaders;
+import mindustry.io.TypeIO;
 import mindustry.ui.Bar;
 import mindustry.world.Block;
+import mindustry.world.Tile;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.modules.BlockModule;
 import prototypes.payload.ModuleStat;
 
-import static mindustry.Vars.state;
-import static mindustry.Vars.tilesize;
+import static mindustry.Vars.*;
 
-public class UnitModuleInserter extends BlockProducer {
+public class UnitModuleInserter extends PayloadBlock {
+    public float moduleUpgradeTime = 60f;
     public UnitModuleInserter(String name) {
         super(name);
+
+        size = 5;
+        update = true;
+        outputsPayload = true;
+        hasItems = true;
+        solid = true;
+        hasPower = true;
+        rotate = true;
+        regionRotated1 = 1;
     }
 
     @Override
     public void setBars(){
         super.setBars();
 
-        addBar("progress", (BlockProducerBuild entity) -> new Bar("bar.progress", Pal.ammo, () -> entity.recipe() == null ? 0f : (entity.progress / 60f)));
+        addBar("progress", (UnitModuleInserterBuild entity) -> new Bar("bar.progress", Pal.ammo, () -> entity.payload == null ? 0f : entity.fraction()));
     }
 
-    public class UnitModuleInserterBuild extends BlockProducerBuild{
+    @Override
+    public boolean canPlaceOn(Tile tile, Team team, int rotation){
+        int len = size/2+1;
+        for (int i = 0; i < len; i++){
+            for (int j: Mathf.signs){
+                Building build = world.tile(tile.x - Geometry.d4x(rotation) * size + i * j, tile.y - Geometry.d4y(rotation) * size + i * j).build;
+                if (!((build instanceof UnitModuleCrafter.UnitModuleCrafterBuild)||(build instanceof UnitModuleInserterBuild))){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public TextureRegion[] icons(){
+        return new TextureRegion[]{region, topRegion};
+    }
+
+    @Override
+    public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list){
+        Draw.rect(region, plan.drawx(), plan.drawy());
+        //Draw.rect(outRegion, plan.drawx(), plan.drawy(), plan.rotation * 90);
+        Draw.rect(topRegion, plan.drawx(), plan.drawy());
+        //Fill.rect(plan.drawx(), plan.drawy(), 8,8);
+    }
+
+    public class UnitModuleInserterBuild extends PayloadBlockBuild<Payload>{
+        public float progress, time, speedScl;
         public boolean CurrentUpgraded = false;
-        @Override
-        public Block recipe() {
-            return null;
+
+        public float fraction(){
+            return payload == null ? 0 : progress / moduleUpgradeTime;
         }
 
         @Override
         public void draw(){
             Draw.rect(region, x, y, rotation * 90);
 
-            var recipe = recipe();
-            if(recipe != null){
-                Drawf.shadow(x, y, recipe.size * tilesize * 2f, progress / recipe.buildCost);
+            /*
+            if(payload != null){
+                Drawf.shadow(x, y, payload.size * tilesize * 2f, progress / recipe.buildCost);
                 Draw.draw(Layer.blockBuilding, () -> {
                     Draw.color(Pal.accent);
 
@@ -75,6 +121,8 @@ public class UnitModuleInserter extends BlockProducer {
 
                 Draw.reset();
             }
+
+             */
 
             drawPayload();
 
@@ -126,19 +174,6 @@ public class UnitModuleInserter extends BlockProducer {
         }
 
         @Override
-        public void dumpPayload(){
-            //translate payload forward slightly
-            float tx = Angles.trnsx(payload.rotation(), 0.1f), ty = Angles.trnsy(payload.rotation(), 0.1f);
-            payload.set(payload.x() + tx, payload.y() + ty, payload.rotation());
-
-            if(payload.dump()){
-                payload = null;
-            }else{
-                payload.set(payload.x() - tx, payload.y() - ty, payload.rotation());
-            }
-        }
-
-        @Override
         public boolean shouldConsume(){
             return super.shouldConsume() && payload != null;
         }
@@ -147,41 +182,46 @@ public class UnitModuleInserter extends BlockProducer {
         public void updateTile(){
 
             if(payload != null){
-                UnitModule.UnitModuleBuild pay = (UnitModule.UnitModuleBuild) payload.build;
-                //check if offloading
-                if(CurrentUpgraded){
-                    //Log.info("already upgraded!");
-                    moveOutPayload();
-                    //Log.info("test1");
-                }else{
-                    //Log.info("test2");
-                    //update progress
-                    if(moveInPayload()){
-                        //Log.info("test3");
-                        if(efficiency > 0){
+                if (payload instanceof BuildPayload buildPay){
+                    UnitModule.UnitModuleBuild pay = (UnitModule.UnitModuleBuild) buildPay.build;
+                    //check if offloading
+                    if(CurrentUpgraded){
+                        moveOutPayload();
+                    }else{
+                        //update progress
+                        if(moveInPayload()){
+                            if (efficiency > 0){
+                                progress += edelta();
+                                if (progress >= moduleUpgradeTime){
+                                    pay.stat.addModule(ModuleStat.ModuleExtra.ArmorModule, 1);
+                                    CurrentUpgraded = true;
+                                    progress %= 1f;
+                                    consume();
+                                }
+                            }
 
+
+                            //heat = Mathf.lerpDelta(heat, Mathf.num(true), 0.15f);
+                            //time += heat * delta();
+
+                            //progress += edelta();
                         }
-                        //progress += buildSpeed * edelta();
-
-                        if(progress >= 60f){
-
-                        }
-
-                        //Log.info("Input a module core: " + pay.stat.base.name());
-                        pay.stat.addModule(ModuleStat.ModuleExtra.ArmorModule, 1);
-                        //Log.info("After insert armor module MK2: " + pay.stat.ModuleList.get(ModuleStat.ModuleExtra.ArmorModule).tier);
-                        //Log.info("Current Module Inserted: " + pay.stat.reconsCount);
-                        CurrentUpgraded = true;
-                        progress %= 1f;
-                        consume();
-
-                        heat = Mathf.lerpDelta(heat, Mathf.num(true), 0.15f);
-                        time += heat * delta();
-
-                        progress += edelta();
                     }
                 }
+
             }
+        }
+
+        @Override
+        public void write(Writes write){
+            super.write(write);
+            write.f(progress);
+        }
+
+        @Override
+        public void read(Reads read, byte revision){
+            super.read(read, revision);
+            progress = read.f();
         }
     }
 }

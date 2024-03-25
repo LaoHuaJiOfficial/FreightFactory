@@ -1,5 +1,7 @@
 package prototypes.block.module;
 
+import arc.graphics.Blending;
+import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
@@ -8,17 +10,27 @@ import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
 import arc.struct.EnumSet;
+import arc.struct.Seq;
 import arc.util.Log;
 import arc.util.Tmp;
 import mindustry.Vars;
+import mindustry.content.Fx;
 import mindustry.content.UnitTypes;
+import mindustry.entities.abilities.Ability;
+import mindustry.entities.abilities.ForceFieldAbility;
+import mindustry.entities.bullet.BasicBulletType;
+import mindustry.entities.effect.ExplosionEffect;
+import mindustry.entities.part.RegionPart;
+import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Building;
 import mindustry.gen.Call;
+import mindustry.gen.Sounds;
 import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.graphics.Shaders;
+import mindustry.type.Weapon;
 import mindustry.world.Block;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.meta.BlockFlag;
@@ -100,6 +112,7 @@ public class UnitModuleRefactor extends PayloadBlock {
         public void dumpPayload(){
             if(payload.dump()){
                 Call.unitBlockSpawn(tile);
+                spawned();
             }
         }
 
@@ -120,11 +133,17 @@ public class UnitModuleRefactor extends PayloadBlock {
                 drawPayload();
             }
 
-            Vec2 dest = Tmp.v1.trns(rotdeg(), size * tilesize/2f);
             Draw.z(Layer.blockBuilding + 1.1f);
+            if (payload instanceof UnitPayload pay){
+                Draw.rect(pay.unit.type.region, x, y, rotation * 90);
+                for (var mount: pay.unit.mounts){
+                    if (mount.weapon.region != null){
+                        Draw.rect(mount.weapon.region, x, y, rotation * 90);
+                    }
+                }
+            }
 
 
-            Fill.rect(dest.x + x, dest.y + y, 8, 8);
 
 
             //Draw.z(Layer.blockBuilding + 1.1f);
@@ -144,6 +163,9 @@ public class UnitModuleRefactor extends PayloadBlock {
                         UnitModule.UnitModuleBuild pay = (UnitModule.UnitModuleBuild) b.build;
                         if (pay.stat.ModuleList.get(ModuleStat.ModuleExtra.ArmorModule).tier == 4) {
                             this.payload = new UnitPayload(UnitTypes.reign.create(this.team));
+                            ((UnitPayload)payload).unit.abilities = new Ability[]{
+                                new ForceFieldAbility(80,4000,10000,5)
+                            };
                             Log.info("test unit 4");
                             NeedRefactored = false;
                         }
@@ -152,6 +174,12 @@ public class UnitModuleRefactor extends PayloadBlock {
                             Log.info("test unit 3");
                             NeedRefactored = false;
 
+                            WeaponMount[] mounts = new WeaponMount[UnitTypes.eclipse.weapons.size];
+                            for(int i = 0; i < UnitTypes.eclipse.weapons.size; i++){
+                                mounts[i]= new WeaponMount(UnitTypes.eclipse.weapons.get(i));
+                            }
+                            ((UnitPayload)payload).unit.mounts = mounts;
+                            //((UnitPayload)payload).draw();
 
                         }
                         if (pay.stat.ModuleList.get(ModuleStat.ModuleExtra.ArmorModule).tier == 2) {
@@ -176,9 +204,11 @@ public class UnitModuleRefactor extends PayloadBlock {
 
                     }
                 }else {
-                    //Log.info("test");
-                    moveOutPayload();
+                    if (payload instanceof UnitPayload){
+                        moveOutPayload();
 
+                    }
+                    //Log.info("test");
                 }
             }
         }

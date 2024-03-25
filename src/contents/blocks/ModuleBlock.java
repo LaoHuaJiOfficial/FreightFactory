@@ -42,15 +42,18 @@ public class ModuleBlock {
         ModuleInserter = new UnitModuleInserter("module-inserter"){{
             requirements(Category.units, with(Items.silicon, 100, Items.beryllium, 150, Items.tungsten, 80));
             hasPower = true;
-            buildSpeed = 0.6f;
+            itemCapacity = 40;
             consumePower(2f);
+            consumeItem(Items.beryllium, 20);
             size = 5;
         }};
 
         UnitRefactor = new UnitModuleRefactor("unit-refactor"){{
             requirements(Category.units, with(Items.silicon, 100, Items.beryllium, 150, Items.tungsten, 80));
+            itemCapacity = 40;
             hasPower = true;
             consumePower(2f);
+            consumeItem(Items.beryllium, 20);
             size = 5;
         }};
     }
