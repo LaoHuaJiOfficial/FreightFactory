@@ -25,10 +25,9 @@ ext{
 }
 
 //java 8 backwards compatibility flag
-allprojects{
-    tasks.withType(JavaCompile){
-        options.compilerArgs.addAll(['--release', '8'])
-    }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.addAll(['--release', '8'])
 }
 
 dependencies{
@@ -84,13 +83,21 @@ jar{
     }
 }
 
-task copyJar(type: Copy) {
+tasks.register('copyTo', Copy) {
     from jar
     into 'E:/Steam/steamapps/common/Mindustry/saves/mods'
     rename { 'FoodFactoryJar.jar' }
 }
 
-build.dependsOn copyJar
+task DebugMod(type: JavaExec) {
+    dependsOn classes
+
+    main = "-jar"
+    args = [
+            "E:/FoodFactoryLib/Mindustry7.0.jar",
+            "-debug"
+    ]
+}
 
 task deploy(type: Jar){
     dependsOn jarAndroid

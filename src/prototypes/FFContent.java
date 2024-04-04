@@ -7,13 +7,17 @@ import contents.FFItems;
 import mindustry.content.Items;
 import mindustry.type.Item;
 import prototypes.recipe.Recipe;
+import prototypes.unit.CustomUnitData;
 
 public class FFContent {
     public static Seq<Recipe> recipeAll;
+    public static Seq<CustomUnitData> CustomUnits;
     public static ObjectMap<Item, Integer> ItemValue;
 
     public static void load(){
         recipeAll = new Seq<>();
+
+        CustomUnits = new Seq<>();
 
         ItemValue = new ObjectMap<>();
         ItemValue.putAll(

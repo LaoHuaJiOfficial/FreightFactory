@@ -2,51 +2,35 @@ package utilities.draw;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Font;
+import arc.graphics.g2d.GlyphLayout;
 import arc.graphics.g2d.Lines;
 import arc.math.Mathf;
+import arc.scene.ui.layout.Scl;
+import arc.util.Align;
 import arc.util.Tmp;
+import arc.util.pooling.Pools;
 import mindustry.graphics.Pal;
+import mindustry.ui.Fonts;
 
 import static arc.math.Mathf.rand;
 
 public class DrawExtend {
-    public static void DrawChainLightning(float x1, float y1, float x2, float y2, float mul, float alpha) {
 
+    public static void DrawText(String text, float x, float y, float scale){
+        Font font = Fonts.outline;
+        GlyphLayout layout = Pools.obtain(GlyphLayout.class, GlyphLayout::new);
+        boolean ints = font.usesIntegerPositions();
+        font.setUseIntegerPositions(false);
+        font.getData().setScale(scale);
 
-        float dst = Mathf.dst(x1, y1, x2, y2);
+        layout.setText(font, text);
+        font.draw(text, x, y, Align.center);
 
-        Tmp.v1.set(x2, y2).sub(x1, y1).nor();
-
-        float normx = Tmp.v1.x, normy = Tmp.v1.y;
-        float range = 3f;
-
-        int links = Mathf.ceil(dst / range);
-        float spacing = dst / links;
-
-        Lines.stroke(1.2f * mul);
-        Draw.color(Color.white, Pal.reactorPurple, alpha);
-
-        Lines.beginLine();
-
-        Lines.linePoint(x1, y1);
-
-        rand.setSeed((long) (x1 + y1));
-
-        for (int i = 0; i < links; i++) {
-            float nx, ny;
-            if (i == links - 1) {
-                nx = x2;
-                ny = y2;
-            } else {
-                float len = (i + 1) * spacing;
-                Tmp.v1.setToRandomDirection(rand).scl(range / 2f);
-                nx = x1 + normx * len + Tmp.v1.x;
-                ny = y1 + normy * len + Tmp.v1.y;
-            }
-
-            Lines.linePoint(nx, ny);
-        }
-
-        Lines.endLine();
+        font.setUseIntegerPositions(ints);
+        font.setColor(Color.white);
+        font.getData().setScale(1f);
+        Draw.reset();
+        Pools.free(layout);
     }
 }

@@ -1,5 +1,6 @@
 package prototypes.block.module;
 
+import arc.Events;
 import arc.graphics.Blending;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
@@ -22,6 +23,7 @@ import mindustry.entities.bullet.BasicBulletType;
 import mindustry.entities.effect.ExplosionEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.units.WeaponMount;
+import mindustry.game.EventType;
 import mindustry.gen.Building;
 import mindustry.gen.Call;
 import mindustry.gen.Sounds;
@@ -35,7 +37,9 @@ import mindustry.world.Block;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.BlockGroup;
+import prototypes.FFContent;
 import prototypes.payload.ModuleStat;
+import prototypes.unit.CustomUnitData;
 
 import static mindustry.Vars.tilesize;
 
@@ -112,6 +116,8 @@ public class UnitModuleRefactor extends PayloadBlock {
         public void dumpPayload(){
             if(payload.dump()){
                 Call.unitBlockSpawn(tile);
+                Unit unitPay = ((UnitPayload)payload).unit;
+                Events.fire(new EventType.UnitCreateEvent(unitPay, this));
                 spawned();
             }
         }
@@ -166,6 +172,11 @@ public class UnitModuleRefactor extends PayloadBlock {
                             ((UnitPayload)payload).unit.abilities = new Ability[]{
                                 new ForceFieldAbility(80,4000,10000,5)
                             };
+                            //((UnitPayload)payload).unit.write();
+
+
+                            FFContent.CustomUnits.add(new CustomUnitData(((UnitPayload)payload).unit.id, ((UnitPayload)payload).unit.abilities));
+                            //((UnitPayload)payload).unit.id
                             Log.info("test unit 4");
                             NeedRefactored = false;
                         }
@@ -206,6 +217,7 @@ public class UnitModuleRefactor extends PayloadBlock {
                 }else {
                     if (payload instanceof UnitPayload){
                         moveOutPayload();
+
 
                     }
                     //Log.info("test");
