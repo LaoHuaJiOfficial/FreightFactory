@@ -1,6 +1,3 @@
-
-
-
 #the mod name as displayed in-game
 displayName: "FoodFactory"
 
@@ -17,7 +14,7 @@ main: "ModMain"
 description: "A Mod In Dev"
 
 #the mod version
-version: 0.1
+version: ALPHA_v0.2
 
 #the minimum game build required to run this mod
 minGameVersion: 146
