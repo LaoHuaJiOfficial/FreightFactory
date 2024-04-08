@@ -1,8 +1,11 @@
 package prototypes.block.production;
 
 import arc.Core;
+import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
+import arc.math.geom.Point2;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.ScrollPane;
@@ -47,6 +50,8 @@ public class AssemblerBlock extends BlockF {
     public Seq<Recipe> recipeSeq = new Seq<>(4);
     public DrawBlock drawer = new DrawDefault();
     public TextureRegion timeIcon;
+    public Seq<Point2> inputItemDir = new Seq<>();
+    public Seq<Point2> outputItemDir = new Seq<>();
 
     public AssemblerBlock(String name) {
         super(name);
@@ -256,11 +261,34 @@ public class AssemblerBlock extends BlockF {
         public float totalProgress;
         public float warmup;
         public int currentRecipeIndex = -1;
+        public Seq<Building> inputItemDirBuild = new Seq<>();
+        public Seq<Building> outputItemDirBuild = new Seq<>();
 
 
         @Override
         public void draw() {
+
+
             drawer.draw(this);
+        }
+
+        @Override
+        public void drawSelect(){
+            super.drawSelect();
+            for (var point2: inputItemDirBuild){
+                if (point2 != null){
+                    Draw.color(Pal.techBlue, 0.5f);
+                    Fill.square(point2.x, point2.y, tilesize/2f);
+                    Draw.reset();
+                }
+            }
+            for (var point2: outputItemDirBuild){
+                if (point2 != null){
+                    Draw.color(Pal.accent, 0.5f);
+                    Fill.square(point2.x, point2.y, tilesize/2f);
+                    Draw.reset();
+                }
+            }
         }
 
         @Override
@@ -586,8 +614,25 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public boolean acceptItem(Building source, Item item) {
-            return (currentRecipeIndex != -1 && current().inputItems != null && this.items.get(item) < this.getMaximumAccepted(item) &&
-                Structs.contains(current().inputItems, stack -> stack.item == item));
+            return (
+                currentRecipeIndex != -1
+                && current().inputItems != null
+                && this.items.get(item) < this.getMaximumAccepted(item)
+                && Structs.contains(current().inputItems, stack -> stack.item == item)
+                && acceptItemDir(source)
+            );
+        }
+        public boolean acceptItemDir(Building source){
+            if (!inputItemDir.any())return true;
+            return inputItemDirBuild.contains(source);
+        }
+        @Override
+        public boolean canDump(Building to, Item item) {
+            return receiveItemDir(to);
+        }
+        public boolean receiveItemDir(Building to){
+            if (!outputItemDir.any())return true;
+            return outputItemDirBuild.contains(to);
         }
 
         @Override
@@ -595,6 +640,31 @@ public class AssemblerBlock extends BlockF {
             return (currentRecipeIndex != -1 && current().inputLiquids != null && this.liquids.get(liquid) < this.block.liquidCapacity) &&
                 Structs.contains(current().inputLiquids, stack -> stack.liquid == liquid);
         }
+
+        public void updateOutputItemBuild(){
+            if (!outputItemDir.any())return;
+            outputItemDirBuild.clear();
+            for (Point2 point2: outputItemDir){
+                //Log.info(world.build(tile.x + point2.x, tile.y + point2.y));
+                outputItemDirBuild.add(world.build(tile.x + point2.x, tile.y + point2.y));
+            }
+        }
+        public void updateInputItemBuild(){
+            if (!inputItemDir.any())return;
+            inputItemDirBuild.clear();
+            for (Point2 point2: inputItemDir){
+                //Log.info(world.build(tile.x + point2.x, tile.y + point2.y));
+                inputItemDirBuild.add(world.build(tile.x + point2.x, tile.y + point2.y));
+            }
+        }
+
+        @Override
+        public void onProximityUpdate(){
+            super.onProximityUpdate();
+            updateOutputItemBuild();
+            updateInputItemBuild();
+        }
+
 
 
         @Override

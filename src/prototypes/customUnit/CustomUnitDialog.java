@@ -1,9 +1,6 @@
 package prototypes.customUnit;
 
-import arc.scene.ui.Button;
-import arc.scene.ui.Image;
-import arc.scene.ui.ImageButton;
-import arc.scene.ui.ScrollPane;
+import arc.scene.ui.*;
 import arc.scene.ui.layout.Table;
 import arc.util.Scaling;
 import mindustry.Vars;
@@ -42,9 +39,12 @@ public class CustomUnitDialog extends BaseDialog {
 
                     Runnable rebuildWeapon = () -> {
                         GridCont.clear();
+                        ButtonGroup<Button> gridButtons = new ButtonGroup<>();
+                        gridButtons.setMaxCheckCount(1);
                         for (var grid: GridPartList.GridWeaponList){
                             GridCont.table(cont -> {
-                                Button GridTable = new Button(Tex.pane);
+                                Button GridTable = new Button(Styles.defaultb);
+                                gridButtons.add(GridTable);
                                 GridTable.table(table1 -> {
                                     table1.image(grid.weapon.icon).scaling(Scaling.fit).size(120,120);
                                     table1.table(table2 -> {
@@ -53,7 +53,7 @@ public class CustomUnitDialog extends BaseDialog {
                                         table2.label(() -> "Grid Height: " + grid.height).wrap().width(240).row();
                                     });
                                 }).size(400,0);
-                                GridTable.clicked(() -> canvas.GridPart = grid);
+                                GridTable.clicked(() -> canvas.queryGridPart = grid);
                                 GridCont.add(GridTable);
                             }).row();
                         }

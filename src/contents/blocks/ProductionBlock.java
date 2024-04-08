@@ -1,5 +1,6 @@
 package contents.blocks;
 
+import arc.math.geom.Point2;
 import arc.struct.Seq;
 import contents.FFItems;
 import contents.Recipes;
@@ -83,6 +84,9 @@ public class ProductionBlock {
             requirements(Category.crafting, with(Items.copper, 30, Items.graphite, 25));
 
             size = 3;
+
+            inputItemDir.add(new Point2(1,2), new Point2(-1,2));
+            outputItemDir.add(new Point2(1,-2), new Point2(-1,-2));
 
             drawer = new DrawMulti(new DrawRegion("-base"), new DrawArcSmelt(), new DrawDefault());
 
