@@ -1,11 +1,13 @@
 package prototypes.block.production;
 
 import arc.Core;
+import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.math.geom.Point2;
+import arc.math.geom.Rect;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.ScrollPane;
@@ -17,11 +19,13 @@ import arc.struct.Seq;
 import arc.util.*;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
+import contents.FFPal;
 import mindustry.Vars;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.gen.Icon;
 import mindustry.gen.Sounds;
+import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.ui.ItemDisplay;
@@ -111,6 +115,7 @@ public class AssemblerBlock extends BlockF {
     @Override
     public void load() {
         super.load();
+        //todo
         timeIcon = Core.atlas.find("ff-time-icon");
         drawer.load(this);
 
@@ -267,8 +272,6 @@ public class AssemblerBlock extends BlockF {
 
         @Override
         public void draw() {
-
-
             drawer.draw(this);
         }
 

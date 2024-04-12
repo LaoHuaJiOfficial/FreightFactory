@@ -11,11 +11,12 @@ public class FVanillaChange {
 
     public static void init() {
 
+        /*
         UnitSetHidden(
-            //UnitTypes.dagger, UnitTypes.mace, UnitTypes.fortress, UnitTypes.scepter, UnitTypes.reign,
+            UnitTypes.dagger, UnitTypes.mace, UnitTypes.fortress, UnitTypes.scepter, UnitTypes.reign,
             UnitTypes.nova, UnitTypes.pulsar, UnitTypes.quasar, UnitTypes.vela, UnitTypes.corvus,
             UnitTypes.crawler, UnitTypes.atrax, UnitTypes.spiroct, UnitTypes.arkyid, UnitTypes.toxopid,
-            //UnitTypes.flare, UnitTypes.horizon, UnitTypes.zenith, UnitTypes.antumbra, UnitTypes.eclipse,
+            UnitTypes.flare, UnitTypes.horizon, UnitTypes.zenith, UnitTypes.antumbra, UnitTypes.eclipse,
             UnitTypes.mono, UnitTypes.poly, UnitTypes.mega, UnitTypes.quad, UnitTypes.oct,
             UnitTypes.risso, UnitTypes.minke, UnitTypes.bryde, UnitTypes.sei, UnitTypes.omura,
             UnitTypes.retusa, UnitTypes.oxynoe, UnitTypes.cyerce, UnitTypes.aegires, UnitTypes.navanax,
@@ -25,6 +26,8 @@ public class FVanillaChange {
             UnitTypes.alpha, UnitTypes.beta, UnitTypes.gamma,
             UnitTypes.evoke, UnitTypes.incite, UnitTypes.emanate
         );
+
+         */
 
 
         BlockSetHidden(
@@ -51,7 +54,9 @@ public class FVanillaChange {
             Blocks.conveyor, Blocks.titaniumConveyor, Blocks.plastaniumConveyor, Blocks.armoredConveyor,
             Blocks.junction, Blocks.itemBridge, Blocks.phaseConveyor, Blocks.sorter,
             Blocks.invertedSorter, Blocks.router, Blocks.distributor, Blocks.overflowGate,
-            Blocks.underflowGate, Blocks.massDriver, Blocks.duct, Blocks.armoredDuct,
+            Blocks.underflowGate, Blocks.massDriver,
+            Blocks.duct,
+            Blocks.armoredDuct,
             Blocks.ductRouter, Blocks.overflowDuct, Blocks.underflowDuct, Blocks.ductBridge,
             Blocks.ductUnloader, Blocks.surgeConveyor, Blocks.surgeRouter, Blocks.unitCargoLoader,
             Blocks.unitCargoUnloadPoint,

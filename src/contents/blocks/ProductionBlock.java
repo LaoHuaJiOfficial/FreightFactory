@@ -12,6 +12,7 @@ import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.draw.*;
 import prototypes.FFContent;
+import prototypes.block.inner.testBlock;
 import prototypes.block.production.AreaDrill;
 import prototypes.block.production.AssemblerBlock;
 
@@ -216,12 +217,14 @@ public class ProductionBlock {
                 Recipes.crystalAlloy_1
             );
         }};
+        /*
         BakingStation = new AssemblerBlock("baking-station"){{
             requirements(Category.crafting, with(Items.copper, 30));
 
             size = 2;
 
             drawer = new DrawMulti(new DrawDefault());
+            squareSprite = false;
 
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.09f;
@@ -230,6 +233,8 @@ public class ProductionBlock {
                 Recipes.baking_0
             );
         }};
+
+         */
         Freezer = new AssemblerBlock("freezer"){{
             requirements(Category.crafting, with(Items.copper, 30));
 
@@ -355,5 +360,21 @@ public class ProductionBlock {
         }};
 
          */
+
+        BakingStation = new testBlock("baking-station"){{
+            requirements(Category.crafting, with(Items.copper, 30));
+
+            size = 2;
+
+            drawer = new DrawMulti(new DrawDefault());
+            squareSprite = false;
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.09f;
+
+            recipeSeq = Seq.with(
+                Recipes.baking_0
+            );
+        }};
     }
 }

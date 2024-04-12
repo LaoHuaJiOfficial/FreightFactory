@@ -16,6 +16,7 @@ import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.gen.Groups;
 import mindustry.gen.Icon;
 import mindustry.mod.Mod;
+import mindustry.type.Category;
 import mindustry.ui.Styles;
 import prototypes.FFContent;
 import prototypes.FFVars;

@@ -6,6 +6,7 @@ import mindustry.type.Category;
 import mindustry.world.Block;
 import prototypes.block.HeatBox.HeatPipe;
 import prototypes.block.distribution.*;
+import prototypes.block.inner.LinkBlock;
 import prototypes.block.liquid.LiquidDiode;
 import prototypes.block.storage.RemoteCoreBlock;
 import prototypes.block.tech.Nexus;
@@ -19,7 +20,7 @@ public class FFBlock {
 
     nexus,
         RemoteCoreInterface, test, conduit, assembler, ItemDiode, LiquidDiode,
-        HeatConduit, HeatProducer, HeatCond, HeatCrafter, RocketSilo,
+        HeatConduit, HeatProducer, HeatCond, HeatCrafter, RocketSilo, linkBuild,
 
     //Production,Factory
     ArcFurnace,
@@ -97,6 +98,10 @@ public class FFBlock {
             requirements(Category.effect, with(Items.copper, 20));
             size = 3;
         }};
+
+        linkBuild = new LinkBlock("link"){
+
+        };
 
         /*
         HeatCrafter = new AssemblerBlock("heat-crafter"){{

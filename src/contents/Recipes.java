@@ -382,7 +382,7 @@ public class Recipes {
             updateEffect = craftEffect = Fx.smeltsmoke;
         }};
         baking_0 = new Recipe("baking-0", true) {{
-            craftTime = 120f;
+            craftTime = 10f;
 
             inputItems = with(FFItems.flour, 1);
             inputLiquids = LiquidStack.with(FFLiquids.syrup, 4 / craftTime);

@@ -1,12 +1,12 @@
 package prototypes.customUnit;
 
+import arc.Core;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.Table;
 import arc.util.Scaling;
 import mindustry.Vars;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Icon;
-import mindustry.gen.Player;
 import mindustry.gen.Tex;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
@@ -21,9 +21,11 @@ public class CustomUnitDialog extends BaseDialog {
         margin(0f);
 
         canvas = new CustomUnitCanvas();
+
         stack(
             new Image(Styles.black5),
             canvas,
+
 
             new Table(){{
                 table(table -> {
@@ -67,9 +69,10 @@ public class CustomUnitDialog extends BaseDialog {
 
             new Table(){{
                 buttons.defaults().size(160f, 64f).pad(2f);
+
                 buttons.button("@back", Icon.left, CustomUnitDialog.this::hide);
-                buttons.button("Set Scale", Icon.add, () -> canvas.unitSize = 12);
-                buttons.button("Reset Scale", Icon.add, () -> canvas.unitSize = 40);
+                //buttons.button("Set Scale", Icon.add, () -> canvas.unitSize = 12);
+                //buttons.button("Reset Scale", Icon.add, () -> canvas.unitSize = 40);
                 buttons.button("Clear", Icon.add, () -> {
                     canvas.GridPartSeq.clear();
                     canvas.placedTiles.clear();
@@ -79,6 +82,9 @@ public class CustomUnitDialog extends BaseDialog {
                     for (var grid: canvas.GridPartSeq){
                         grid.apply(Vars.player.unit());
                     }
+                });
+                buttons.slider(10, 120, 10, 40, num -> {
+                    canvas.unitSize = num;
                 });
 
                 setFillParent(true);

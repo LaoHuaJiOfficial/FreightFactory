@@ -1,4 +1,4 @@
-package prototypes.block.module;
+package prototypes.block.inner;
 
 import mindustry.gen.Building;
 import mindustry.world.Block;
