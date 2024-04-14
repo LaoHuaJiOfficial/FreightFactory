@@ -385,8 +385,16 @@ public class BeltConveyor extends BlockF implements Autotiler {
             if (len >= capacity) return false;
             Tile facing = Edges.getFacingEdge(source.tile, tile);
             if (facing == null) return false;
-            int direction = Math.abs(facing.relativeTo(tile.x, tile.y) - rotation);
+            int direction = Math.abs(relativeTo(facing, tile.x, tile.y) - rotation);
             return (((direction == 0) && minitem >= itemSpace) || ((direction % 2 == 1) && minitem > 0.7f)) && !(source.block.rotate && next == source);
+        }
+
+        public byte relativeTo(Tile tile, int cx, int cy){
+            if(tile.x == cx && tile.y - cy < 0) return 1;
+            if(tile.x == cx && tile.y - cy > 0) return 3;
+            if(tile.x - cx < 0 && tile.y == cy) return 0;
+            if(tile.x - cx > 0 && tile.y == cy) return 2;
+            return -1;
         }
 
         @Override
@@ -395,13 +403,13 @@ public class BeltConveyor extends BlockF implements Autotiler {
 
             int r = rotation;
             Tile facing = Edges.getFacingEdge(source.tile, tile);
-            int ang = ((facing.relativeTo(tile.x, tile.y) - r));
+            int ang = ((relativeTo(facing, tile.x, tile.y) - r));
             float x = (ang == -1 || ang == 3) ? 1 : (ang == 1 || ang == -3) ? -1 : 0;
 
             noSleep();
             items.add(item, 1);
 
-            if (Math.abs(facing.relativeTo(tile.x, tile.y) - r) == 0) { //idx = 0
+            if (Math.abs(ang) == 0) { //idx = 0
                 add(0);
                 xs[0] = x;
                 ys[0] = 0;

@@ -361,7 +361,7 @@ public class ProductionBlock {
 
          */
 
-        BakingStation = new testBlock("baking-station"){{
+        BakingStation = new testBlock("basic-smelter"){{
             requirements(Category.crafting, with(Items.copper, 30));
 
             size = 2;

@@ -1,14 +1,21 @@
 package prototypes.block.inner;
 
 import arc.func.Cons;
+import arc.math.geom.Point2;
+import arc.util.Log;
+import contents.FFBlock;
+import mindustry.Vars;
 import mindustry.gen.Building;
 import mindustry.gen.Teamc;
 import mindustry.gen.Unit;
 import mindustry.type.Item;
 import mindustry.type.Liquid;
 import mindustry.world.Block;
+import mindustry.world.Tile;
 import mindustry.world.blocks.payloads.Payload;
 import mindustry.world.meta.BuildVisibility;
+
+import static mindustry.Vars.state;
 
 public class LinkBlock extends Block {
     public LinkBlock(String name) {
@@ -17,12 +24,22 @@ public class LinkBlock extends Block {
         update = true;
         squareSprite = false;
 
+        destructible = true;
+        breakable = false;
+        solid = true;
+        rebuildable = false;
+
         hasItems = true;
         hasLiquids = true;
         //hasPower = true;
 
         buildVisibility = BuildVisibility.hidden;
     }
+
+    public boolean canBreak(Tile tile){
+        return false;
+    }
+
 
     @SuppressWarnings("InnerClassMayBeStatic")
     public class LinkBuild extends Building{
@@ -31,6 +48,7 @@ public class LinkBlock extends Block {
 
         public void updateLink(Building link){
             linkBuild = link;
+            //this.tile.build = linkBuild;
         }
 
         @Override
@@ -125,23 +143,18 @@ public class LinkBlock extends Block {
             super.onProximityUpdate();
             if (linkBuild != null){
                 linkBuild.onProximityUpdate();
-                var linkProximity = linkBuild.proximity;
-                if (linkProximity != null){
-                    for (var build: proximity){
-                        if (build instanceof LinkBuild b){
-                            if (b.linkBuild != this.linkBuild){
-                                linkProximity.addUnique(b);
-                            }
-                        }else
-                        if (build != linkBuild){
-                            linkProximity.addUnique(build);
-                        }
-                    }
-                    if (linkProximity.contains(this)){
-                        linkProximity.remove(this);
-                    }
-                }
             }
+            //todo this is wired
+        }
+
+        @Override
+        public void onProximityAdded() {
+            super.onProximityAdded();
+        }
+
+        @Override
+        public void onProximityRemoved() {
+            super.onProximityRemoved();
         }
     }
 }
