@@ -71,7 +71,10 @@ public class ModMain extends Mod {
     @Override
     public void init(){
         PacketHandler.init();
+        //NO WHAT I'M DOING
         FFSprites.init();
+        GlobalSprites.init();
+
         Events.on(EventType.WorldLoadEvent.class, e -> {
             for (Recipe recipe: FFContent.recipeAll){
                 recipe.resetUnlock();
@@ -124,6 +127,7 @@ public class ModMain extends Mod {
         FListener.init();
 
         FVanillaChange.init();
+
     }
 
 }

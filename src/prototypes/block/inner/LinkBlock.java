@@ -55,6 +55,11 @@ public class LinkBlock extends Block {
         public void draw() {}
 
         @Override
+        public void drawSelect() {
+            linkBuild.drawSelect();
+        }
+
+        @Override
         public boolean acceptItem(Building source, Item item) {
             if (linkBuild != null){
                 return linkBuild.acceptItem(source, item);

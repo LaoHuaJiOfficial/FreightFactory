@@ -3,28 +3,25 @@ package prototypes.block.inner;
 import arc.Core;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.geom.Point2;
 import arc.struct.Seq;
 import arc.util.Eachable;
 import arc.util.Log;
 import contents.FFBlock;
+import contents.GlobalSprites;
 import mindustry.Vars;
-import mindustry.entities.Effect;
 import mindustry.entities.units.BuildPlan;
 import mindustry.game.Team;
-import mindustry.gen.Building;
 import mindustry.graphics.Pal;
-import mindustry.input.Placement;
 import mindustry.world.Tile;
 import prototypes.block.production.AssemblerBlock;
 
 import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.stroke;
 import static mindustry.Vars.*;
-import static utilities.FFGlobalVars.iconPrefix;
-import static utilities.FFGlobalVars.rotPrefix;
+import static utilities.FFGlobalVars.iconSuffix;
+import static utilities.FFGlobalVars.rotSuffix;
 
 public class testBlock extends AssemblerBlock {
     public Seq<Point2> linkPoints = new Seq<>();
@@ -65,9 +62,9 @@ public class testBlock extends AssemblerBlock {
     @Override
     public void load() {
         super.load();
-        PreviewIcon = Core.atlas.find(name + iconPrefix);
+        PreviewIcon = Core.atlas.find(name + iconSuffix);
         for (int i= 0; i < 4; i++){
-            BaseRegion[i] = Core.atlas.find(name + rotPrefix[i]);
+            BaseRegion[i] = Core.atlas.find(name + rotSuffix[i]);
         }
     }
 
@@ -76,6 +73,17 @@ public class testBlock extends AssemblerBlock {
         Draw.rect(BaseRegion[plan.rotation], plan.drawx(), plan.drawy());
 
         drawPlanConfig(plan, list);
+    }
+
+    @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        super.drawPlace(x, y, rotation, valid);
+        for (Point2 point2: getRotatedTiles(rotation, inputItemDir)){
+            Draw.rect(GlobalSprites.ArrowInput, (x + point2.x) * tilesize, (y + point2.y) * tilesize, point2Rot(point2, rotation) * 90);
+        }
+        for (Point2 point2: getRotatedTiles(rotation, outputItemDir)){
+            Draw.rect(GlobalSprites.ArrowOutput, (x + point2.x) * tilesize, (y + point2.y) * tilesize, point2Rot(point2, rotation) * 90);
+        }
     }
 
     @Override
@@ -131,20 +139,26 @@ public class testBlock extends AssemblerBlock {
         return tmp;
     }
 
-    public Seq<Point2> getRotatedTiles(int rot, Seq<Point2> seq){
-        Seq<Point2> tmp = new Seq<>();
-        tmp.clear();
-        for (Point2 point2 : seq) {
-            //avoid annoying x shouldn't be y
-            int px = point2.x, py = point2.y;
-            switch (rot) {
-                case 0 -> tmp.add(point2);
-                case 1 -> tmp.add(new Point2(1 - py, px));
-                case 2 -> tmp.add(new Point2(1 - px, 1 - py));
-                case 3 -> tmp.add(new Point2(py, 1 - px));
-            }
+
+    public byte point2Rot(Point2 point, int rot){
+        int w1 = size/2, w2 = -(size%2==0?size/2-1:size/2),
+            h1 = size/2, h2 = -(size%2==0?size/2-1:size/2);
+        for (Point2 point2: getRotatedTiles(rot)){
+            if (point2.x > w1) w1 = point2.x;
+            if (point2.x < w2) w2 = point2.x;
         }
-        return tmp;
+        for (Point2 point2: getRotatedTiles(rot)){
+            if (point2.y > h1) h1 = point2.y;
+            if (point2.y < h2) h2 = point2.y;
+        }
+        int px = point.x, py = point.y;
+        boolean xIn = px <= w1 && px >= w2, yIn = py <= h1 && py >= h2;
+        Log.info(w1 + " " + w2 + " " + h1 + " " + h2 + " " + px + " " + py);
+        if (px > w1 && yIn)return 0;
+        if (px < w2 && yIn)return 2;
+        if (py > h1 && xIn)return 1;
+        if (py < h2 && xIn)return 3;
+        return 0;
     }
 
     public int getWidth(int rot){
@@ -163,6 +177,22 @@ public class testBlock extends AssemblerBlock {
             if (point2.y < h2) h2 = point2.y;
         }
         return h1-h2;
+    }
+
+    public Seq<Point2> getRotatedTiles(int rot, Seq<Point2> seq){
+        Seq<Point2> tmp = new Seq<>();
+        tmp.clear();
+        for (Point2 point2 : seq) {
+            //avoid annoying x shouldn't be y
+            int px = point2.x, py = point2.y;
+            switch (rot) {
+                case 0 -> tmp.add(point2);
+                case 1 -> tmp.add(new Point2(1 - py, px));
+                case 2 -> tmp.add(new Point2(1 - px, 1 - py));
+                case 3 -> tmp.add(new Point2(py, 1 - px));
+            }
+        }
+        return tmp;
     }
 
     public Point2 getBottomRightPoint(int rot){
@@ -203,6 +233,18 @@ public class testBlock extends AssemblerBlock {
         @Override
         public void draw() {
             Draw.rect(BaseRegion[rotation], x, y);
+        }
+
+        //no those xy are messed up
+        @Override
+        public void drawSelect() {
+            super.drawSelect();
+            for (Point2 point2: getRotatedTiles(rotation, inputItemDir)){
+                Draw.rect(GlobalSprites.ArrowInput, this.x + point2.x * tilesize - tilesize/2f, this.y + point2.y * tilesize - tilesize/2f, point2Rot(point2, rotation) * 90);
+            }
+            for (Point2 point2: getRotatedTiles(rotation, outputItemDir)){
+                Draw.rect(GlobalSprites.ArrowOutput, this.x + point2.x * tilesize - tilesize/2f, this.y + point2.y * tilesize - tilesize/2f, point2Rot(point2, rotation) * 90);
+            }
         }
 
         @Override
