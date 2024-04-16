@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * Use floats to restore the coords of a 2D vector to improve the performance. <p>
  * Used Mainly for {@link mindustry.entities.Effect} that need a cached sequence of vec2s to avoid constructing too much {@link Vec2} instances.
- *
+ * <p>
  * Similar implemented in {@link mindustry.graphics.Trail};
  * @see FloatSeq
  * @see Vec2

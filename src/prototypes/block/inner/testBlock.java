@@ -14,6 +14,7 @@ import mindustry.Vars;
 import mindustry.entities.units.BuildPlan;
 import mindustry.game.Team;
 import mindustry.graphics.Pal;
+import mindustry.world.Block;
 import mindustry.world.Tile;
 import prototypes.block.production.AssemblerBlock;
 
@@ -87,8 +88,19 @@ public class testBlock extends AssemblerBlock {
     }
 
     @Override
+    public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list) {
+        Draw.rect(BaseRegion[plan.rotation], plan.drawx(), plan.drawy());
+    }
+
+    @Override
     public TextureRegion[] icons() {
-        return new TextureRegion[]{PreviewIcon};
+        return new TextureRegion[]{BaseRegion[0]};
+    }
+
+
+    @Override
+    public void placeBegan(Tile tile, Block previous) {
+        super.placeBegan(tile, previous);
     }
 
     @Override
@@ -233,6 +245,11 @@ public class testBlock extends AssemblerBlock {
         @Override
         public void draw() {
             Draw.rect(BaseRegion[rotation], x, y);
+        }
+
+        @Override
+        public TextureRegion getDisplayIcon() {
+            return PreviewIcon;
         }
 
         //no those xy are messed up

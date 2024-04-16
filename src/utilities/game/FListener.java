@@ -9,7 +9,6 @@ import static prototypes.FRules.*;
 
 public class FListener implements ApplicationListener {
 
-
     @Override
     public void init() {
         ApplicationListener.super.init();

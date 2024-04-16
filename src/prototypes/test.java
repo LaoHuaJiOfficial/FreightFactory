@@ -33,6 +33,7 @@ public class test extends Block {
         return pads.size < 10;
     }
 
+    @SuppressWarnings("InnerClassMayBeStatic")
     public class testBuild extends Building {
 
 

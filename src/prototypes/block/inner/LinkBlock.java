@@ -1,27 +1,30 @@
 package prototypes.block.inner;
 
+import arc.Core;
 import arc.func.Cons;
-import arc.math.geom.Point2;
-import arc.util.Log;
-import contents.FFBlock;
+import arc.func.Func;
+import arc.graphics.g2d.TextureRegion;
+import arc.scene.ui.layout.Table;
 import mindustry.Vars;
+import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Teamc;
 import mindustry.gen.Unit;
 import mindustry.type.Item;
 import mindustry.type.Liquid;
+import mindustry.ui.Bar;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.payloads.Payload;
 import mindustry.world.meta.BuildVisibility;
 
-import static mindustry.Vars.state;
+import java.util.Iterator;
 
 public class LinkBlock extends Block {
     public LinkBlock(String name) {
         super(name);
 
-        update = true;
+        update = false;
         squareSprite = false;
 
         destructible = true;
@@ -57,6 +60,30 @@ public class LinkBlock extends Block {
         @Override
         public void drawSelect() {
             linkBuild.drawSelect();
+        }
+
+        @Override
+        public TextureRegion getDisplayIcon() {
+            return linkBuild == null? this.block.uiIcon: linkBuild.getDisplayIcon();
+        }
+
+        @Override
+        public String getDisplayName() {
+            String name = linkBuild == null? this.block.localizedName: linkBuild.block.localizedName;
+            return this.team == Team.derelict ? name + "\n" + Core.bundle.get("block.derelict") : name + (this.team != Vars.player.team() && !this.team.emoji.isEmpty() ? " " + this.team.emoji : "");
+        }
+
+        @Override
+        public void displayBars(Table table) {
+            if (linkBuild != null){
+                for (Func<Building, Bar> buildingBarFunc : linkBuild.block.listBars()) {
+                    Bar result = buildingBarFunc.get(linkBuild);
+                    if (result != null) {
+                        table.add(result).growX();
+                        table.row();
+                    }
+                }
+            }
         }
 
         @Override

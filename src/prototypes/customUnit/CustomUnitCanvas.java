@@ -16,21 +16,19 @@ import arc.scene.event.Touchable;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.struct.ObjectMap;
 import arc.struct.Seq;
-import arc.util.Time;
 import arc.util.Tmp;
-import contents.FFSprites;
+import contents.GlobalSprites;
 import mindustry.graphics.Pal;
-import prototypes.FFVars;
+import utilities.FFGlobalVars;
 import prototypes.customUnit.grid.GridPartData;
 
-import static mindustry.Vars.content;
 import static mindustry.Vars.player;
 
 public class CustomUnitCanvas extends WidgetGroup{
     public static int bounds = 100;
     public float unitSize = 40;
     public CustomUnitTileCanvas tilemap;
-    public Seq<Point2> TileGrid = FFVars.UnitTileGrid.get(0);
+    public Seq<Point2> TileGrid = FFGlobalVars.UnitTileGrid.get(0);
     //public Seq<Point2> placedTiles = new Seq<>();
     public ObjectMap<GridPartData, Seq<Point2>> placedTiles = new ObjectMap<>();
 
@@ -212,7 +210,7 @@ public class CustomUnitCanvas extends WidgetGroup{
         public void drawGridOutline(int x, int y){
             Draw.alpha(0.5f);
             Draw.rect(
-                FFSprites.GridOutline,
+                GlobalSprites.GridOutline,
                 this.x + x * unitSize + unitSize/2,
                 this.y + y * unitSize + unitSize/2,
                 unitSize,

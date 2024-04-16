@@ -10,7 +10,7 @@ import prototypes.block.inner.LinkBlock;
 import prototypes.block.liquid.LiquidDiode;
 import prototypes.block.storage.RemoteCoreBlock;
 import prototypes.block.tech.Nexus;
-import utilities.game.FVars;
+import utilities.FFGlobalVars;
 
 import static mindustry.type.ItemStack.with;
 
@@ -85,8 +85,8 @@ public class FFBlock {
             requirements(Category.power, with(Items.copper, 20));
             HasHeat = true;
 
-            MaxTemp = FVars.BaseLine + 1000f;
-            MinTemp = FVars.BaseLine - 100f;
+            MaxTemp = FFGlobalVars.BaseLine + 1000f;
+            MinTemp = FFGlobalVars.BaseLine - 100f;
         }};
 
         nexus = new Nexus("nexus") {{

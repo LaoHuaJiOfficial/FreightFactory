@@ -1,28 +1,19 @@
 import arc.Core;
 import arc.Events;
 import arc.input.KeyCode;
-import arc.scene.ui.Dialog;
-import arc.scene.ui.ScrollPane;
-import arc.scene.ui.layout.Table;
 import arc.util.Log;
-import arc.util.Scaling;
 import arc.util.Time;
 import contents.*;
 import mindustry.Vars;
 import mindustry.entities.abilities.Ability;
-import mindustry.entities.units.WeaponMount;
 import mindustry.game.EventType;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.gen.Groups;
-import mindustry.gen.Icon;
 import mindustry.mod.Mod;
-import mindustry.type.Category;
-import mindustry.ui.Styles;
 import prototypes.FFContent;
-import prototypes.FFVars;
+import utilities.FFGlobalVars;
 import prototypes.customUnit.AbilityList;
 import prototypes.customUnit.CustomUnitDialog;
-import prototypes.customUnit.grid.GridPartData;
 import prototypes.customUnit.grid.GridPartList;
 import prototypes.customUnit.weapon.WeaponList;
 import prototypes.net.PacketHandler;
@@ -31,7 +22,6 @@ import utilities.functions.GameUtil;
 import utilities.game.FListener;
 import utilities.game.FVanillaChange;
 
-import static mindustry.Vars.content;
 import static mindustry.Vars.player;
 
 public class ModMain extends Mod {
@@ -60,8 +50,8 @@ public class ModMain extends Mod {
         Events.run(EventType.Trigger.uiDrawBegin, () -> {
             if (Vars.player != null && Core.input.keyTap(KeyCode.l)){
                 //FFVars.UnitTileGrid.add(GameUtil.getUnitRect(content.unit("eclipse"), 16));
-                FFVars.UnitTileGrid.clear();
-                FFVars.UnitTileGrid.add(GameUtil.getUnitRect(player.unit().type, 16));
+                FFGlobalVars.UnitTileGrid.clear();
+                FFGlobalVars.UnitTileGrid.add(GameUtil.getUnitRect(player.unit().type, 16));
 
                 CustomUnitDialog customUnitDialog = new CustomUnitDialog();
                 customUnitDialog.show();
@@ -71,19 +61,13 @@ public class ModMain extends Mod {
     @Override
     public void init(){
         PacketHandler.init();
-        //NO WHAT I'M DOING
-        FFSprites.init();
+
         GlobalSprites.init();
 
         Events.on(EventType.WorldLoadEvent.class, e -> {
             for (Recipe recipe: FFContent.recipeAll){
                 recipe.resetUnlock();
             }
-            /*
-
-
-             */
-            //Log.info("reset");
         });
 
         Events.on(EventType.SaveLoadEvent.class, e -> {
@@ -115,7 +99,7 @@ public class ModMain extends Mod {
         FFItems.load();
         FFLiquids.load();
 
-        FFVars.load();
+        FFGlobalVars.load();
 
         Recipes.init();
         FFBullets.load();

@@ -3,7 +3,7 @@ package prototypes.customUnit.weapon;
 import arc.Core;
 import arc.graphics.g2d.TextureRegion;
 import arc.util.Nullable;
-import contents.FFSprites;
+import contents.GlobalSprites;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Unit;
 import mindustry.type.UnitType;
@@ -58,7 +58,7 @@ public class WeaponData{
         }else if (Core.atlas.isFound(weapon.region)){
             return weapon.region;
         }else {
-            return FFSprites.WeaponIcon;
+            return GlobalSprites.WeaponIcon;
 
         }
     }

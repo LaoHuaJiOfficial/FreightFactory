@@ -14,7 +14,7 @@ public class FFPlanet {
     public static Planet Nauvis;
 
     public static void load() {
-        Nauvis = new Planet("serpulo", Planets.sun, 1.0F, 3) {{
+        Nauvis = new Planet("Nauvis", Planets.sun, 1.0F, 3) {{
             this.generator = new SerpuloPlanetGenerator();
             this.meshLoader = (() -> new HexMesh(this, 6));
             this.cloudMeshLoader = (() -> new MultiMesh(

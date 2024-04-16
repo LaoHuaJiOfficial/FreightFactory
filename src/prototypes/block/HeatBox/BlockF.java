@@ -11,7 +11,7 @@ import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.Block;
-import utilities.game.FVars;
+import utilities.FFGlobalVars;
 
 public class BlockF extends Block {
 
@@ -69,10 +69,10 @@ public class BlockF extends Block {
         if (InputHeatAmount > 0f) {
             InputHeat = true;
         }
-        if (OutputTempThreshold > FVars.BaseLine) {
+        if (OutputTempThreshold > FFGlobalVars.BaseLine) {
             MaxTemp = OutputTempThreshold;
         }
-        if (InputTempThreshold < FVars.BaseLine) {
+        if (InputTempThreshold < FFGlobalVars.BaseLine) {
             MinTemp = InputTempThreshold;
         }
     }
@@ -90,12 +90,12 @@ public class BlockF extends Block {
 
             addBar("HeatBoxHeat", (BuildF e) -> new Bar(
                 () -> Core.bundle.format("bar.heat-amount", Strings.fixed(e.HeatBox.GetHeatBoxHeat(), 0)),
-                () -> e.HeatBox.CurrentTemp > FVars.BaseLine ? Pal.remove : Pal.techBlue,
+                () -> e.HeatBox.CurrentTemp > FFGlobalVars.BaseLine ? Pal.remove : Pal.techBlue,
                 e::GetTempPercent));
 
             addBar("HeatBoxTemp", (BuildF e) -> new Bar(
                 () -> Core.bundle.format("bar.height", Strings.fixed(e.HeatBox.GetCurrentTemp(), 0)),
-                () -> e.HeatBox.CurrentTemp > FVars.BaseLine ? Pal.remove : Pal.techBlue,
+                () -> e.HeatBox.CurrentTemp > FFGlobalVars.BaseLine ? Pal.remove : Pal.techBlue,
                 e::GetTempPercent));
 
         }
