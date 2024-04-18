@@ -3,6 +3,7 @@ package prototypes.block.inner;
 import arc.Core;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.geom.Point2;
 import arc.struct.Seq;
@@ -24,11 +25,11 @@ import static mindustry.Vars.*;
 import static utilities.FFGlobalVars.iconSuffix;
 import static utilities.FFGlobalVars.rotSuffix;
 
-public class testBlock extends AssemblerBlock {
+public class SpecialBlock extends AssemblerBlock {
     public Seq<Point2> linkPoints = new Seq<>();
     public TextureRegion PreviewIcon;
     public TextureRegion[] BaseRegion = new TextureRegion[4];
-    public testBlock(String name) {
+    public SpecialBlock(String name) {
         super(name);
         rotate = true;
         quickRotate = false;
@@ -165,7 +166,6 @@ public class testBlock extends AssemblerBlock {
         }
         int px = point.x, py = point.y;
         boolean xIn = px <= w1 && px >= w2, yIn = py <= h1 && py >= h2;
-        Log.info(w1 + " " + w2 + " " + h1 + " " + h2 + " " + px + " " + py);
         if (px > w1 && yIn)return 0;
         if (px < w2 && yIn)return 2;
         if (py > h1 && xIn)return 1;
@@ -179,7 +179,7 @@ public class testBlock extends AssemblerBlock {
             if (point2.x > w1) w1 = point2.x;
             if (point2.x < w2) w2 = point2.x;
         }
-        return w1-w2;
+        return w1-w2+1;
     }
 
     public int getHeight(int rot){
@@ -188,7 +188,7 @@ public class testBlock extends AssemblerBlock {
             if (point2.y > h1) h1 = point2.y;
             if (point2.y < h2) h2 = point2.y;
         }
-        return h1-h2;
+        return h1-h2+1;
     }
 
     public Seq<Point2> getRotatedTiles(int rot, Seq<Point2> seq){
@@ -214,7 +214,6 @@ public class testBlock extends AssemblerBlock {
             if (point2.x > w) p.x = point2.x - w;
             if (point2.y < h) p.y = point2.y - h;
         }
-        //Log.info("w:"+ w + " h:" + h + " x:" + p.x + " y:" + p.y);
         return p;
     }
 
@@ -241,6 +240,10 @@ public class testBlock extends AssemblerBlock {
             }
             super.remove();
         }
+        @Override
+        public TextureRegion getDisplayIcon() {
+            return PreviewIcon;
+        }
 
         @Override
         public void draw() {
@@ -248,8 +251,12 @@ public class testBlock extends AssemblerBlock {
         }
 
         @Override
-        public TextureRegion getDisplayIcon() {
-            return PreviewIcon;
+        public void drawConfigure() {
+            Draw.color(Pal.accent);
+            float w = getWidth(rotation) * tilesize, h = getHeight(rotation) * tilesize;
+            Lines.stroke(1f);
+            Lines.rect(x - w/2f, y - h/2f, w + 1f, h + 1f);
+            Draw.reset();
         }
 
         //no those xy are messed up

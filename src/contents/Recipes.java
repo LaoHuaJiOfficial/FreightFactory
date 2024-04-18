@@ -10,6 +10,7 @@ import static mindustry.type.ItemStack.with;
 
 public class Recipes {
     public static Recipe
+        copperOreSmelt_0,
         graphite_0, graphite_1, graphite_2,
         silicon_0, silicon_1, silicon_2, silicon_3,
         metaglass_0, metaglass_1, metaglass_2, metaglass_3,
@@ -31,6 +32,18 @@ public class Recipes {
         wheatCultivate_0, teaCultivate_0;
 
     public static void init(){
+        copperOreSmelt_0 = new Recipe("copper-ore-smelt_0", true){{
+            tags = new String[]{"basic-smelt"};
+
+            craftTime = 120f;
+
+            inputItems = with(FFItems.copperOre, 1);
+            inputPower = 0f;
+
+            outputItems = with(FFItems.copperIngot, 1);
+
+            updateEffect = craftEffect = Fx.smeltsmoke;
+        }};
         graphite_0 = new Recipe("graphite-0", true) {{
             craftTime = 120f;
 

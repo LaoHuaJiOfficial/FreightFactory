@@ -228,18 +228,20 @@ public class AssemblerBlock extends BlockF {
                             }
                         }).size(160,0);;
                     }).right().grow().pad(20f).row();
-                    Table deta = new Table();
-                    deta.label(() -> "[gray]" + r.recipeDetail).pad(0,15,8,15).size(460, 0).wrap().left().row();
-                    Collapser coll = new Collapser(deta, true);
-                    coll.setDuration(0.1f);
+                    if (Core.bundle.has(r.recipeDetail)){
+                        Table deta = new Table();
+                        deta.label(() -> "[gray]" + r.recipeDetail).pad(0,15,8,15).size(460, 0).wrap().left().row();
+                        Collapser coll = new Collapser(deta, true);
+                        coll.setDuration(0.1f);
 
-                    info.table(ft -> {
-                        ft.left();
-                        ft.label(() -> Core.bundle.get("recipe.expand-detail"));
-                        ft.button(Icon.downOpen, Styles.emptyi, () -> coll.toggle(false)).update(i -> i.getStyle().imageUp = (!coll.isCollapsed() ? Icon.upOpen : Icon.downOpen)).size(8).padLeft(16f).expandX();
-                    }).pad(0,10,5,0).left();
-                    info.row();
-                    info.add(coll);
+                        info.table(ft -> {
+                            ft.left();
+                            ft.label(() -> Core.bundle.get("recipe.expand-detail"));
+                            ft.button(Icon.downOpen, Styles.emptyi, () -> coll.toggle(false)).update(i -> i.getStyle().imageUp = (!coll.isCollapsed() ? Icon.upOpen : Icon.downOpen)).size(8).padLeft(16f).expandX();
+                        }).pad(0,10,5,0).left();
+                        info.row();
+                        info.add(coll);
+                    }
                 }).growX().pad(5);
                 table.row();
             }

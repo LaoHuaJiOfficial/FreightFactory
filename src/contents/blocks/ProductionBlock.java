@@ -11,8 +11,7 @@ import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.draw.*;
-import prototypes.FFContent;
-import prototypes.block.inner.testBlock;
+import prototypes.block.inner.SpecialBlock;
 import prototypes.block.production.AreaDrill;
 import prototypes.block.production.AssemblerBlock;
 
@@ -26,7 +25,7 @@ public class ProductionBlock {
         GraphiteCompressor, SiliconSmelter, MetaglassKiln, ChemicalPlant,
         AluminiumFoundry, SurgeAlloyFurnace, PhaseWeaver, BiomassExtractor, CrystallizationFacility,
         BakingStation, Freezer, FermentChamber, CanningFacility, FluidMixer, Grinder, FryingMachine, FoodCompressor,
-        test;
+        BasicSmelter;
 
     public static void load() {
         ResonanceDrill = new AreaDrill("resonance-drill"){{
@@ -361,7 +360,7 @@ public class ProductionBlock {
 
          */
 
-        BakingStation = new testBlock("basic-smelter"){{
+        BasicSmelter = new SpecialBlock("basic-smelter"){{
             requirements(Category.crafting, with(Items.copper, 30));
 
             size = 2;
@@ -373,7 +372,7 @@ public class ProductionBlock {
             ambientSoundVolume = 0.09f;
 
             recipeSeq = Seq.with(
-                Recipes.baking_0
+                Recipes.copperOreSmelt_0
             );
         }};
     }

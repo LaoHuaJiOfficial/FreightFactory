@@ -10,17 +10,17 @@ import mindustry.game.EventType;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.gen.Groups;
 import mindustry.mod.Mod;
+import mindustry.ui.dialogs.PlanetDialog;
 import prototypes.FFContent;
-import utilities.FFGlobalVars;
 import prototypes.customUnit.AbilityList;
 import prototypes.customUnit.CustomUnitDialog;
 import prototypes.customUnit.grid.GridPartList;
 import prototypes.customUnit.weapon.WeaponList;
 import prototypes.net.PacketHandler;
 import prototypes.recipe.Recipe;
+import utilities.FFGlobalVars;
 import utilities.functions.GameUtil;
 import utilities.game.FListener;
-import utilities.game.FVanillaChange;
 
 import static mindustry.Vars.player;
 
@@ -33,8 +33,15 @@ public class ModMain extends Mod {
             Time.runTask(10f, () -> {
                 AbilityList.init();
                 WeaponList.init();
+
+                //FFGlobalVars.noiseTest.show();
             });
             Time.runTask(20f, GridPartList::init);
+
+
+
+            PlanetDialog.debugSelect = true;
+
         });
 
         Events.run(EventType.Trigger.preDraw, () -> {
@@ -63,6 +70,8 @@ public class ModMain extends Mod {
         PacketHandler.init();
 
         GlobalSprites.init();
+
+        FFGlobalVars.init();
 
         Events.on(EventType.WorldLoadEvent.class, e -> {
             for (Recipe recipe: FFContent.recipeAll){
@@ -110,7 +119,7 @@ public class ModMain extends Mod {
         FListener FListener = new FListener();
         FListener.init();
 
-        FVanillaChange.init();
+        //FVanillaChange.init();
 
     }
 

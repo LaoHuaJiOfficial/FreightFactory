@@ -12,9 +12,33 @@ public class FFItems {
         leaf, wheat, flour, fermentedTea,
         iceCube, colaIceCube, teaIceCube, blackTeaIceCube,
         //Food Products
-        bread, hardCandy, rainbowCandy, cannedCola, cannedNucola, tinTea, radiantCake;
+        bread, hardCandy, rainbowCandy, cannedCola, cannedNucola, tinTea, radiantCake,
+        //no stop making those things
+        copperOre, copperIngot;
 
     public static void load() {
+        copperOre = new Item("copper-ore", Color.valueOf("c79274")){{
+            explosiveness = 0f;
+            flammability = 0f;
+            radioactivity = 0f;
+            charge = 0f;
+
+            //this actually means drill time multiple 1f
+            hardness = 10;
+            cost = 0.5f;
+        }};
+
+        copperIngot = new Item("copper-ingot", Color.valueOf("dcac78")){{
+            explosiveness = 0f;
+            flammability = 0f;
+            radioactivity = 0f;
+            charge = 0f;
+
+            //this actually means drill time multiple 1f
+            hardness = 10;
+            cost = 0.5f;
+        }};
+
         bauxite = new Item("bauxite", Color.valueOf("9391bb")){{
             explosiveness = 0f;
             flammability = 0f;

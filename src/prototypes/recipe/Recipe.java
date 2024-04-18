@@ -24,9 +24,10 @@ public class Recipe {
         FFContent.recipeAll.add(this);
     }
 
-    public String name = "recipe-name";
-    public boolean unlocked = true;
-    public boolean needUnlock = false;
+    public String name;
+    public String[] tags;
+    public boolean unlocked;
+    public boolean needUnlock;
     public ItemStack[] unlockCost = ItemStack.with(Items.copper, 10);
 
     public @Nullable ItemStack[] inputItems;
