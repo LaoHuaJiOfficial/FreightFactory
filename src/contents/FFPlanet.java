@@ -1,6 +1,7 @@
 package contents;
 
 import arc.graphics.Color;
+import arc.util.Tmp;
 import mindustry.content.Items;
 import mindustry.content.Planets;
 import mindustry.game.Team;
@@ -15,7 +16,7 @@ public class FFPlanet {
     public static Planet Nauvis;
 
     public static void load() {
-        Nauvis = new Planet("Nauvis", Planets.sun, 1f, 1) {{
+        Nauvis = new Planet("Nauvis", Planets.sun, 0.8f, 1) {{
 
             generator = new NauvisPlanetGenerator();
             meshLoader = (() -> new HexMesh(this, 6));
@@ -28,6 +29,8 @@ public class FFPlanet {
             });
             iconColor = Color.cyan;
             atmosphereColor = Color.cyan;
+
+            lightColor = Tmp.c1.set(Color.white).a(0.5f);
 
             minZoom = 1f;
         }};

@@ -71,7 +71,7 @@ tasks.register('jarAndroid') {
 }
 
 jar{
-    archiveFileName = "FoodFactoryDesktop.jar"
+    archiveFileName = "FreightFactoryDesktop.jar"
 
     from{
         configurations.runtimeClasspath.collect{ it.isDirectory() ? it : zipTree(it) }
@@ -89,11 +89,11 @@ jar{
 tasks.register('copyTo', Copy) {
     from jar
     into 'E:/Steam/steamapps/common/Mindustry/saves/mods'
-    rename { 'FoodFactoryJar.jar' }
+    rename { 'FreightFactoryJar.jar' }
 
     from jar
     into appDataRoaming
-    rename { 'FoodFactoryJar.jar' }
+    rename { 'FreightFactoryJar.jar' }
 }
 
 tasks.register('DebugMod', JavaExec) {
@@ -102,7 +102,7 @@ tasks.register('DebugMod', JavaExec) {
 
     main = "-jar"
     args = [
-            "E:/FoodFactoryLib/Mindustry7.0.jar",
+            "E:/FreightFactoryLib/Mindustry7.0.jar",
             "-debug"
     ]
 }

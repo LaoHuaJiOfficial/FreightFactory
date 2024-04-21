@@ -37,7 +37,7 @@ public class Recipes {
 
             craftTime = 120f;
 
-            inputItems = with(FFItems.copperOre, 1);
+            inputItems = with(FFItems.rawCopper, 1);
             inputPower = 0f;
 
             outputItems = with(FFItems.copperIngot, 1);

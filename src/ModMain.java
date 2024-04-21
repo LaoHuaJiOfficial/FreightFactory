@@ -11,6 +11,7 @@ import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.gen.Groups;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.PlanetDialog;
+import mindustry.ui.dialogs.ResearchDialog;
 import prototypes.FFContent;
 import prototypes.customUnit.AbilityList;
 import prototypes.customUnit.CustomUnitDialog;
@@ -30,6 +31,10 @@ public class ModMain extends Mod {
         Log.info("<MOD FOOD FACTORY LOADED>");
 
         Events.on(ClientLoadEvent.class, e -> {
+            PlanetDialog.debugSelect = true;
+            ResearchDialog.debugShowRequirements = true;
+
+
             Time.runTask(10f, () -> {
                 AbilityList.init();
                 WeaponList.init();
@@ -40,7 +45,6 @@ public class ModMain extends Mod {
 
 
 
-            PlanetDialog.debugSelect = true;
 
         });
 

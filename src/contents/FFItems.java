@@ -14,10 +14,10 @@ public class FFItems {
         //Food Products
         bread, hardCandy, rainbowCandy, cannedCola, cannedNucola, tinTea, radiantCake,
         //no stop making those things
-        copperOre, copperIngot;
+        rawCopper, copperIngot;
 
     public static void load() {
-        copperOre = new Item("copper-ore", Color.valueOf("c79274")){{
+        rawCopper = new Item("raw-copper", Color.valueOf("c79274")){{
             explosiveness = 0f;
             flammability = 0f;
             radioactivity = 0f;
