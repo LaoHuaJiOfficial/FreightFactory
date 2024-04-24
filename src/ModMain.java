@@ -19,6 +19,7 @@ import prototypes.customUnit.grid.GridPartList;
 import prototypes.customUnit.weapon.WeaponList;
 import prototypes.net.PacketHandler;
 import prototypes.recipe.Recipe;
+import prototypes.struct.TechTree;
 import utilities.FFGlobalVars;
 import utilities.functions.GameUtil;
 import utilities.game.FListener;
@@ -42,9 +43,15 @@ public class ModMain extends Mod {
                 //FFGlobalVars.noiseTest.show();
             });
             Time.runTask(20f, GridPartList::init);
-
-
-
+            Time.runTask(10f, () -> {
+                TechTree.depthNodeArr(Technology.smelt1);
+                var seq = TechTree.outNodes;
+                for (int i = 0; i < seq.size; i++){
+                    for (int j = 0; j < seq.get(i).size; j++){
+                        Log.info(seq.get(i).get(j).name + " in depth:" + i + " in index:" + j);
+                    }
+                }
+            });
 
         });
 
@@ -68,41 +75,21 @@ public class ModMain extends Mod {
                 customUnitDialog.show();
             }
         });
-    }
-    @Override
-    public void init(){
-        PacketHandler.init();
-
-        GlobalSprites.init();
-
-        FFGlobalVars.init();
 
         Events.on(EventType.WorldLoadEvent.class, e -> {
             for (Recipe recipe: FFContent.recipeAll){
                 recipe.resetUnlock();
             }
         });
+    }
+    @Override
+    public void init(){
+        PacketHandler.init();
+        GlobalSprites.init();
+        FFGlobalVars.init();
 
-        Events.on(EventType.SaveLoadEvent.class, e -> {
-            if (!FFContent.CustomUnits.isEmpty()){
-                Log.info(FFContent.CustomUnits.size);
-                for (var unit: FFContent.CustomUnits){
-                    Log.info("key: " + unit.id);
-                    if (Groups.unit.getByID(unit.id) != null){
-                        //Log.info("id" + Groups.unit.getByID(unit.key));
-                        //Log.info("length" + );
-                        Groups.unit.getByID(unit.id).abilities = unit.abilities.toArray(Ability.class);
-                        Log.info("ability" + Groups.unit.getByID(unit.id).abilities.length);
-                    }else {
-                        Log.info("unit == null");
-                    }
-                }
-            }else {
-                Log.info("no-null");
-
-            }
-
-        });
+        TechTree.init();
+        Technology.init();
     }
 
     @Override
@@ -120,9 +107,10 @@ public class ModMain extends Mod {
         FFBlock.load();
         FFPlanet.load();
 
-        FListener FListener = new FListener();
-        FListener.init();
+        //FListener FListener = new FListener();
+        //FListener.init();
 
+        Technology.load();
         //FVanillaChange.init();
 
     }

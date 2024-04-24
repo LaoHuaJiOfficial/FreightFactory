@@ -188,7 +188,7 @@ public class UnitModuleInserter extends PayloadBlock {
                             }
 
 
-                            //heat = Mathf.lerpDelta(heat, Mathf.num(true), 0.15f);
+                            //heat = Mathf.lerpDelta(heat, Mathf.count(true), 0.15f);
                             //time += heat * delta();
 
                             //progress += edelta();

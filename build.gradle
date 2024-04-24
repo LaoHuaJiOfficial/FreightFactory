@@ -96,14 +96,26 @@ tasks.register('copyTo', Copy) {
     rename { 'FreightFactoryJar.jar' }
 }
 
-tasks.register('DebugMod', JavaExec) {
+tasks.register('debugMobile', JavaExec) {
     dependsOn classes
     dependsOn 'copyTo'
 
     main = "-jar"
     args = [
-            "E:/FreightFactoryLib/Mindustry7.0.jar",
-            "-debug"
+            "E:/FoodFactoryLib/Mindustry7.0.jar",
+            "-debug",
+            "-testMobile"
+    ]
+}
+
+tasks.register('debugDesktop', JavaExec) {
+    dependsOn classes
+    dependsOn 'copyTo'
+
+    main = "-jar"
+    args = [
+            "E:/FoodFactoryLib/Mindustry7.0.jar",
+            "-debug",
     ]
 }
 

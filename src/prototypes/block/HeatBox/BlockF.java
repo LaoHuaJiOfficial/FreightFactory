@@ -85,7 +85,7 @@ public class BlockF extends Block {
         if (HasHeat) {
             addBar("HeatBoxArea", (BuildF e) -> new Bar(() -> Core.bundle.format("bar.area", e.HeatBox.HeatBoxArea), () -> Pal.accent, () -> 1f));
 
-            addBar("HeatBoxAll", (BuildF e) -> new Bar(() -> Core.bundle.format("bar.num", e.HeatBox.HeatBoxBuildingAll.size), () -> Pal.accent, () -> 1f));
+            addBar("HeatBoxAll", (BuildF e) -> new Bar(() -> Core.bundle.format("bar.count", e.HeatBox.HeatBoxBuildingAll.size), () -> Pal.accent, () -> 1f));
 
 
             addBar("HeatBoxHeat", (BuildF e) -> new Bar(
