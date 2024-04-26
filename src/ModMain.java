@@ -20,9 +20,9 @@ import prototypes.customUnit.weapon.WeaponList;
 import prototypes.net.PacketHandler;
 import prototypes.recipe.Recipe;
 import prototypes.struct.TechTree;
+import prototypes.ui.dialog.TechnologyResearchDialog;
 import utilities.FFGlobalVars;
 import utilities.functions.GameUtil;
-import utilities.game.FListener;
 
 import static mindustry.Vars.player;
 
@@ -39,19 +39,29 @@ public class ModMain extends Mod {
             Time.runTask(10f, () -> {
                 AbilityList.init();
                 WeaponList.init();
+                TechTree.depthNodeMap(Technologies.smelt1);
+
+                TechnologyResearchDialog technology = new TechnologyResearchDialog();
+                technology.show();
 
                 //FFGlobalVars.noiseTest.show();
             });
             Time.runTask(20f, GridPartList::init);
+            /*
             Time.runTask(10f, () -> {
-                TechTree.depthNodeArr(Technology.smelt1);
+                TechTree.depthNodeMap(Technology.smelt1);
                 var seq = TechTree.outNodes;
                 for (int i = 0; i < seq.size; i++){
                     for (int j = 0; j < seq.get(i).size; j++){
                         Log.info(seq.get(i).get(j).name + " in depth:" + i + " in index:" + j);
                     }
                 }
+
             });
+
+             */
+
+
 
         });
 
@@ -88,8 +98,7 @@ public class ModMain extends Mod {
         GlobalSprites.init();
         FFGlobalVars.init();
 
-        TechTree.init();
-        Technology.init();
+        Technologies.init();
     }
 
     @Override
@@ -110,7 +119,7 @@ public class ModMain extends Mod {
         //FListener FListener = new FListener();
         //FListener.init();
 
-        Technology.load();
+        Technologies.load();
         //FVanillaChange.init();
 
     }
